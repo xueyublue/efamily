@@ -23,7 +23,7 @@ public class AppServlet extends HttpServlet {
 		out.write("\r\n");
 		out.write("<body>\r\n");
 		out.write("<H2>\r\n");
-		out.write("Welcome to E-Family");
+		out.write("Welcome to " + getInitParameter("app_name"));
 		out.write("\r\n");
 		out.write("</H2>\r\n");
 		out.write("</body>\r\n");

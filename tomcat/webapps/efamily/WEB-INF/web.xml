@@ -7,6 +7,11 @@
 	<servlet>
 		<servlet-name>AppServlet</servlet-name>
 		<servlet-class>sg.xueyu.efamily.config.AppServlet</servlet-class>
+		<init-param>
+			<param-name>app_name</param-name>
+			<param-value>E-Family</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>

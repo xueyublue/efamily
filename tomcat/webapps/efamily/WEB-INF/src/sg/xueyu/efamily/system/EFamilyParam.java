@@ -14,6 +14,14 @@ public final class EFamilyParam {
 
 /** Properties **/
 	public static final String APP_NAME = getParam("APP_NAME");
+	
+	public static final String DB_DRIVER = getParam("DB_DRIVER");
+	
+	public static final String DB_URL = getParam("DB_URL");
+	
+	public static final String DB_USERNAME = getParam("DB_USERNAME");
+	
+	public static final String DB_PASSWORD = getParam("DB_PASSWORD");
 
 /** Class **/
 	private EFamilyParam() {
