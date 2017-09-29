@@ -6,7 +6,11 @@
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
 	<classpathentry kind="src" path="WEB-INF/src"/>
-	<classpathentry kind="src" output="work" path="work"/>
+	<classpathentry excluding="*" kind="src" output="work" path="work">
+		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/dbhandler-1.0.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/ojdbc8.jar"/>
