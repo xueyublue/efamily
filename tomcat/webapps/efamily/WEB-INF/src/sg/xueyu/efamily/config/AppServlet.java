@@ -15,6 +15,8 @@ public class AppServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		System.out.println(getInitParameter("app_name") + " is started.");
+		
 		PrintWriter out = resp.getWriter();
 		out.write("<html>\r\n");
 		out.write("<head>\r\n");
