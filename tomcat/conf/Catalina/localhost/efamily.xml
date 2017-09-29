@@ -1,0 +1,19 @@
+<Context 
+	path="/efamily" 
+	reloadable="true" 
+	docBase="C:\efamily\tomcat\webapps\efamily" 
+	workDir="C:\efamily\tomcat\webapps\efamily\work">
+	
+	<Resource 
+		name="orcl/orcl" 
+		auth="Container" 
+		type="javax.sql.DataSource"
+		maxActive="100"
+		maxIdle="30" 
+		maxWait="10000" 
+		username="xueyu" 
+		password="xueyu"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		url="jdbc:oracle:thin:@localhost:1521:orcl" />
+		
+</Context>
