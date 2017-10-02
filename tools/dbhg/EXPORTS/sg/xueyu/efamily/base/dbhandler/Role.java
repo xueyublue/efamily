@@ -5,19 +5,19 @@ import java.util.Date;
 import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.dbhandler.handler.FieldName;
 
-public class LoginUser extends AbstractEntity {
+public class Role extends AbstractEntity {
 
-	public static final String STORE_NAME = "LOGIN_USER";
-
-	public static final FieldName USER_ID = new FieldName(STORE_NAME, "USER_ID");
-
-	public static final FieldName USER_NAME = new FieldName(STORE_NAME, "USER_NAME");
+	public static final String STORE_NAME = "ROLE";
 
 	public static final FieldName ROLE_ID = new FieldName(STORE_NAME, "ROLE_ID");
 
-	public static final FieldName PASSWORD = new FieldName(STORE_NAME, "PASSWORD");
+	public static final FieldName ROLE_NAME = new FieldName(STORE_NAME, "ROLE_NAME");
 
-	public static final FieldName LAST_LOGIN_DATE = new FieldName(STORE_NAME, "LAST_LOGIN_DATE");
+	public static final FieldName ADMIN_FLAG = new FieldName(STORE_NAME, "ADMIN_FLAG");
+
+	public static final FieldName GUEST_FLAG = new FieldName(STORE_NAME, "GUEST_FLAG");
+
+	public static final FieldName EXPIRY_DATE = new FieldName(STORE_NAME, "EXPIRY_DATE");
 
 	public static final FieldName REGIST_DATE = new FieldName(STORE_NAME, "REGIST_DATE");
 
@@ -27,24 +27,8 @@ public class LoginUser extends AbstractEntity {
 
 	public static final FieldName LAST_UPDATE_PNAME = new FieldName(STORE_NAME, "LAST_UPDATE_PNAME");
 
-	public LoginUser() {
+	public Role() {
 		super(STORE_NAME);
-	}
-
-	public String getUserId() {
-		return String.valueOf(getValue(USER_ID, ""));
-	}
-
-	public void setUserId(String value) {
-		setValue(USER_ID, value);
-	}
-
-	public String getUserName() {
-		return String.valueOf(getValue(USER_NAME, ""));
-	}
-
-	public void setUserName(String value) {
-		setValue(USER_NAME, value);
 	}
 
 	public String getRoleId() {
@@ -55,20 +39,36 @@ public class LoginUser extends AbstractEntity {
 		setValue(ROLE_ID, value);
 	}
 
-	public String getPassword() {
-		return String.valueOf(getValue(PASSWORD, ""));
+	public String getRoleName() {
+		return String.valueOf(getValue(ROLE_NAME, ""));
 	}
 
-	public void setPassword(String value) {
-		setValue(PASSWORD, value);
+	public void setRoleName(String value) {
+		setValue(ROLE_NAME, value);
 	}
 
-	public Date getLastLoginDate() {
-		return (Date) getValue(LAST_LOGIN_DATE, "");
+	public String getAdminFlag() {
+		return String.valueOf(getValue(ADMIN_FLAG, ""));
 	}
 
-	public void setLastLoginDate(Date value) {
-		setValue(LAST_LOGIN_DATE, value);
+	public void setAdminFlag(String value) {
+		setValue(ADMIN_FLAG, value);
+	}
+
+	public String getGuestFlag() {
+		return String.valueOf(getValue(GUEST_FLAG, ""));
+	}
+
+	public void setGuestFlag(String value) {
+		setValue(GUEST_FLAG, value);
+	}
+
+	public Date getExpiryDate() {
+		return (Date) getValue(EXPIRY_DATE, "");
+	}
+
+	public void setExpiryDate(Date value) {
+		setValue(EXPIRY_DATE, value);
 	}
 
 	public Date getRegistDate() {

@@ -1,4 +1,4 @@
-package sg.xueyu.efamily.action.administrator;
+package sg.xueyu.efamily.action.auth;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 
-public class LoginAction implements Action {
+public class LogoutAction implements Action {
 
 	private static final String RESULT_URL = "login.jsp";
 	
