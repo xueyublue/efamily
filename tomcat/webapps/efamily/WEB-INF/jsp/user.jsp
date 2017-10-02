@@ -30,11 +30,10 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${classList}" var="c">
+			<c:forEach items="${users}" var="c">
 				<tr>
-					<td><button class="btn btn-link" onclick="showClassMember(${c.id}, 1)">${c.name}</button></td>
-					<td>${c.formattedCreateTime}</td>
-					<td><button class="btn btn-info" onclick="delClass(${c.id}, this)">删除</button></td>
+					<td><button class="btn btn-link" onclick="showClassMember(${c.userId}, 1)">${c.userName}</button></td>
+					<td><button class="btn btn-info" onclick="delClass(${c.roleId}, this)">删除</button></td>
 				</tr>
 			</c:forEach>
 			</tbody>
