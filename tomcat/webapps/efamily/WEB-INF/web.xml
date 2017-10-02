@@ -4,6 +4,21 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 	
+	<servlet>
+		<servlet-name>FrontController</servlet-name>
+		<servlet-class>sg.xueyu.zebra.FrontController</servlet-class>
+		<init-param>
+			<param-name>packagePrefix</param-name>
+			<param-value>sg.xueyu.efamily.action.</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FrontController</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
 	<display-name>E-Family</display-name>
 	
 	<welcome-file-list>

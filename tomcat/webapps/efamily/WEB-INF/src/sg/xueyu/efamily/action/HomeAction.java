@@ -13,6 +13,7 @@ import sg.xueyu.zebra.action.ResultContent;
 public class HomeAction implements Action {
 
 	private static final String RESULT_URL = "home.jsp";
+	
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ResultContent resultContent = new ResultContent(RESULT_URL);

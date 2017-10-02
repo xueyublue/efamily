@@ -1,4 +1,4 @@
-package sg.xueyu.efamily.config;
+package sg.xueyu.zebra;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,8 +10,6 @@ import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,23 +23,14 @@ import sg.xueyu.zebra.action.Uploadable;
 import sg.xueyu.zebra.util.CommonUtil;
 import sg.xueyu.zebra.util.ReflectionUtil;
 
-@WebServlet(
-	urlPatterns = {"*.do"},
-	loadOnStartup = 0,
-	initParams = {
-		@WebInitParam(name = "packagePrefix", value = "sg.xueyu.efamily.action."), 
-		@WebInitParam(name = "actionSuffix", value = "Action"), 
-		@WebInitParam(name = "jspPrefix", value = "/WEB-INF/jsp/")
-	}
-)
 @MultipartConfig
 public class FrontController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String DEFAULT_PACKAGE_NAME = "sg.xueyu.efamily.action.";
+	private static final String DEFAULT_PACKAGE_NAME = "";
 	private static final String DEFAULT_ACTION_NAME = "Action";
-	private static final String DEFAULT_JSP_PATH = "/WEB-INF/jsp";
+	private static final String DEFAULT_JSP_PATH = "/WEB-INF/jsp/";
 	
 	private String packagePrefix = null;
 	private String actionSuffix = null;
