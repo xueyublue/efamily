@@ -14,7 +14,7 @@ public class LoginAction implements Action {
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ResultContent resultContent = new ResultContent("Login.jsp");
+		ResultContent resultContent = new ResultContent("login.jsp");
 		ActionResult result = new ActionResult(resultContent);
 		return result;
 	}
