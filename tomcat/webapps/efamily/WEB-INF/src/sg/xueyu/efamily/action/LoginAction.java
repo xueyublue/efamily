@@ -12,9 +12,11 @@ import sg.xueyu.zebra.action.ResultContent;
 
 public class LoginAction implements Action {
 
+	private static final String RESULT_URL = "login.jsp";
+	
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ResultContent resultContent = new ResultContent("login.jsp");
+		ResultContent resultContent = new ResultContent(RESULT_URL);
 		ActionResult result = new ActionResult(resultContent);
 		return result;
 	}
