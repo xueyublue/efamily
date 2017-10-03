@@ -16,7 +16,7 @@ public class LogoutAction implements Action {
 	
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ResultContent resultContent = new ResultContent(RESULT_URL);
+		ResultContent resultContent = new ResultContent(RESULT_URL, null);
 		ActionResult result = new ActionResult(resultContent);
 		return result;
 	}

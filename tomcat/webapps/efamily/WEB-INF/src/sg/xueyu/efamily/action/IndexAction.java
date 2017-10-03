@@ -16,7 +16,7 @@ public class IndexAction implements Action {
 	
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ResultContent resultContent = new ResultContent(RESULT_URL);
+		ResultContent resultContent = new ResultContent(RESULT_URL, null);
 		ActionResult actionResult = new ActionResult(resultContent);
 		return actionResult;
 	}

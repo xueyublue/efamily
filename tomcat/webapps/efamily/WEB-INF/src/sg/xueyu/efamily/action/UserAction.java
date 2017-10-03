@@ -16,7 +16,7 @@ public class UserAction implements Action {
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.setAttribute("users", UserDao.getAllUsers());
 		
-		ResultContent resultContent = new ResultContent(RESULT_URL);
+		ResultContent resultContent = new ResultContent(RESULT_URL, null);
 		ActionResult result = new ActionResult(resultContent);
 		return result;
 	}

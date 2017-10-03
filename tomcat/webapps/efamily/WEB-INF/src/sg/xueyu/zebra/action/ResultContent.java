@@ -5,21 +5,30 @@ import com.google.gson.Gson;
 public class ResultContent {
 
 	private String url;
-	private Object obj;
+	private Object data;
 
-	public ResultContent(String url) {
+	public ResultContent(String url, Object data) {
 		this.url = url;
-	}
-
-	public ResultContent(Object obj) {
-		this.obj = obj;
+		this.data = data;
 	}
 
 	public String getUrl() {
 		return url;
 	}
 
-	public String getJson() {
-		return new Gson().toJson(obj);
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
+	}
+
+	public String getJsonData() {
+		return new Gson().toJson(data);
 	}
 }

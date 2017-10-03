@@ -20,10 +20,10 @@ public class HomeAction implements Action {
 		ResultContent resultContent = null;
 		ActionResult result = null;
 		if (CommonMethods.checkCredentials(req)) {
-			resultContent = new ResultContent(RESULT_URL);
+			resultContent = new ResultContent(RESULT_URL, null);
 			result = new ActionResult(resultContent);
 		} else {
-			resultContent = new ResultContent("login.jsp");
+			resultContent = new ResultContent("login.jsp", null);
 			result = new ActionResult(resultContent);
 		}
 		return result;

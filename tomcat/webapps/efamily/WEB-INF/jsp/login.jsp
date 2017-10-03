@@ -10,8 +10,8 @@
 	<form>
 		<table>
 			<tr><td colspan="2">Login to E-Family</td></tr>
-			<tr><td>User Name: </td><td><input type="text" name="username"/></td></tr>
-			<tr><td>Password: </td><td><input type="password" name="password"/></td></tr>
+			<tr><td>User Name: </td><td><input type="text" name="userId" id="userId"/></td></tr>
+			<tr><td>Password: </td><td><input type="password" name="password" id = "password"/></td></tr>
 			<tr><td colspan="2"><input type="button" onClick="login()" value="Login"/></td></tr>
 		</table>
 		<span id="loginResult"></span>
@@ -20,32 +20,43 @@
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript">
 		window.onload = initPage;
-		var xmlHttp;
+		var request = false;
 		
 		function initPage() {
-			// init xmlHttp object
-			if (window.XMLHttpRequest) {
-				xmlHttp = new XMLHttpRequest();
-			} else {
-				xmlHttp = new AxtiveXObject("Microsoft.XMLHTTP");
+			try {
+			    request = new XMLHttpRequest();
+			} catch (trymicrosoft) {
+			    try {
+			        request = new ActiveXObject("Msxml2.XMLHTTP");
+			    } catch (e) {
+			        try {
+			            request = new ActiveXObject("Microsoft.XMLHTTP");
+			        } catch (failed) {
+			            request = false;
+			        }
+			    }
 			}
+			if (!request)
+			    alert("Error initializing XMLHttpRequest!");
 		}
 		
 		function login() {
-			if (xmlHttp == null) {
+			if (request == null) {
 				alert("Unable to create request!");
 				return;
 			}
 			// Clear loginResult
 			document.getElementById("loginResult").innerHTML = "";
-			xmlHttp.open("POST", "auth/login.do?userId=dev&password=dev", true);
-			xmlHttp.onreadystatechange = showLoginResult;
-			xmlHttp.send(null);
+			var userId = document.getElementById("userId").value;
+			var password = document.getElementById("password").value;
+			request.open("GET", "auth/login.do?userId=" + escape(userId) + "&password=" + escape(password), true);
+			request.onreadystatechange = showLoginResult;
+			request.send(null);
 		}
 		
 		function showLoginResult() {
-			if (xmlHttp.readyState == 4) {
-				if (xmlHttp.status == 200) {
+			if (request.readyState == 4) {
+				if (request.status == 200) {
 					window.location.href = "home.do";
 				} else {
 					document.getElementById("loginResult").innerHTML = "Fail";

@@ -27,13 +27,13 @@ public class LoginAction implements Action {
 
 		if (results.size() == 1) {
 			// set user info to result content
-			resultContent = new ResultContent(results.get(0));
+			resultContent = new ResultContent(null, results.get(0));
 			// set user info to session
 			HttpSession session = req.getSession();
 			session.setAttribute("userId", results.get(0).getUserId());
 			session.setAttribute("userName", results.get(0).getUserName());
 		} else {
-			resultContent = new ResultContent(null);
+			resultContent = new ResultContent(null, null);
 			// set user info in session to null
 			HttpSession session = req.getSession();
 			session.removeAttribute("userId");

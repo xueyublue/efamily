@@ -83,7 +83,7 @@ public class FrontController extends HttpServlet {
 					break;
 				case Ajax:
 					PrintWriter pw = resp.getWriter();
-					pw.println(resultContent.getJson());
+					pw.println(resultContent.getJsonData());
 					pw.close();
 					break;
 				case Chain:
