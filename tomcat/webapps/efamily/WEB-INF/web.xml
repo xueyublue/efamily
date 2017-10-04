@@ -31,7 +31,7 @@
 	</servlet-mapping>
 	
 	<listener>  
-    	<listener-class>sg.xueyu.efamily.base.SessionHandler</listener-class>  
+    	<listener-class>sg.xueyu.efamily.base.SessionManager</listener-class>  
 	</listener>
 	
 </web-app>

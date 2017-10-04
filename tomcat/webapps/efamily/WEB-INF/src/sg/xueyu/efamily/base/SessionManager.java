@@ -7,7 +7,7 @@ import sg.xueyu.efamily.system.CommonMethods;
 import sg.xueyu.efamily.system.EFamilyParam;
 import sg.xueyu.efamily.system.SystemLogger;
 
-public class SessionHandler implements HttpSessionListener {
+public class SessionManager implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent sessionEvent) {
