@@ -8,7 +8,8 @@
 <body>
 	<p><span>Hello <span id="userName"></span>, welcome to E-Family</span></p>
 	
-	<p><a href="user.do" onClick="gotoUser()">User</a></p>
+	<p><a href="auth/logout.do" >Logout</a></p>
+	<p><a href="user.do" >User</a></p>
 	
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript">
@@ -38,10 +39,6 @@
 		
 		function setUserInfo() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
-		}
-		
-		function gotoUser() {
-			window.location.href = "user.do";
 		}
 	</script>
 </body>
