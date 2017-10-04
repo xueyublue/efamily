@@ -30,19 +30,34 @@ public class UserDao extends DataSource {
 		return actualResults;
 	}
 
-	public static List<LoginUserEJB> verify(String userId, String password) throws Exception {
+	public static String auth(String userId, String password) throws Exception {
 		LoginUserHandler handler = new LoginUserHandler(new UserDao().getConnection());
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
 		searchKey.setUserId(userId);
-		searchKey.setPassword(password);
-		
-		AbstractEntity[] results = handler.query(searchKey);
-		List<LoginUserEJB> actualResults = new ArrayList<>();
-		
-		for (int i = 0; i < results.length; i++) {
-			actualResults.add((LoginUserEJB) HandlerUtil.entity2bean(results[i], LoginUserEJB.class));
+		if (handler.query(searchKey).length == 0) {
+			return "UserId is invalid";
+		} else {
+			searchKey.clear();
+			searchKey.setUserId(userId);
+			searchKey.setPassword(password);
+			if (handler.query(searchKey).length == 0) {
+				return "Password is wrong";
+			}
 		}
 		
-		return actualResults;
+		return null;
+	}
+	
+	public static LoginUserEJB getUser(String userId) throws Exception {
+		LoginUserHandler handler = new LoginUserHandler(new UserDao().getConnection());
+		LoginUserSearchKey searchKey = new LoginUserSearchKey();
+		searchKey.setUserId(userId);
+		
+		AbstractEntity[] results = handler.query(searchKey);
+		if (results.length == 1) {
+			return (LoginUserEJB) HandlerUtil.entity2bean(results[0], LoginUserEJB.class);
+		}
+
+		return null;
 	}
 }

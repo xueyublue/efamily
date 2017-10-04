@@ -1,7 +1,5 @@
 package sg.xueyu.efamily.action.auth;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,7 +11,7 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 
-public class LoginAction implements Action {
+public class LoginAuthAction implements Action {
 
 	private String userId;
 
@@ -21,19 +19,22 @@ public class LoginAction implements Action {
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		List<LoginUserEJB> results = UserDao.verify(userId, password);
 		ResultContent resultContent = null;
 		ActionResult result = null;
-
-		if (results.size() == 1) {
+		
+		String authResult = UserDao.auth(userId, password);
+		
+		if (authResult == null) {
 			// set user info to result content
-			resultContent = new ResultContent(null, results.get(0));
+			resultContent = new ResultContent(null, null);
 			// set user info to session
 			HttpSession session = req.getSession();
-			session.setAttribute("userId", results.get(0).getUserId());
-			session.setAttribute("userName", results.get(0).getUserName());
+			LoginUserEJB loginUserEJB = UserDao.getUser(userId);
+			session.setAttribute("userId", loginUserEJB.getUserId());
+			session.setAttribute("userName", loginUserEJB.getUserName());
 		} else {
-			resultContent = new ResultContent(null, null);
+			resp.setStatus(401);
+			resultContent = new ResultContent(null, authResult);
 			// set user info in session to null
 			HttpSession session = req.getSession();
 			session.removeAttribute("userId");
