@@ -32,6 +32,8 @@ public class LoginAuthAction implements Action {
 			LoginUserEJB loginUserEJB = UserDao.getUser(userId);
 			session.setAttribute("userId", loginUserEJB.getUserId());
 			session.setAttribute("userName", loginUserEJB.getUserName());
+			// Update LastLoginDate
+			UserDao.udpateLastLoginDate(userId);
 		} else {
 			resp.setStatus(401);
 			resultContent = new ResultContent(null, authResult);

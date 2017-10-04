@@ -6,26 +6,42 @@
 <title>Welcome to E-Family</title>
 </head>
 <body>
-	<span>Hello <span id="userName"></span>, welcome to E-Family</span>
+	<p><span>Hello <span id="userName"></span>, welcome to E-Family</span></p>
+	
+	<p><a href="user.do" onClick="gotoUser()">User</a></p>
 	
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript">
-		window.onload = initPage;
-		var xmlHttp;
 		
+		window.onload = initPage;
+		var request = false;
+
 		function initPage() {
-			// init xmlHttp object
-			if (window.XMLHttpRequest) {
-				xmlHttp = new XMLHttpRequest();
-			} else {
-				xmlHttp = new AxtiveXObject("Microsoft.XMLHTTP");
+			try {
+				request = new XMLHttpRequest();
+			} catch (trymicrosoft) {
+				try {
+					request = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch (e) {
+					try {
+						request = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (failed) {
+						request = false;
+					}
+				}
 			}
-			// get user info from session and set it to components
+			if (!request)
+				alert("Error initializing XMLHttpRequest!");
+			// Set UserInfo
 			setUserInfo();
 		}
 		
 		function setUserInfo() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
+		}
+		
+		function gotoUser() {
+			window.location.href = "user.do";
 		}
 	</script>
 </body>

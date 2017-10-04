@@ -1,6 +1,7 @@
 package sg.xueyu.zebra.action;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class ResultContent {
 
@@ -29,6 +30,7 @@ public class ResultContent {
 	}
 
 	public String getJsonData() {
-		return new Gson().toJson(data);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(data);
 	}
 }
