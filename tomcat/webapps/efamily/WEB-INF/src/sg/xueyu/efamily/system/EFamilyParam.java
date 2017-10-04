@@ -22,6 +22,8 @@ public final class EFamilyParam {
 	public static final String DB_USERNAME = getParam("DB_USERNAME");
 	
 	public static final String DB_PASSWORD = getParam("DB_PASSWORD");
+	
+	public static final boolean ENABLE_LOGGING = getBoolParam("ENABLE_LOGGING");
 
 /** Class **/
 	private EFamilyParam() {
@@ -70,8 +72,7 @@ public final class EFamilyParam {
 		}
 		return retList;
 	}
-
-	@SuppressWarnings("unused")
+	
 	private static boolean getBoolParam(String key) {
 		return ResourceUtil.getBoolParam(WMS_DEFAULT_RESOURCE, key);
 	}
