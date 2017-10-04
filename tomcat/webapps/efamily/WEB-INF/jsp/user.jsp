@@ -24,7 +24,7 @@
 </style>
 </head>
 <body>
-	<table class="userlist" border="0" cellspacing="0" cellpadding="4">
+	<table class="userlist" border="0" cellspacing="0" cellpadding="4" align="center">
 		<tr><td colspan="4" align="center">User List</td></tr>
 		<tr><th>User Id</th>
 			<th>User Name</th>
