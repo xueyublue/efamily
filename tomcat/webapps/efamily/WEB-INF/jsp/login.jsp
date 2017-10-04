@@ -16,7 +16,7 @@
 		<span id="loginResult"></span>
 	</form>
 	
-	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		
 		window.onload = initPage;

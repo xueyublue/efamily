@@ -13,6 +13,7 @@ public class SessionManager implements HttpSessionListener {
 	public void sessionCreated(HttpSessionEvent sessionEvent) {
 		SystemLogger.info("Session Created: " + sessionEvent.getSession().getId() 
 				+ "_" + sessionEvent.getSession().getCreationTime());
+		// Set session timeout
 		sessionEvent.getSession().setMaxInactiveInterval(EFamilyParam.SESSION_TIME_OUT);
 	}
 
@@ -20,6 +21,7 @@ public class SessionManager implements HttpSessionListener {
 	public void sessionDestroyed(HttpSessionEvent sessionEvent) {
 		SystemLogger.info("Session Destroyed: " + sessionEvent.getSession().getId() 
 				+ "_" + sessionEvent.getSession().getCreationTime());
+		// Remove Credentials from current session
 		CommonMethods.removeSessionCredentials(sessionEvent.getSession());
 	}
 
