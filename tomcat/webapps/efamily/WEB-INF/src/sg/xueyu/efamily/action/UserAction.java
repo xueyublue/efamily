@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.efamily.dao.UserDao;
+import sg.xueyu.efamily.system.CommonMethods;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
@@ -14,10 +15,16 @@ public class UserAction implements Action {
 	
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		req.setAttribute("users", UserDao.getAllUsers());
-		
-		ResultContent resultContent = new ResultContent(RESULT_URL, null);
-		ActionResult result = new ActionResult(resultContent);
+		ResultContent resultContent = null;
+		ActionResult result = null;
+		if (CommonMethods.checkCredentials(req)) {
+			req.setAttribute("users", UserDao.getAllUsers());
+			resultContent = new ResultContent(RESULT_URL, null);
+			result = new ActionResult(resultContent);
+		} else {
+			resultContent = new ResultContent("login.jsp", null);
+			result = new ActionResult(resultContent);
+		}
 		return result;
 	}
 
