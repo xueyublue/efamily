@@ -6,23 +6,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User</title>
+<style type="text/css">
+	.userlist {
+		border-right: 1px solid #000;
+		border-bottom: 1px solid #000
+	}
+	.userlist td {
+		border-left: 1px solid #000;
+		border-top: 1px solid #000
+	}
+</style>
 </head>
 <body>
-	<form>
-		<table>
-			<tr><td colspan="2">User List</td></tr>
-			<tr><td>User Id</td>
-				<td>User Name</td>
-				<td>Role Id</td>
-				<td>Last Login Date</td></tr>
-			<c:forEach items="${users}" var="c">
-				<tr><td><span id="userId">${c.userId}</span></td>
-					<td><span id="userName">${c.userName}</span></td>
-					<td><span id="roleId">${c.roleId}</span></td>
-					<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
-			</c:forEach>
-		</table>
-	</form>
+	<table class="userlist" border="0" cellspacing="0" cellpadding="2">
+		<tr><td colspan="4">User List</td></tr>
+		<tr><td>User Id</td>
+			<td>User Name</td>
+			<td>Role Id</td>
+			<td>Last Login Date</td></tr>
+		<c:forEach items="${users}" var="c">
+			<tr><td><span id="userId">${c.userId}</span></td>
+				<td><span id="userName">${c.userName}</span></td>
+				<td><span id="roleId">${c.roleId}</span></td>
+				<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
+		</c:forEach>
+	</table>
 	
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript">
