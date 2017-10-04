@@ -19,7 +19,7 @@ public class HomeAction implements Action {
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ResultContent resultContent = null;
 		ActionResult result = null;
-		if (CommonMethods.checkCredentials(req)) {
+		if (CommonMethods.checkSessionCredentials(req.getSession())) {
 			resultContent = new ResultContent(RESULT_URL, null);
 			result = new ActionResult(resultContent);
 		} else {

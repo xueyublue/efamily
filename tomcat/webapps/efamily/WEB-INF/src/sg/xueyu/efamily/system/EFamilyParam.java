@@ -24,6 +24,8 @@ public final class EFamilyParam {
 	public static final String DB_PASSWORD = getParam("DB_PASSWORD");
 	
 	public static final boolean ENABLE_LOGGING = getBoolParam("ENABLE_LOGGING");
+	
+	public static final int SESSION_TIME_OUT = getIntParam("SESSION_TIME_OUT");
 
 /** Class **/
 	private EFamilyParam() {
@@ -40,8 +42,7 @@ public final class EFamilyParam {
 		return "";
 
 	}
-
-	@SuppressWarnings("unused")
+	
 	private static int getIntParam(String key) {
 		try {
 			return Integer.parseInt(getParam(key));

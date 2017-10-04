@@ -14,8 +14,8 @@ public final class CommonUtil {
 	private static final List<TypeConverter> converters = new ArrayList<>();
 
 	static {
-		patterns.add("yyyy-MM-dd");
 		patterns.add("yyyy-MM-dd HH:mm:ss");
+		patterns.add("yyyy-MM-dd");
 	}
 
 	private CommonUtil() {

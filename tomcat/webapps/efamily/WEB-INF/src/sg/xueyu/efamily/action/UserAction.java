@@ -17,7 +17,7 @@ public class UserAction implements Action {
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = null;
 		ActionResult result = null;
-		if (CommonMethods.checkCredentials(req)) {
+		if (CommonMethods.checkSessionCredentials(req.getSession())) {
 			req.setAttribute("users", UserDao.getAllUsers());
 			resultContent = new ResultContent(RESULT_URL, null);
 			result = new ActionResult(resultContent);

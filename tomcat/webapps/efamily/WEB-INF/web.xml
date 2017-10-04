@@ -4,6 +4,17 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 	
+	<display-name>E-Family</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	
 	<servlet>
 		<servlet-name>FrontController</servlet-name>
 		<servlet-class>sg.xueyu.zebra.FrontController</servlet-class>
@@ -19,15 +30,8 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
-	<display-name>E-Family</display-name>
-	
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
+	<listener>  
+    	<listener-class>sg.xueyu.efamily.base.SessionHandler</listener-class>  
+	</listener>
 	
 </web-app>

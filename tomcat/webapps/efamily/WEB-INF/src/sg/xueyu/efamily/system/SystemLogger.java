@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-public class HttpRequestLogger {
+public class SystemLogger {
 
 	private static final String DATE_TIME_FORMATE = "yyyy-MM-dd HH:mm:ss";
 	private static final SimpleDateFormat DATE_TIME_FORMATTER = new SimpleDateFormat(DATE_TIME_FORMATE);

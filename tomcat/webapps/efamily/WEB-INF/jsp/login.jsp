@@ -49,7 +49,10 @@
 			document.getElementById("loginResult").innerHTML = "";
 			var userId = document.getElementById("userId").value;
 			var password = document.getElementById("password").value;
-			request.open("GET", "auth/loginAuth.do?userId=" + escape(userId) + "&password=" + escape(password), true);
+			request.open("GET", "auth/loginAuth.do?" 
+					+ "userId=" + escape(userId) 
+					+ "&password=" + escape(password)
+					, true);
 			request.onreadystatechange = showLoginResult;
 			request.send(null);
 		}
