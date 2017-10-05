@@ -16,9 +16,17 @@
 </script>
 </head>
 <body>
-	<p><span>Hello <span id="userName"></span>, welcome to E-Family</span></p>
-	
-	<p><a href="auth/logout.do" >Logout</a></p>
-	<p><a href="user.do" >User</a></p>
+<div class="container">
+	<p><span>Hello <span id="userName"></span>, welcome to E-Family</span><a href="auth/logout.do" >Logout</a></p>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Administrator</button>
+		<ul class="dropdown-menu">
+			<li><a href="user.do">User</a></li>
+			<li><a href="#">Role</a></li>
+			<li><a href="#">Application Log</a></li>
+			<li class="divider"></li>
+			<li><a href="#">Others</a></li></ul>
+		</div>
+	</div>
 </body>
 </html>

@@ -32,20 +32,15 @@
 <body>
 <div class="container">
 	<div class="row">
-		<div class="col-xs-12">Login to E-Family</div>
-	</div>
+		<div class="col-xs-12">Login to E-Family</div></div>
 	<div class="row">
-		<div class="col-xs-12"><input type="text" name="userId" id="userId" placeholder="User Id"/></div>
-	</div>
+		<div class="col-xs-12"><input type="text" name="userId" id="userId" placeholder="User Id"/></div></div>
 	<div class="row">
-		<div class="col-xs-12"><input type="password" name="password" id="password" placeholder="Password"/></div>
-	</div>
+		<div class="col-xs-12"><input type="password" name="password" id="password" placeholder="Password"/></div></div>
 	<div class="row">
-		<div class="col-xs-12"><button type="button" class="btn btn-success btn-sm" onclick="login()">Login</button></div>
-	</div>
+		<div class="col-xs-12"><button type="button" class="btn btn-success btn-sm" onclick="login()">Login</button></div></div>
 	<div class="row">
-		<div class="col-xs-12"><span id="loginResult"></span></div>
+		<div class="col-xs-12"><span id="loginResult"></span></div></div>
 	</div>
-</div>
 </body>
 </html>
