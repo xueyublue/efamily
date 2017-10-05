@@ -18,15 +18,26 @@
 <body>
 <div class="container">
 	<p><span>Hello <span id="userName"></span>, welcome to E-Family</span><a href="auth/logout.do" >Logout</a></p>
-	<div class="btn-group">
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Administrator</button>
-		<ul class="dropdown-menu">
-			<li><a href="user.do">User</a></li>
-			<li><a href="#">Role</a></li>
-			<li><a href="#">Application Log</a></li>
-			<li class="divider"></li>
-			<li><a href="#">Others</a></li></ul>
-		</div>
+	<ul class="list-inline">
+		<li><div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Administrator</button>
+					<ul class="dropdown-menu">
+						<li><a href="user.do">User</a></li>
+						<li><a href="#">Role</a></li>
+						<li><a href="#">Application Log</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Others</a></li>
+					</ul>
+			</div></li>
+		<li><div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Help</button>
+					<ul class="dropdown-menu">
+						<li><a href="#">Contact Me</a></li>
+						<li class="divider"></li>
+						<li><a href="#">About E-Family</a></li>
+					</ul>
+			</div></li>
+		</ul>
 	</div>
 </body>
 </html>

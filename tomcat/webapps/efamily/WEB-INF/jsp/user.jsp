@@ -10,17 +10,17 @@
 <script src="static/js/jquery/jquery.min.js"></script>
 <script src="static/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
-	.userlist {
+	#userlist {
 		border-right: 1px solid #000;
 		border-bottom: 1px solid #000;
 	}
-	.userlist th {
+	#userlist th {
 		padding: 5px;
 		border-left: 1px solid #000;
 		border-top: 1px solid #000;
 		text-align: center;
 	}
-	.userlist td {
+	#userlist td {
 		padding: 5px;
 		border-left: 1px solid #000;
 		border-top: 1px solid #000;
@@ -32,7 +32,8 @@
 </script>
 </head>
 <body>
-	<table class="userlist" border="0" cellspacing="0" cellpadding="0" align="center">
+<div class="container">
+	<table id="userlist" align="center">
 		<tr><td colspan="4" align="center">User List</td></tr>
 		<tr><th>User Id</th>
 			<th>User Name</th>
@@ -45,5 +46,6 @@
 				<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
 		</c:forEach>
 	</table>
+	</div>
 </body>
 </html>
