@@ -6,79 +6,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User</title>
+<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
 	.userlist {
 		border-right: 1px solid #000;
-		border-bottom: 1px solid #000
+		border-bottom: 1px solid #000;
 	}
 	.userlist th {
 		border-left: 1px solid #000;
 		border-top: 1px solid #000;
-		text-align: center
+		text-align: center;
 	}
 	.userlist td {
 		border-left: 1px solid #000;
 		border-top: 1px solid #000;
-		text-align: center
+		text-align: center;
 	}
 </style>
-<script src="static/js/jquery/jquery-3.2.1.min.js"></script>
+<script src="static/js/jquery/jquery.min.js"></script>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	window.onload = initPage;
-	var request = false;
-
-	function initPage() {
-		try {
-			request = new XMLHttpRequest();
-		} catch (trymicrosoft) {
-			try {
-				request = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch (e) {
-				try {
-					request = new ActiveXObject("Microsoft.XMLHTTP");
-				} catch (failed) {
-					request = false;
-				}
-			}
-		}
-		if (!request)
-			alert("Error initializing XMLHttpRequest!");
-
-		// Get all users
-		// getAllUsers();
-	}
-
-	function getAllUsers() {
-		if (request == null) {
-			alert("Unable to create request!");
-			return;
-		}
-		// Clear loginResult
-		document.getElementById("loginResult").innerHTML = "";
-		var userId = document.getElementById("userId").value;
-		var password = document.getElementById("password").value;
-		request.open("GET", "auth/loginAuth.do?userId=" + escape(userId)
-				+ "&password=" + escape(password), true);
-		request.onreadystatechange = showLoginResult;
-		request.send(null);
-	}
-
-	function showLoginResult() {
-		if (request.readyState == 4) {
-			if (request.status == 200) {
-				window.location.href = "home.do";
-			} else if (request.status == 404) {
-				alert("Requested URL is not found.");
-			} else if (request.status == 403) {
-				alert("Access denied.");
-			} else if (request.status == 401) {
-				document.getElementById("loginResult").innerHTML = request.responseText
-						.replace('"', '').replace('"', '');
-			} else {
-				document.getElementById("loginResult").innerHTML = request.status;
-			}
-		}
-	}
+	// TODO: 
 </script>
 </head>
 <body>
