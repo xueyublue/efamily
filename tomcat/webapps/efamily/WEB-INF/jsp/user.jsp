@@ -4,21 +4,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User</title>
 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<script src="static/js/jquery/jquery.min.js"></script>
-<script src="static/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
 	
 </style>
-<script type="text/javascript">
-	// TODO: 
-</script>
 </head>
 <body>
 <div class="container">
-	<table class="table table-hover">
+	<table class="table table-striped table-hover">
 		<thead>
 			<tr><th>User Id</th>
 				<th>User Name</th>
@@ -35,5 +32,10 @@
 			</tbody>
 	</table>
 	</div>
+	<script src="static/js/jquery/jquery.min.js"></script>
+	<script src="static/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		// TODO: 
+	</script>
 </body>
 </html>
