@@ -19,17 +19,20 @@
 <body>
 <div class="container">
 	<table class="table">
-		<tr><td colspan="4" align="center">User List</td></tr>
-		<tr><th>User Id</th>
-			<th>User Name</th>
-			<th>Role Id</th>
-			<th>Last Login Date</th></tr>
-		<c:forEach items="${users}" var="c">
-			<tr><td><span id="userId">${c.userId}</span></td>
-				<td><span id="userName">${c.userName}</span></td>
-				<td><span id="roleId">${c.roleId}</span></td>
-				<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
-		</c:forEach>
+		<thead>
+			<tr><th>User Id</th>
+				<th>User Name</th>
+				<th>Role Id</th>
+				<th>Last Login Date</th></tr>
+			</thead>
+		<tbody>
+			<c:forEach items="${users}" var="c">
+				<tr><td><span id="userId">${c.userId}</span></td>
+					<td><span id="userName">${c.userName}</span></td>
+					<td><span id="roleId">${c.roleId}</span></td>
+					<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
+			</c:forEach>
+			</tbody>
 	</table>
 	</div>
 </body>
