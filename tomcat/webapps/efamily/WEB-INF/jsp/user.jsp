@@ -10,22 +10,7 @@
 <script src="static/js/jquery/jquery.min.js"></script>
 <script src="static/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
-	#userlist {
-		border-right: 1px solid #000;
-		border-bottom: 1px solid #000;
-	}
-	#userlist th {
-		padding: 5px;
-		border-left: 1px solid #000;
-		border-top: 1px solid #000;
-		text-align: center;
-	}
-	#userlist td {
-		padding: 5px;
-		border-left: 1px solid #000;
-		border-top: 1px solid #000;
-		text-align: center;
-	}
+	
 </style>
 <script type="text/javascript">
 	// TODO: 
@@ -33,7 +18,7 @@
 </head>
 <body>
 <div class="container">
-	<table id="userlist" align="center">
+	<table class="table">
 		<tr><td colspan="4" align="center">User List</td></tr>
 		<tr><th>User Id</th>
 			<th>User Name</th>
