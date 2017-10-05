@@ -41,7 +41,7 @@
 		<div class="col-xs-12"><input type="password" name="password" id="password" placeholder="Password"/></div>
 	</div>
 	<div class="row">
-		<div class="col-xs-12"><input type="button" onClick="login()" value="Login"/></div>
+		<div class="col-xs-12"><button type="button" class="btn btn-success btn-sm" onclick="login()">Login</button></div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12"><span id="loginResult"></span></div>
