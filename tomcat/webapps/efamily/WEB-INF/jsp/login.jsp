@@ -4,6 +4,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login to E-Family</title>
+<script src="static/js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	function login() {
+		$.ajax({
+			type : "get",
+			url : "auth/loginAuth.do?" 
+					+ "userId=" + $('#userId').val()
+					+ "&password=" + $('#password').val(),
+			cache : false,
+			async : false,
+			success : function(obj) {
+				window.location.href = "home.do";
+			},
+			error : function(obj) {
+				$('#loginResult').text(
+						obj.responseText.replace('"', '').replace('"', ''));
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<form>
@@ -15,26 +35,5 @@
 		</table>
 		<span id="loginResult"></span>
 	</form>
-	
-	<script src="static/js/jquery/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript">
-
-		function login() {
-			$.ajax({
-			    type: "get",
-			    url: "auth/loginAuth.do?" 
-					+ "userId=" + $('#userId').val()
-					+ "&password=" + $('#password').val(),
-			    cache: false,
-			    async: false,
-			    success: function(obj) {
-			    	window.location.href = "home.do";
-			    },
-			    error: function(obj) {
-			    	$('#loginResult').text(obj.responseText.replace('"', '').replace('"', ''));
-			    }
-			});
-		}
-	</script>
 </body>
 </html>

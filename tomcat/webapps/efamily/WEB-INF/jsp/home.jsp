@@ -4,20 +4,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome to E-Family</title>
+<script src="static/js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
+	});
+</script>
 </head>
 <body>
 	<p><span>Hello <span id="userName"></span>, welcome to E-Family</span></p>
 	
 	<p><a href="auth/logout.do" >Logout</a></p>
 	<p><a href="user.do" >User</a></p>
-	
-	<script src="static/js/jquery/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript">
-	
-	$(document).ready(function() {
-		document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
-	});
-	
-	</script>
 </body>
 </html>

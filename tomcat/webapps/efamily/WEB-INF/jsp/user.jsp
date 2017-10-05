@@ -22,6 +22,64 @@
 		text-align: center
 	}
 </style>
+<script src="static/js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	window.onload = initPage;
+	var request = false;
+
+	function initPage() {
+		try {
+			request = new XMLHttpRequest();
+		} catch (trymicrosoft) {
+			try {
+				request = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					request = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (failed) {
+					request = false;
+				}
+			}
+		}
+		if (!request)
+			alert("Error initializing XMLHttpRequest!");
+
+		// Get all users
+		// getAllUsers();
+	}
+
+	function getAllUsers() {
+		if (request == null) {
+			alert("Unable to create request!");
+			return;
+		}
+		// Clear loginResult
+		document.getElementById("loginResult").innerHTML = "";
+		var userId = document.getElementById("userId").value;
+		var password = document.getElementById("password").value;
+		request.open("GET", "auth/loginAuth.do?userId=" + escape(userId)
+				+ "&password=" + escape(password), true);
+		request.onreadystatechange = showLoginResult;
+		request.send(null);
+	}
+
+	function showLoginResult() {
+		if (request.readyState == 4) {
+			if (request.status == 200) {
+				window.location.href = "home.do";
+			} else if (request.status == 404) {
+				alert("Requested URL is not found.");
+			} else if (request.status == 403) {
+				alert("Access denied.");
+			} else if (request.status == 401) {
+				document.getElementById("loginResult").innerHTML = request.responseText
+						.replace('"', '').replace('"', '');
+			} else {
+				document.getElementById("loginResult").innerHTML = request.status;
+			}
+		}
+	}
+</script>
 </head>
 <body>
 	<table class="userlist" border="0" cellspacing="0" cellpadding="4" align="center">
@@ -37,63 +95,5 @@
 				<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
 		</c:forEach>
 	</table>
-	
-	<script src="static/js/jquery/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript">
-		
-		window.onload = initPage;
-		var request = false;
-
-		function initPage() {
-			try {
-				request = new XMLHttpRequest();
-			} catch (trymicrosoft) {
-				try {
-					request = new ActiveXObject("Msxml2.XMLHTTP");
-				} catch (e) {
-					try {
-						request = new ActiveXObject("Microsoft.XMLHTTP");
-					} catch (failed) {
-						request = false;
-					}
-				}
-			}
-			if (!request)
-				alert("Error initializing XMLHttpRequest!");
-			
-			// Get all users
-			// getAllUsers();
-		}
-
-		function getAllUsers() {
-			if (request == null) {
-				alert("Unable to create request!");
-				return;
-			}
-			// Clear loginResult
-			document.getElementById("loginResult").innerHTML = "";
-			var userId = document.getElementById("userId").value;
-			var password = document.getElementById("password").value;
-			request.open("GET", "auth/loginAuth.do?userId=" + escape(userId) + "&password=" + escape(password), true);
-			request.onreadystatechange = showLoginResult;
-			request.send(null);
-		}
-
-		function showLoginResult() {
-			if (request.readyState == 4) {
-				if (request.status == 200) {
-					window.location.href = "home.do";
-				} else if (request.status == 404) {
-					alert("Requested URL is not found.");
-				} else if (request.status == 403) {
-					alert("Access denied.");
-				} else if (request.status == 401) {
-					document.getElementById("loginResult").innerHTML = request.responseText.replace('"', '').replace('"', '');
-				} else {
-					document.getElementById("loginResult").innerHTML = request.status;
-				}
-			}
-		}
-	</script>
 </body>
 </html>
