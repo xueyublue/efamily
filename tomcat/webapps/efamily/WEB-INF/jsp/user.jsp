@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="container">
-	<table class="table">
+	<table class="table table-hover">
 		<thead>
 			<tr><th>User Id</th>
 				<th>User Name</th>
