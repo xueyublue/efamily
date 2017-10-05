@@ -30,14 +30,22 @@
 </script>
 </head>
 <body>
-	<form>
-		<table>
-			<tr><td colspan="2">Login to E-Family</td></tr>
-			<tr><td>User Name: </td><td><input type="text" name="userId" id="userId"/></td></tr>
-			<tr><td>Password: </td><td><input type="password" name="password" id = "password"/></td></tr>
-			<tr><td colspan="2"><input type="button" onClick="login()" value="Login"/></td></tr>
-		</table>
-		<span id="loginResult"></span>
-	</form>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">Login to E-Family</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12"><input type="text" name="userId" id="userId" placeholder="User Id"/></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12"><input type="password" name="password" id="password" placeholder="Password"/></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12"><input type="button" onClick="login()" value="Login"/></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12"><span id="loginResult"></span></div>
+	</div>
+</div>
 </body>
 </html>
