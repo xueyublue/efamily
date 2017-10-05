@@ -11,7 +11,7 @@
 	<p><a href="auth/logout.do" >Logout</a></p>
 	<p><a href="user.do" >User</a></p>
 	
-	<script src="js/jquery/jquery-3.2.1.min.js"></script>
+	<script src="static/js/jquery/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 	
 	$(document).ready(function() {
