@@ -10,17 +10,27 @@
 </head>
 <body>
 <div class="container">
-	<div class="row">
-		<div class="col-xs-12">Login to E-Family</div></div>
-	<div class="row">
-		<div class="col-xs-12"><input type="text" name="userId" id="userId" placeholder="User Id"/></div></div>
-	<div class="row">
-		<div class="col-xs-12"><input type="password" name="password" id="password" placeholder="Password"/></div></div>
-	<div class="row">
-		<div class="col-xs-12"><button type="button" class="btn btn-success btn-sm" onclick="login()">Login</button></div></div>
+	<form>
+		<fieldset>
+			<legend>Login to E-Family</legend>
+			<div class="form-group">
+				<label>User Name</label>
+				<input type="text" class="form-control" placeholder="User Name" id="userId"/>
+				</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" placeholder="Password" id="password"/>
+				</div>
+			<div class="checkbox">
+				<label><input type="checkbox"/>Remember Password</label>
+				</div>
+			<button type="button" class="btn btn-default" onclick="login()">Login</button>
+			</fieldset>
+		</form>
 	<div class="row">
 		<div class="col-xs-12"><span id="loginResult"></span></div></div>
-	</div>
+		</div>
+	
 	<script src="static/js/jquery/jquery.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
