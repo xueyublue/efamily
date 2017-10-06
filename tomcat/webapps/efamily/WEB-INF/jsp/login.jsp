@@ -10,9 +10,9 @@
 </head>
 <body>
 <div class="container">
-	<form>
+	<form class="col-xs-12 col-sm-6 col-sm-offset-3">
 		<fieldset>
-			<legend>Login to E-Family</legend>
+			<legend><strong>Login to E-Family</strong></legend>
 			<div class="form-group">
 				<label>User Name</label>
 				<input type="text" class="form-control" placeholder="User Name" id="userId"/>
@@ -24,7 +24,7 @@
 			<div class="checkbox">
 				<label><input type="checkbox"/>Remember Password</label>
 				</div>
-			<button type="button" class="btn btn-default col-xs-12"" onclick="login()">Login</button>
+			<button type="button" class="btn btn-primary col-xs-12" onclick="login()"><strong>Login</strong></button>
 			</fieldset>
 		</form>
 	<div class="row">
