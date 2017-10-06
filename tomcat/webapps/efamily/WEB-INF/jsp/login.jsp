@@ -24,7 +24,7 @@
 			<div class="checkbox">
 				<label><input type="checkbox"/>Remember Password</label>
 				</div>
-			<button type="button" class="btn btn-default" onclick="login()">Login</button>
+			<button type="button" class="btn btn-default col-xs-12"" onclick="login()">Login</button>
 			</fieldset>
 		</form>
 	<div class="row">
