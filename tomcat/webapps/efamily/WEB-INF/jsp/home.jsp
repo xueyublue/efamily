@@ -11,11 +11,11 @@
 <body>
 <div class="container">
 	<!-- Navigation Bar -->
-	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+	<nav class="navbar navbar-default navbar-static-top">
 	    <div class="container-fluid">
 		    <div class="navbar-header">
-		    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#efamily-navbar">
-		    		<span class="sr-only">Switch</span>
+		    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#efamily-navbar" aria-expanded="false">
+		    		<span class="sr-only">Navigation</span>
 		    		<span class="icon-bar"></span>
 		    		<span class="icon-bar"></span>
 		    		<span class="icon-bar"></span>
@@ -49,19 +49,22 @@
 		                    <li><a href="#">About E-Family</a></li>
 		                	</ul>
 		            	</li>
-		            <li class="dropdown">
+		        </ul>
+		         <ul class="nav navbar-nav navbar-right">
+		         	<li class="dropdown">
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                	<img class="image-responsive" src="static/img/user_24_24.png" />
+		                	<!-- img class="image-responsive" height="18" src="static/img/user_24_24.png" /-->
+		                	<span class="glyphicon glyphicon-user"></span>
 		                	<strong id="userName"></strong>
 		                	</a>
 		                <ul class="dropdown-menu">
 		                    <li><a href="#">Profile</a></li>
 		                    <li><a href="#">Change Password</a></li>
 		                    <li class="divider"></li>
-		                    <li ><a href="auth/logout.do"><strong>Logout</strong></a></li>
+		                    <li><a href="auth/logout.do"><span>Logout</span></a></li>
 		                	</ul>
 		            	</li>
-		        </ul>
+		         </ul>
 		    	</div>
 	    	</div>
 	</nav>
