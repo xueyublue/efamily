@@ -18,8 +18,8 @@
 		    	</div>
 		    <div>
 		        <ul class="nav navbar-nav">
-		            <li class="active"><a href="home.do">Home</a></li>
-		           <li class="dropdown">
+		           <li><a href="home.do">Home</a></li>
+		           <li class="dropdown active">
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Family Share<b class="caret"></b></a>
 		                <ul class="dropdown-menu">
 		                    <li><a href="event.do">Event</a></li>
@@ -44,15 +44,12 @@
 		                	</ul>
 		            	</li>
 		            <li class="dropdown">
-		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                	<img class="image-responsive" src="static/img/user_24_24.png" />
-		                	<strong id="userName"></strong>
-		                	</a>
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="userName"></span><b class="caret"></b></a>
 		                <ul class="dropdown-menu">
 		                    <li><a href="#">Profile</a></li>
 		                    <li><a href="#">Change Password</a></li>
 		                    <li class="divider"></li>
-		                    <li><a href="auth/logout.do"><strong>Logout</strong></a></li>
+		                    <li><a href="auth/logout.do">Logout</a></li>
 		                	</ul>
 		            	</li>
 		        </ul>
