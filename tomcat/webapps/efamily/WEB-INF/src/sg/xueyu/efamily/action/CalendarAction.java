@@ -11,9 +11,9 @@ import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 
-public class EventAction implements Action {
+public class CalendarAction implements Action {
 
-	private static final String RESULT_URL = "share/event.jsp";
+	private static final String RESULT_URL = "share/calendar.jsp";
 	
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -14,15 +14,21 @@
 	<nav class="navbar navbar-default" role="navigation">
 	    <div class="container-fluid">
 		    <div class="navbar-header">
+		    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#efamily-navbar">
+		    		<span class="sr-only">Switch</span>
+		    		<span class="icon-bar"></span>
+		    		<span class="icon-bar"></span>
+		    		<span class="icon-bar"></span>
+		    		</button>
 		        <a class="navbar-brand"><span class="h4">E-Family</span></a>
 		    	</div>
-		    <div>
+		    <div class="collapse navbar-collapse" id="efamily-navbar">
 		        <ul class="nav navbar-nav">
 		            <li class="active"><a href="home.do">Home</a></li>
 		           <li class="dropdown">
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Family Share<b class="caret"></b></a>
 		                <ul class="dropdown-menu">
-		                    <li><a href="event.do">Event</a></li>
+		                    <li><a href="calendar.do">Calendar</a></li>
 		                	</ul>
 		            	</li>
 		            <li class="dropdown">
@@ -52,7 +58,7 @@
 		                    <li><a href="#">Profile</a></li>
 		                    <li><a href="#">Change Password</a></li>
 		                    <li class="divider"></li>
-		                    <li><a href="auth/logout.do"><strong>Logout</strong></a></li>
+		                    <li ><a href="auth/logout.do"><strong>Logout</strong></a></li>
 		                	</ul>
 		            	</li>
 		        </ul>

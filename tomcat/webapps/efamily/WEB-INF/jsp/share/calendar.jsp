@@ -22,7 +22,7 @@
 		           <li class="dropdown active">
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Family Share<b class="caret"></b></a>
 		                <ul class="dropdown-menu">
-		                    <li><a href="event.do">Event</a></li>
+		                    <li><a href="calendar.do">Calendar</a></li>
 		                	</ul>
 		            	</li>
 		            <li class="dropdown">
