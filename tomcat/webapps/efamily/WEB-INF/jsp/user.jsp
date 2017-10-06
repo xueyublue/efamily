@@ -15,22 +15,24 @@
 </head>
 <body>
 <div class="container">
-	<table class="table table-striped table-hover">
-		<thead>
-			<tr><th>User Id</th>
-				<th>User Name</th>
-				<th>Role Id</th>
-				<th>Last Login Date</th></tr>
-			</thead>
-		<tbody>
-			<c:forEach items="${users}" var="c">
-				<tr><td><span id="userId">${c.userId}</span></td>
-					<td><span id="userName">${c.userName}</span></td>
-					<td><span id="roleId">${c.roleId}</span></td>
-					<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
-			</c:forEach>
-			</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr><th>User Id</th>
+					<th>User Name</th>
+					<th>Role Id</th>
+					<th>Last Login Date</th></tr>
+				</thead>
+			<tbody>
+				<c:forEach items="${users}" var="c">
+					<tr><td><span id="userId">${c.userId}</span></td>
+						<td><span id="userName">${c.userName}</span></td>
+						<td><span id="roleId">${c.roleId}</span></td>
+						<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
+				</c:forEach>
+				</tbody>
+		</table>
+		</div>
 	</div>
 	<script src="static/js/jquery/jquery.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
