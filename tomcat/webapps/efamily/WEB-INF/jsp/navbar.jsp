@@ -19,7 +19,7 @@
 	                    <li><a href="calendar.do">Calendar</a></li>
 	                	</ul>
 	            	</li>
-	            <li class="dropdown">
+	            <li id="administrator" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="user.do">User</a></li>
@@ -28,7 +28,7 @@
 	                    <li><a href="#">Log</a></li>
 	                	</ul>
 	            	</li>
-	            <li class="dropdown">
+	            <li id="help" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="#">Contact Me</a></li>
@@ -39,7 +39,7 @@
 	            	</li>
 	        </ul>
 	         <ul class="nav navbar-nav navbar-right">
-	         	<li class="dropdown">
+	         	<li id="loginuser" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 	                	<!-- img class="image-responsive" height="18" src="static/img/user_24_24.png" /-->
 	                	<span class="glyphicon glyphicon-user"></span>

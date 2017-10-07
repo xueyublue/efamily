@@ -15,6 +15,12 @@
 </head>
 <body>
 <div class="container">
+	<!-- Navigation Bar -->
+	<jsp:include page="navbar.jsp"></jsp:include>
+	
+	<!-- Page Content -->
+	<strong>Administrator > User</strong>
+	
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
 			<thead>
@@ -37,7 +43,10 @@
 	<script src="static/js/jquery/jquery.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		// TODO: 
+		$(document).ready(function() {
+			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
+			$('#administrator').addClass('active');
+		});
 	</script>
 </body>
 </html>

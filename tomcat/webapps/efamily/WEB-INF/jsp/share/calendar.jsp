@@ -14,6 +14,7 @@
 	<jsp:include page="../navbar.jsp"></jsp:include>
 	
 	<!-- Page Content -->
+	<strong>Family Share > Calendar</strong>
 	
 	</div>
 	<script src="static/js/jquery/jquery.min.js"></script>
