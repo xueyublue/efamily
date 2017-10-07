@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import sg.xueyu.dbhandler.db.DBUtils;
 import sg.xueyu.dbhandler.handler.AbstractEntity;
+import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.dbhandler.util.HandlerUtil;
 import sg.xueyu.efamily.base.DataSource;
 import sg.xueyu.efamily.base.dbhandler.LoginUserAlterKey;
@@ -16,12 +16,16 @@ import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 
 public class UserDao extends DataSource {
 
-	private UserDao() {
+	private UserDao() throws Exception {
 		super();
+	}
+	
+	private static UserDao getInstance() throws Exception {
+		return new UserDao();
 	}
 
 	public static List<LoginUserEJB> getAllUsers() throws Exception {
-		Connection connection = new DataSource().getConnection();
+		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
 
@@ -36,7 +40,7 @@ public class UserDao extends DataSource {
 	}
 
 	public static String auth(String userId, String password) throws Exception {
-		Connection connection = new DataSource().getConnection();
+		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
 		searchKey.setUserId(userId);
@@ -57,7 +61,7 @@ public class UserDao extends DataSource {
 	}
 
 	public static LoginUserEJB getUser(String userId) throws Exception {
-		Connection connection = new DataSource().getConnection();
+		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
 		searchKey.setUserId(userId);
@@ -73,7 +77,7 @@ public class UserDao extends DataSource {
 	}
 
 	public static void udpateLastLoginDate(String userId) throws Exception {
-		Connection connection = new DataSource().getConnection();
+		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
 		LoginUserAlterKey alterKey = new LoginUserAlterKey();
 		alterKey.setUserId(userId);

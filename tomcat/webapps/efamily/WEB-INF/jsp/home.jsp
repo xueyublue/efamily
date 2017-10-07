@@ -55,7 +55,7 @@
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		                	<!-- img class="image-responsive" height="18" src="static/img/user_24_24.png" /-->
 		                	<span class="glyphicon glyphicon-user"></span>
-		                	<label id="userName"></label>
+		                	<span class="text-primary" id="userName"></span>
 		                	</a>
 		                <ul class="dropdown-menu">
 		                    <li><a href="#">Profile</a></li>

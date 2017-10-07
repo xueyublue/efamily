@@ -3,7 +3,7 @@ package sg.xueyu.efamily.base;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import sg.xueyu.dbhandler.db.DBUtils;
+import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.system.EFamilyParam;
 
 public class NoPoolConnection {
