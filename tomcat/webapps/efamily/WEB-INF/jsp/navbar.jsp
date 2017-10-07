@@ -12,8 +12,8 @@
 	    	</div>
 	    <div class="collapse navbar-collapse" id="efamily-navbar">
 	        <ul class="nav navbar-nav">
-	           <li class="active"><a href="home.do">Home</a></li>
-	           <li class="dropdown">
+	           <li id="home"><a href="home.do">Home</a></li>
+	           <li id="family-share" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Family Share<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="calendar.do">Calendar</a></li>

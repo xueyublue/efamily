@@ -21,6 +21,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
+			$('#family-share').addClass('active');
 		});
 </script>
 </body>
