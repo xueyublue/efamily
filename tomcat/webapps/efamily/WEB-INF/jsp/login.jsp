@@ -41,7 +41,7 @@
 						+ "userId=" + $('#userId').val()
 						+ "&password=" + $('#password').val(),
 				cache : false,
-				async : false,
+				async : true,
 				success : function(obj) {
 					window.location.href = "home.do";
 				},
