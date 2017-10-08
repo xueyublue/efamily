@@ -37,13 +37,13 @@
 	<!-- Buttons -->
 	<div class="row">
 		<div class="col-xs-5">
-			<button class="btn btn-sm btn-primary"  id="btn_add"><span class="glyphicon glyphicon-plus"></span></button>
-			<button class="btn btn-sm btn-warning"  id="btn_modify"><span class="glyphicon glyphicon-pencil"></span></button>
-			<button class="btn btn-sm btn-danger"  	id="btn_delete"><span class="glyphicon glyphicon-remove"></span></button>
+			<button class="btn btn-sm btn-primary"  id="btn_add"><span class="glyphicon glyphicon-plus"></span>Add</button>
 			</div>
 		<div class="col-xs-7" align="right">
-			<button class="btn btn-sm btn-primary"  id="btn_selectAll">Select All</button>
-			<button class="btn btn-sm btn-primary"  id="btn_unSelectAll">UnSelect All</button>
+			<button class="btn btn-sm btn-primary"  id="btn_fastBackward"><span class="glyphicon glyphicon-fast-backward"></span></button>
+			<button class="btn btn-sm btn-primary"  id="btn_backward"><span class="glyphicon glyphicon-backward"></span></button>
+			<button class="btn btn-sm btn-primary"  id="btn_forward"><span class="glyphicon glyphicon-forward"></span></button>
+			<button class="btn btn-sm btn-primary"  id="btn_fastForward"><span class="glyphicon glyphicon-fast-forward"></span></button>
 			</div>
 		</div>
 		
@@ -54,7 +54,7 @@
 				<table class="table table-striped table-hover table-bordered">
 					<thead>
 						<tr>
-							<th>Select</th>
+							<th>Action</th>
 							<th>User Id</th>
 							<th>User Name</th>
 							<th>Role Id</th>
@@ -63,7 +63,10 @@
 					<tbody>
 						<c:forEach items="${users}" var="c">
 							<tr>
-								<td width="50" align="center"><input type="checkbox"/></td>
+								<td width="80" align="center">
+									<button class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+									<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+									</td>
 								<td><span id="userId">${c.userId}</span></td>
 								<td><span id="userName">${c.userName}</span></td>
 								<td><span id="roleId">${c.roleId}</span></td>
@@ -83,9 +86,10 @@
 		$(document).ready(function() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
 			$('#administrator').addClass('active');
-			$('#btn_modify').addClass('disabled');
-			$('#btn_delete').addClass('disabled');
-			$('#btn_unSelectAll').addClass('disabled');
+			$('#btn_fastBackward').addClass('disabled');
+			$('#btn_backward').addClass('disabled');
+			$('#btn_forward').addClass('enabled');
+			$('#btn_fastForward').addClass('enabled');
 			$('input').on("click", selectHandler);
 		});
 		
