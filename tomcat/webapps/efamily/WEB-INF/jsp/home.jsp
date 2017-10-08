@@ -11,11 +11,17 @@
 <body>
 <div class="container">
 	<!-- Navigation Bar -->
-	<jsp:include page="navbar.jsp"></jsp:include>
+	<div class="row">
+		<div class="col-xs-12">
+			<jsp:include page="navbar.jsp"></jsp:include>
+			</div>
+		</div>
 	
 	<!-- Page Content -->
 	<p>Home</p>
 	
+	
+	<!-- End of Container -->
 	</div>
 	<script src="static/js/jquery/jquery.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
