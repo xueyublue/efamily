@@ -25,7 +25,14 @@
 	<!-- Page Content -->
 	
 	<!-- Location -->
-	<p>Administrator > User</p>
+	<div class="row">
+		<div class="col-xs-12">
+			<ol class="breadcrumb">
+				<li>Administrator</li>
+				<li><a href="" class="active">User</a></li>
+				</ol>
+			</div>
+		</div>
 	
 	<!-- Buttons -->
 	<div class="row">

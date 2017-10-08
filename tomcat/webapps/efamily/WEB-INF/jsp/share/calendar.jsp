@@ -18,8 +18,16 @@
 		</div>
 	
 	<!-- Page Content -->
-	<p>Family Share > Calendar</p>
 	
+	<!-- Location -->
+	<div class="row">
+		<div class="col-xs-12">
+			<ol class="breadcrumb">
+				<li>Family Share</li>
+				<li><a href="" class="active">Calendar</a></li>
+				</ol>
+			</div>
+		</div>
 	
 	<!-- End of Container -->
 	</div>

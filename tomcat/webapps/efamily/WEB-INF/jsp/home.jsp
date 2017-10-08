@@ -18,9 +18,17 @@
 		</div>
 	
 	<!-- Page Content -->
-	<p>Home</p>
 	
-	
+	<!-- Location -->
+	<div class="row">
+		<div class="col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="" class="active">Home</a></li>
+				</ol>
+			</div>
+		</div>
+
+
 	<!-- End of Container -->
 	</div>
 	<script src="static/js/jquery/jquery.min.js"></script>
