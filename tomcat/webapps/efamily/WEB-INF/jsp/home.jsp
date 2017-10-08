@@ -14,7 +14,7 @@
 	<jsp:include page="navbar.jsp"></jsp:include>
 	
 	<!-- Page Content -->
-	<strong>Home</strong>
+	<p>Home</p>
 	
 	</div>
 	<script src="static/js/jquery/jquery.min.js"></script>

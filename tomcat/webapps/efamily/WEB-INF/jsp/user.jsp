@@ -19,19 +19,28 @@
 	<jsp:include page="navbar.jsp"></jsp:include>
 	
 	<!-- Page Content -->
-	<strong>Administrator > User</strong>
+	<p>Administrator > User</p>
 	
+	<div>
+		<button class="button">Select All</button>
+		<button class="button">Un-Select All</button>
+		</div>
+	<!-- User List Table -->
 	<div class="table-responsive">
-		<table class="table table-striped table-hover">
+		<table class="table table-striped table-hover table-bordered">
 			<thead>
-				<tr><th>User Id</th>
+				<tr>
+					<th>Select</th>
+					<th>User Id</th>
 					<th>User Name</th>
 					<th>Role Id</th>
 					<th>Last Login Date</th></tr>
 				</thead>
 			<tbody>
 				<c:forEach items="${users}" var="c">
-					<tr><td><span id="userId">${c.userId}</span></td>
+					<tr>
+						<td width="50" align="center"><input type="checkbox"/></td>
+						<td><span id="userId">${c.userId}</span></td>
 						<td><span id="userName">${c.userName}</span></td>
 						<td><span id="roleId">${c.roleId}</span></td>
 						<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>

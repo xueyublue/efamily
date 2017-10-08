@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>E-Family</title>
+<title>Calendar</title>
 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -14,7 +14,7 @@
 	<jsp:include page="../navbar.jsp"></jsp:include>
 	
 	<!-- Page Content -->
-	<strong>Family Share > Calendar</strong>
+	<p>Family Share > Calendar</p>
 	
 	</div>
 	<script src="static/js/jquery/jquery.min.js"></script>
