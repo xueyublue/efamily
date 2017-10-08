@@ -21,9 +21,14 @@
 	<!-- Page Content -->
 	<p>Administrator > User</p>
 	
-	<div>
-		<button class="btn btn-primary">Select All</button>
-		<button class="btn btn-primary">UnSelect All</button>
+	<div align="left">
+		<button class="btn btn-primary">Add</button>
+		<button class="btn btn-primary">Modify</button>
+		<button class="btn btn-primary">Delete</button>
+		<div align="right">
+			<button class="btn btn-primary">Select All</button>
+			<button class="btn btn-primary">UnSelect All</button>
+			</div>
 		</div>
 	<!-- User List Table -->
 	<div class="table-responsive">
