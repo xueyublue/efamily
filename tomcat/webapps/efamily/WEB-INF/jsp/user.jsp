@@ -37,7 +37,22 @@
 	<!-- Buttons -->
 	<div class="row">
 		<div class="col-xs-5">
-			<button class="btn btn-sm btn-primary"  id="btn_add"><span class="glyphicon glyphicon-plus"></span>Add</button>
+			<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#popup_addUser">
+				<span class="glyphicon glyphicon-plus"></span>Add</button>
+			<!-- POPUP > Add User -->
+			<div class="modal fade" id="popup_addUser">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">Add User</div>
+							<div class="modal-body">
+								</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary">Commit</button>
+								<button type="button" class="btn btn-default">Cancel</button>
+								</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		<div class="col-xs-7" align="right">
 			<button class="btn btn-sm btn-primary"  id="btn_fastBackward"><span class="glyphicon glyphicon-fast-backward"></span></button>
@@ -65,7 +80,20 @@
 							<tr>
 								<td width="80" align="center">
 									<button class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-									<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+									<button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#popup_deleteUser"><span class="glyphicon glyphicon-remove"></span></button>
+									<!-- POPUP > Delete User -->
+									<div class="modal fade" id="popup_deleteUser">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header" align="left">Delete User</div>
+												<div class="modal-body"></div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary" onclick="deleteUser('${c.userId}')">Confirm</button>
+													<button type="button" class="btn btn-default">Cancel</button>
+												</div>
+											</div>
+										</div>
+									</div>
 									</td>
 								<td><span id="userId">${c.userId}</span></td>
 								<td><span id="userName">${c.userName}</span></td>
@@ -90,16 +118,14 @@
 			$('#btn_backward').addClass('disabled');
 			$('#btn_forward').addClass('enabled');
 			$('#btn_fastForward').addClass('enabled');
-			$('input').on("click", selectHandler);
 		});
 		
-		function selectHandler(event) {
-			var cblist = $('input[checked=true]');
-			if (cblist) {
-				alert(1);
-			} else {
-				alert(2);
-			}
+		function addUser() {
+			alert("User id added.");
+		}
+		
+		function deleteUser(userId) {
+			alert(userId + " is deleted.");
 		}
 	</script>
 </body>
