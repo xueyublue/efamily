@@ -37,13 +37,13 @@
 	<!-- Buttons -->
 	<div class="row">
 		<div class="col-xs-5">
-			<button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
-			<button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-			<button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+			<button class="btn btn-sm btn-primary"  id="btn_add"><span class="glyphicon glyphicon-plus"></span></button>
+			<button class="btn btn-sm btn-warning"  id="btn_modify"><span class="glyphicon glyphicon-pencil"></span></button>
+			<button class="btn btn-sm btn-danger"  	id="btn_delete"><span class="glyphicon glyphicon-remove"></span></button>
 			</div>
 		<div class="col-xs-7" align="right">
-			<button class="btn btn-sm btn-primary">Select All</button>
-			<button class="btn btn-sm btn-primary">UnSelect All</button>
+			<button class="btn btn-sm btn-primary"  id="btn_selectAll">Select All</button>
+			<button class="btn btn-sm btn-primary"  id="btn_unSelectAll">UnSelect All</button>
 			</div>
 		</div>
 		
@@ -83,7 +83,20 @@
 		$(document).ready(function() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
 			$('#administrator').addClass('active');
+			$('#btn_modify').addClass('disabled');
+			$('#btn_delete').addClass('disabled');
+			$('#btn_unSelectAll').addClass('disabled');
+			$('input').on("click", selectHandler);
 		});
+		
+		function selectHandler(event) {
+			var cblist = $('input[checked=true]');
+			if (cblist) {
+				alert(1);
+			} else {
+				alert(2);
+			}
+		}
 	</script>
 </body>
 </html>
