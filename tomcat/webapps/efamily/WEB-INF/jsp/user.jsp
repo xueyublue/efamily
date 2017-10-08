@@ -22,8 +22,8 @@
 	<p>Administrator > User</p>
 	
 	<div>
-		<button class="button">Select All</button>
-		<button class="button">Un-Select All</button>
+		<button class="btn btn-primary">Select All</button>
+		<button class="btn btn-primary">UnSelect All</button>
 		</div>
 	<!-- User List Table -->
 	<div class="table-responsive">

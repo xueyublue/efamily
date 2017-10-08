@@ -60,7 +60,7 @@
 	                    <li><a href="#">Profile</a></li>
 	                    <li><a href="#">Change Password</a></li>
 	                    <li class="divider"></li>
-	                    <li><a href="auth/logout.do"><span>Logout</span></a></li>
+	                    <li><a href="auth/logout.do"><span class="text-danger"><strong>Logout</strong></span></a></li>
 	                	</ul>
 	            	</li>
 	         </ul>
