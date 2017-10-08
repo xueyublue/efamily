@@ -11,14 +11,21 @@
 	        <a class="navbar-brand"><span class="h4">E-Family</span></a>
 	    	</div>
 	    <div class="collapse navbar-collapse" id="efamily-navbar">
+	    	
+	    	<!-- Main Navigation Bar -->
 	        <ul class="nav navbar-nav">
+	           <!-- Home -->
 	           <li id="home"><a href="home.do">Home</a></li>
+	           
+	           <!-- Family Share -->
 	           <li id="family-share" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Family Share<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="calendar.do">Calendar</a></li>
 	                	</ul>
 	            	</li>
+	            
+	            <!-- Administrator -->
 	            <li id="administrator" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
@@ -28,6 +35,8 @@
 	                    <li><a href="#">Log</a></li>
 	                	</ul>
 	            	</li>
+	            
+	            <!-- Help -->
 	            <li id="help" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
@@ -38,7 +47,9 @@
 	                	</ul>
 	            	</li>
 	        </ul>
-	         <ul class="nav navbar-nav navbar-right">
+	        
+	        <!-- Current Login User -->
+	        <ul class="nav navbar-nav navbar-right">
 	         	<li id="loginuser" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 	                	<!-- img class="image-responsive" height="18" src="static/img/user_24_24.png" /-->
