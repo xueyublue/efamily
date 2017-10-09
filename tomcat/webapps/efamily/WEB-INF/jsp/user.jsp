@@ -125,7 +125,20 @@
 		}
 		
 		function deleteUser(userId) {
-			alert(userId + " is deleted.");
+			$.ajax({
+				type : "get",
+				url : "user/deleteUser.do?" 
+						+ "userId=" + userId,
+				cache : false,
+				async : true,
+				success : function(obj) {
+					window.location.href = "user.do";
+				},
+				error : function(obj) {
+					$('#loginResult').text(
+							obj.responseText.replace('"', '').replace('"', ''));
+				}
+			});
 		}
 	</script>
 </body>

@@ -86,4 +86,14 @@ public class UserDao extends DataSource {
 		DBUtils.commit(connection);
 		DBUtils.closeConnection(connection);
 	}
+	
+	public static void deleteUser(String userId) throws Exception {
+		Connection connection = UserDao.getInstance().getConnection();
+		LoginUserHandler handler = new LoginUserHandler(connection);
+		LoginUserAlterKey alterKey = new LoginUserAlterKey();
+		alterKey.setUserId(userId);
+		handler.delete(alterKey);
+		DBUtils.commit(connection);
+		DBUtils.closeConnection(connection);
+	}
 }
