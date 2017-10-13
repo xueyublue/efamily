@@ -15,11 +15,11 @@
 	    	<!-- Main Navigation Bar -->
 	        <ul class="nav navbar-nav">
 	           <!-- Home -->
-	           <li id="home"><a href="home.do">Home</a></li>
+	           <li id="home"><a href="home.do"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 	           
 	           <!-- Family Share -->
 	           <li id="family-share" class="dropdown">
-	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Family Share<b class="caret"></b></a>
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cloud"></span> Family Share<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="calendar.do">Calendar</a></li>
 	                	</ul>
@@ -27,7 +27,7 @@
 	            
 	            <!-- Administrator -->
 	            <li id="administrator" class="dropdown">
-	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Administrator<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="user.do">User</a></li>
 	                    <li><a href="#">Role</a></li>
@@ -38,7 +38,7 @@
 	            
 	            <!-- Help -->
 	            <li id="help" class="dropdown">
-	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span> Help<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="#">Contact Me</a></li>
 	                    <li><a href="#">Version History</a></li>
