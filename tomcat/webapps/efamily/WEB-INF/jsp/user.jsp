@@ -43,7 +43,7 @@
 			<div class="modal fade" id="popup_addUser">
 					<div class="modal-dialog">
 						<div class="modal-content">
-							<div class="modal-header">Add User</div>
+							<div class="modal-header"><strong>Add User</strong></div>
 							<div class="modal-body">
 								</div>
 							<div class="modal-footer">
@@ -85,7 +85,7 @@
 									<div class="modal fade" id="popup_deleteUser">
 										<div class="modal-dialog">
 											<div class="modal-content">
-												<div class="modal-header" align="left">Delete User</div>
+												<div class="modal-header" align="left"><strong>Delete User</strong></div>
 												<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> ${c.userId}?</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="deleteUser('${c.userId}')">Confirm</button>
