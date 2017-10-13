@@ -99,7 +99,7 @@
 								<td><span id="userName">${c.userName}</span></td>
 								<td><span id="roleId">${c.roleId}</span></td>
 								<td><span id="lastLoginDate"><fmt:formatDate value="${c.lastLoginDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
-						</c:forEach>
+							</c:forEach>
 						</tbody>
 				</table>
 				</div>	
