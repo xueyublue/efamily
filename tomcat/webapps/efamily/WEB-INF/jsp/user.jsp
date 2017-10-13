@@ -136,6 +136,10 @@
 			$('#btn_fastForward').addClass('enabled');
 		});
 		
+		function queryUser() {
+			// TODO:
+		}
+		
 		function addUser() {
 			alert("User id added.");
 		}
