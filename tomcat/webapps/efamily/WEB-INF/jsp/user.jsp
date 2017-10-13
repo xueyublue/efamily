@@ -86,7 +86,7 @@
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header" align="left">Delete User</div>
-												<div class="modal-body"></div>
+												<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> ${c.userId}?</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="deleteUser('${c.userId}')">Confirm</button>
 													<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
@@ -135,8 +135,7 @@
 					window.location.href = "user.do";
 				},
 				error : function(obj) {
-					$('#loginResult').text(
-							obj.responseText.replace('"', '').replace('"', ''));
+					// TODO: 
 				}
 			});
 		}
