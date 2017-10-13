@@ -39,20 +39,6 @@
 		<div class="col-xs-5">
 			<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#popup_addUser">
 				<span class="glyphicon glyphicon-plus"></span>Add</button>
-			<!-- POPUP > Add User -->
-			<div class="modal fade" id="popup_addUser">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header"><strong>Add User</strong></div>
-							<div class="modal-body">
-								</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Commit</button>
-								<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-								</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		<div class="col-xs-7" align="right">
 			<button class="btn btn-sm btn-primary"  id="btn_fastBackward"><span class="glyphicon glyphicon-fast-backward"></span></button>
@@ -79,7 +65,21 @@
 						<c:forEach items="${users}" var="c">
 							<tr>
 								<td width="80" align="center">
-									<button class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+									<button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#popup_updateUser"><span class="glyphicon glyphicon-pencil"></span></button>
+									<!-- POPUP > Update User -->
+									<div class="modal fade" id="popup_updateUser">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header" align="left"><strong>Update User</strong></div>
+													<div class="modal-body" align="left">
+														</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Commit</button>
+														<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+														</div>
+												</div>
+											</div>
+										</div>
 									<button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#popup_deleteUser"><span class="glyphicon glyphicon-remove"></span></button>
 									<!-- POPUP > Delete User -->
 									<div class="modal fade" id="popup_deleteUser">
@@ -93,7 +93,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
+										</div>
 									</td>
 								<td><span id="userId">${c.userId}</span></td>
 								<td><span id="userName">${c.userName}</span></td>
@@ -105,7 +105,23 @@
 				</div>	
 			</div>
 		</div>
-		
+	
+	<!-- POPUPs -->
+	<!-- POPUP > Add User -->
+	<div class="modal fade" id="popup_addUser">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header"><strong>Add User</strong></div>
+					<div class="modal-body">
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Commit</button>
+						<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	
 	<!-- End of Container -->
 	</div>
 	<script src="static/js/jquery/jquery.min.js"></script>
