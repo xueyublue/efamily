@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User</title>
 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,6 +39,56 @@
 		<div class="col-xs-5">
 			<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#popup_addUser">
 				<span class="glyphicon glyphicon-plus"></span>Add</button>
+			<!-- POPUP > Add User -->
+			<div class="modal fade" id="popup_addUser">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header"><strong>Add User</strong></div>
+							<div class="modal-body">
+								<form role="form" class="form-horizontal">
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="userId">User Id</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="userId" placeholder="User Id"></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="userName">User Name</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="userName" placeholder="User Name"></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="password1">Password</label>
+										<div class="col-sm-9">
+											<input type="password" class="form-control" id="password1" placeholder="Password"></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="password2">Re-Enter</label>
+										<div class="col-sm-9">
+											<input type="password" class="form-control" id="password2" placeholder="Re-Enter Password"></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="roleId">Role</label>
+										<div class="col-sm-9">
+											<select id="roleId" class="form-control">
+												<option>ADMIN</option>
+												<option>STANDARD</option>
+												<option>GUEST</option>
+											</select>
+										</div>
+									</div>
+								</form>
+								</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Commit</button>
+								<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+								</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		<div class="col-xs-7" align="right">
 			<button class="btn btn-sm btn-primary"  id="btn_fastBackward"><span class="glyphicon glyphicon-fast-backward"></span></button>
@@ -107,20 +157,6 @@
 		</div>
 	
 	<!-- POPUPs -->
-	<!-- POPUP > Add User -->
-	<div class="modal fade" id="popup_addUser">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header"><strong>Add User</strong></div>
-					<div class="modal-body">
-						</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Commit</button>
-						<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-						</div>
-				</div>
-			</div>
-		</div>
 	
 	<!-- End of Container -->
 	</div>
