@@ -33,6 +33,15 @@
 				</ol>
 			</div>
 		</div>
+		
+	<!-- Notification Bar -->
+	<div class="row">
+		<div class="col-xs-12">
+			<ol class="breadcrumb">
+				<li>Administrator</li>
+				</ol>
+			</div>
+		</div>
 	
 	<!-- Buttons -->
 	<div class="row">
@@ -41,53 +50,53 @@
 				<span class="glyphicon glyphicon-plus"></span>Add</button>
 			<!-- POPUP > Add User -->
 			<div class="modal fade" id="popup_addUser">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header"><strong>Add User</strong></div>
-							<div class="modal-body">
-								<form role="form" class="form-horizontal">
-									<div class="form-group">
-										<label class="col-sm-3 control-label" for="userId">User Id</label>
-										<div class="col-sm-9">
-											<input type="text" class="form-control" id="userId" placeholder="User Id"></input>
-										</div>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header"><strong>Add User</strong></div>
+						<div class="modal-body">
+							<form role="form" class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="userId">User Id</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="userId" placeholder="User Id"></input>
 									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label" for="userName">User Name</label>
-										<div class="col-sm-9">
-											<input type="text" class="form-control" id="userName" placeholder="User Name"></input>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label" for="password1">Password</label>
-										<div class="col-sm-9">
-											<input type="password" class="form-control" id="password1" placeholder="Password"></input>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label" for="password2">Re-Enter</label>
-										<div class="col-sm-9">
-											<input type="password" class="form-control" id="password2" placeholder="Re-Enter Password"></input>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label" for="roleId">Role</label>
-										<div class="col-sm-9">
-											<select id="roleId" class="form-control">
-												<option>ADMIN</option>
-												<option>STANDARD</option>
-												<option>GUEST</option>
-											</select>
-										</div>
-									</div>
-								</form>
 								</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Commit</button>
-								<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="userName">User Name</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="userName" placeholder="User Name"></input>
+									</div>
 								</div>
-						</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="password1">Password</label>
+									<div class="col-sm-9">
+										<input type="password" class="form-control" id="password1" placeholder="Password"></input>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="password2">Re-Enter</label>
+									<div class="col-sm-9">
+										<input type="password" class="form-control" id="password2" placeholder="Re-Enter Password"></input>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="roleId">Role</label>
+									<div class="col-sm-9">
+										<select id="roleId" class="form-control">
+											<option>ADMIN</option>
+											<option>STANDARD</option>
+											<option>GUEST</option>
+										</select>
+									</div>
+								</div>
+							</form>
+							</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Commit</button>
+							<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+							</div>
 					</div>
+				</div>
 				</div>
 			</div>
 		<div class="col-xs-7" align="right">
