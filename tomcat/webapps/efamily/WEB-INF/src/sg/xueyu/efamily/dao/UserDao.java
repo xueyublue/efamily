@@ -9,6 +9,7 @@ import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.dbhandler.util.HandlerUtil;
 import sg.xueyu.efamily.base.DataSource;
+import sg.xueyu.efamily.base.dbhandler.LoginUser;
 import sg.xueyu.efamily.base.dbhandler.LoginUserAlterKey;
 import sg.xueyu.efamily.base.dbhandler.LoginUserHandler;
 import sg.xueyu.efamily.base.dbhandler.LoginUserSearchKey;
@@ -36,6 +37,7 @@ public class UserDao extends DataSource {
 			actualResults.add((LoginUserEJB) HandlerUtil.entity2bean(results[i], LoginUserEJB.class));
 		}
 		DBUtils.closeConnection(connection);
+		
 		return actualResults;
 	}
 
@@ -57,12 +59,14 @@ public class UserDao extends DataSource {
 			}
 		}
 		DBUtils.closeConnection(connection);
+		
 		return null;
 	}
 
 	public static LoginUserEJB getUser(String userId) throws Exception {
 		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
+		
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
 		searchKey.setUserId(userId);
 
@@ -73,16 +77,20 @@ public class UserDao extends DataSource {
 		}
 
 		DBUtils.closeConnection(connection);
+		
 		return null;
 	}
 
 	public static void udpateLastLoginDate(String userId) throws Exception {
 		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
+		
 		LoginUserAlterKey alterKey = new LoginUserAlterKey();
 		alterKey.setUserId(userId);
 		alterKey.updateLastLoginDate(new Date());
+		
 		handler.update(alterKey);
+		
 		DBUtils.commit(connection);
 		DBUtils.closeConnection(connection);
 	}
@@ -90,9 +98,28 @@ public class UserDao extends DataSource {
 	public static void deleteUser(String userId) throws Exception {
 		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
+		
 		LoginUserAlterKey alterKey = new LoginUserAlterKey();
 		alterKey.setUserId(userId);
+		
 		handler.delete(alterKey);
+		
+		DBUtils.commit(connection);
+		DBUtils.closeConnection(connection);
+	}
+	
+	public static void createUser(String userId, String userName, String password, String roleId) throws Exception {
+		Connection connection = UserDao.getInstance().getConnection();
+		LoginUserHandler handler = new LoginUserHandler(connection);
+		
+		LoginUser user = new LoginUser();
+		user.setUserId(userId);
+		user.setUserName(userName);
+		user.setPassword(password);
+		user.setRoleId(roleId);
+		
+		handler.create(user);
+		
 		DBUtils.commit(connection);
 		DBUtils.closeConnection(connection);
 	}

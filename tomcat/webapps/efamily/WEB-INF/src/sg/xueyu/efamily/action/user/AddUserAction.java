@@ -3,6 +3,7 @@ package sg.xueyu.efamily.action.user;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.CommonMethods;
 import sg.xueyu.zebra.action.Action;
@@ -26,9 +27,17 @@ public class AddUserAction implements Action {
 		ActionResult result = null;
 		
 		if (CommonMethods.checkSessionCredentials(req.getSession())) {
-			UserDao.deleteUser(userId);
-			resultContent = new ResultContent(null, null);
-			result = new ActionResult(resultContent, ResultType.Ajax);
+			if (UserDao.getUser(userId) != null) {
+				resultContent = new ResultContent(null, "User is exist!");
+				result = new ActionResult(resultContent, ResultType.Ajax);
+			} else if (RoleDao.getRole(roleId) == null) {
+				resultContent = new ResultContent(null, "Role Id is not exist!");
+				result = new ActionResult(resultContent, ResultType.Ajax);
+			} else {
+				UserDao.createUser(userId, userName, password, roleId);	
+				resultContent = new ResultContent(null, null);
+				result = new ActionResult(resultContent, ResultType.Ajax);
+			}
 		} else {
 			resultContent = new ResultContent("login.jsp", null);
 			result = new ActionResult(resultContent);
