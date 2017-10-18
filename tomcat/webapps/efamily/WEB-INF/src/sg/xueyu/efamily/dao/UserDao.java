@@ -123,4 +123,22 @@ public class UserDao extends DataSource {
 		DBUtils.commit(connection);
 		DBUtils.closeConnection(connection);
 	}
+	
+	public static void updateUser(String userId, String userName, String password, String roleId) throws Exception {
+		Connection connection = UserDao.getInstance().getConnection();
+		LoginUserHandler handler = new LoginUserHandler(connection);
+		LoginUserAlterKey alterKey = new LoginUserAlterKey();
+		
+		alterKey.setUserId(userId);
+		alterKey.updateUserName(userName);
+		alterKey.updatePassword(password);
+		alterKey.updateRoleId(roleId);
+		
+		alterKey.updateLastUpdateDate(new Date());
+		
+		handler.update(alterKey);
+		
+		DBUtils.commit(connection);
+		DBUtils.closeConnection(connection);
+	}
 }

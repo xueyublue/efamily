@@ -124,6 +124,7 @@
 							<label class="col-sm-3 control-label" for="sel_roleId_add">Role</label>
 							<div class="col-sm-9">
 								<select id="sel_roleId_add" class="form-control">
+									<option>DEV</option>
 									<option>ADMIN</option>
 									<option>STANDARD</option>
 									<option>GUEST</option>
@@ -142,17 +143,54 @@
 				
 	<!-- POPUP > Update User -->
 	<div class="modal fade" id="popup_updateUser">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header" align="left"><strong>Update User</strong></div>
-					<div class="modal-body" align="left">
-						</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-primary" onclick="updateUser()">Commit</button>
-						<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-						</div>
-				</div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header"><strong>Update User</strong></div>
+				<div class="modal-body">
+					<form role="form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="txt_userId_update">User Id</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="txt_userId_update" placeholder="User Id"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="txt_userName_update">User Name</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="txt_userName_update" placeholder="User Name"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="txt_password1_update">Password</label>
+							<div class="col-sm-9">
+								<input type="password" class="form-control" id="txt_password1_update" placeholder="Password"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="txt_password2_update"></label>
+							<div class="col-sm-9">
+								<input type="password" class="form-control" id="txt_password2_update" placeholder="Re-Enter Password"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="sel_roleId_update">Role</label>
+							<div class="col-sm-9">
+								<select id="sel_roleId_update" class="form-control">
+									<option>DEV</option>
+									<option>ADMIN</option>
+									<option>STANDARD</option>
+									<option>GUEST</option>
+								</select>
+							</div>
+							</div>
+					</form>
+					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-primary" onclick="updateUser()">Commit</button>
+					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+					</div>
 			</div>
+		</div>
 		</div>
 		
 	<!-- POPUP > Delete User -->
@@ -171,8 +209,11 @@
 		
 	<!-- End of Container -->
 	</div>
+	
 	<script src="static/js/jquery/jquery.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
+	
+	<!-- Customize Scripts -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
@@ -184,7 +225,28 @@
 		});
 		
 		function popup_updateUser(userId) {
-			$('#popup_updateUser').modal('show');
+			if(userId) {
+				$.ajax({
+					type : "get",
+					url : "user/getUser.do?" 
+							+ "userId=" + userId,
+					cache : false,
+					async : true,
+					success : function(obj) {
+						if (obj) {
+							var user = $.parseJSON(obj);
+							$('#txt_userId_update').val(user.userId);
+							$('#txt_userName_update').val(user.userName);
+							$('#txt_roleId_update').val(user.roleId);
+							$('#popup_updateUser').modal('show');
+						}
+					},
+					error : function(obj) {
+						var response = obj.responseText.replace('"', '').replace('"', '');
+						alert(response); 
+					}
+				});	
+			}
 		}
 		
 		function popup_deleteUser(userId) {
@@ -219,7 +281,29 @@
 		}
 		
 		function updateUser() {
-			// TODO:
+			var pwd1 = $('#txt_password1_update').val();
+			var pwd2 = $('#txt_password2_update').val();
+			if (pwd1 != pwd2) {
+				alert("Passwrod is not match!");
+			} else {
+				$.ajax({
+					type : "get",
+					url : "user/updateUser.do?" 
+							+ "userId=" + $('#txt_userId_update').val()
+							+ "&userName=" + $('#txt_userName_update').val()
+							+ "&password=" + $('#txt_password2_update').val()
+							+ "&roleId=" + $('#sel_roleId_update').val(),
+					cache : false,
+					async : true,
+					success : function(obj) {
+						window.location.href = "user.do";
+					},
+					error : function(obj) {
+						var response = obj.responseText.replace('"', '').replace('"', '');
+						alert(response);
+					}
+				});
+			}
 		}
 		
 		function deleteUser() {
