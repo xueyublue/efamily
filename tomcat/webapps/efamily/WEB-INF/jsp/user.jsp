@@ -97,33 +97,33 @@
 				<div class="modal-body">
 					<form role="form" class="form-horizontal">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="userId_add">User Id</label>
+							<label class="col-sm-3 control-label" for="txt_userId_add">User Id</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="userId_add" placeholder="User Id"></input>
+								<input type="text" class="form-control" id="txt_userId_add" placeholder="User Id"></input>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="userName">User Name</label>
+							<label class="col-sm-3 control-label" for="txt_userName_add">User Name</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="userName_add" placeholder="User Name"></input>
+								<input type="text" class="form-control" id="txt_userName_add" placeholder="User Name"></input>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="password1_add">Password</label>
+							<label class="col-sm-3 control-label" for="txt_password1_add">Password</label>
 							<div class="col-sm-9">
-								<input type="password" class="form-control" id="password1_add" placeholder="Password"></input>
+								<input type="password" class="form-control" id="txt_password1_add" placeholder="Password"></input>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="password2_add"></label>
+							<label class="col-sm-3 control-label" for="txt_password2_add"></label>
 							<div class="col-sm-9">
-								<input type="password" class="form-control" id="password2_add" placeholder="Re-Enter Password"></input>
+								<input type="password" class="form-control" id="txt_password2_add" placeholder="Re-Enter Password"></input>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="roleId_add">Role</label>
+							<label class="col-sm-3 control-label" for="sel_roleId_add">Role</label>
 							<div class="col-sm-9">
-								<select id="roleId_add" class="form-control">
+								<select id="sel_roleId_add" class="form-control">
 									<option>ADMIN</option>
 									<option>STANDARD</option>
 									<option>GUEST</option>
@@ -160,7 +160,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="left"><strong>Delete User</strong></div>
-				<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> <span id="txt_userId_delete"></span>?</div>
+				<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> <span id="lbl_userId_delete"></span>?</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-primary" onclick="deleteUser()">Confirm</button>
 					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
@@ -188,23 +188,23 @@
 		}
 		
 		function popup_deleteUser(userId) {
-			$('#txt_userId_delete').text(userId);
+			$('#lbl_userId_delete').text(userId);
 			$('#popup_deleteUser').modal('show');
 		}
 		
 		function addUser() {
-			var pwd1 = $('#password1_add').val();
-			var pwd2 = $('#password2_add').val();
+			var pwd1 = $('#txt_password1_add').val();
+			var pwd2 = $('#txt_password2_add').val();
 			if (pwd1 != pwd2) {
 				alert("Passwrod is not match!");
 			} else {
 				$.ajax({
 					type : "get",
 					url : "user/addUser.do?" 
-							+ "userId=" + $('#userId_add').val()
-							+ "&userName=" + $('#userName_add').val()
-							+ "&password=" + $('#password2_add').val()
-							+ "&roleId=" + $('#roleId_add').val(),
+							+ "userId=" + $('#txt_userId_add').val()
+							+ "&userName=" + $('#txt_userName_add').val()
+							+ "&password=" + $('#txt_password2_add').val()
+							+ "&roleId=" + $('#sel_roleId_add').val(),
 					cache : false,
 					async : true,
 					success : function(obj) {
@@ -223,7 +223,7 @@
 		}
 		
 		function deleteUser() {
-			var userId = $('#txt_userId_delete').text();
+			var userId = $('#lbl_userId_delete').text();
 			if(userId) {
 				$.ajax({
 					type : "get",
@@ -236,7 +236,8 @@
 						window.location.href = "user.do";
 					},
 					error : function(obj) {
-						// TODO: 
+						var response = obj.responseText.replace('"', '').replace('"', '');
+						alert(response); 
 					}
 				});	
 			}

@@ -28,9 +28,11 @@ public class AddUserAction implements Action {
 		
 		if (CommonMethods.checkSessionCredentials(req.getSession())) {
 			if (UserDao.getUser(userId) != null) {
+				resp.setStatus(500);
 				resultContent = new ResultContent(null, "User is exist!");
 				result = new ActionResult(resultContent, ResultType.Ajax);
 			} else if (RoleDao.getRole(roleId) == null) {
+				resp.setStatus(500);
 				resultContent = new ResultContent(null, "Role Id is not exist!");
 				result = new ActionResult(resultContent, ResultType.Ajax);
 			} else {
