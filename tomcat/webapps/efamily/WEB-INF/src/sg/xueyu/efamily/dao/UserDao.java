@@ -41,28 +41,6 @@ public class UserDao extends DataSource {
 		return actualResults;
 	}
 
-	public static String auth(String userId, String password) throws Exception {
-		Connection connection = UserDao.getInstance().getConnection();
-		LoginUserHandler handler = new LoginUserHandler(connection);
-		LoginUserSearchKey searchKey = new LoginUserSearchKey();
-		searchKey.setUserId(userId);
-		if (handler.query(searchKey).length == 0) {
-			DBUtils.closeConnection(connection);
-			return "UserId is invalid";
-		} else {
-			searchKey.clear();
-			searchKey.setUserId(userId);
-			searchKey.setPassword(password);
-			if (handler.query(searchKey).length == 0) {
-				DBUtils.closeConnection(connection);
-				return "Password is wrong";
-			}
-		}
-		DBUtils.closeConnection(connection);
-		
-		return null;
-	}
-
 	public static LoginUserEJB getUser(String userId) throws Exception {
 		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
@@ -80,34 +58,8 @@ public class UserDao extends DataSource {
 		
 		return null;
 	}
+	
 
-	public static void udpateLastLoginDate(String userId) throws Exception {
-		Connection connection = UserDao.getInstance().getConnection();
-		LoginUserHandler handler = new LoginUserHandler(connection);
-		
-		LoginUserAlterKey alterKey = new LoginUserAlterKey();
-		alterKey.setUserId(userId);
-		alterKey.updateLastLoginDate(new Date());
-		
-		handler.update(alterKey);
-		
-		DBUtils.commit(connection);
-		DBUtils.closeConnection(connection);
-	}
-	
-	public static void deleteUser(String userId) throws Exception {
-		Connection connection = UserDao.getInstance().getConnection();
-		LoginUserHandler handler = new LoginUserHandler(connection);
-		
-		LoginUserAlterKey alterKey = new LoginUserAlterKey();
-		alterKey.setUserId(userId);
-		
-		handler.delete(alterKey);
-		
-		DBUtils.commit(connection);
-		DBUtils.closeConnection(connection);
-	}
-	
 	public static void createUser(String userId, String userName, String password, String roleId) throws Exception {
 		Connection connection = UserDao.getInstance().getConnection();
 		LoginUserHandler handler = new LoginUserHandler(connection);
@@ -142,4 +94,54 @@ public class UserDao extends DataSource {
 		DBUtils.commit(connection);
 		DBUtils.closeConnection(connection);
 	}
+	
+	public static void deleteUser(String userId) throws Exception {
+		Connection connection = UserDao.getInstance().getConnection();
+		LoginUserHandler handler = new LoginUserHandler(connection);
+		
+		LoginUserAlterKey alterKey = new LoginUserAlterKey();
+		alterKey.setUserId(userId);
+		
+		handler.delete(alterKey);
+		
+		DBUtils.commit(connection);
+		DBUtils.closeConnection(connection);
+	}
+	
+	public static String auth(String userId, String password) throws Exception {
+		Connection connection = UserDao.getInstance().getConnection();
+		LoginUserHandler handler = new LoginUserHandler(connection);
+		LoginUserSearchKey searchKey = new LoginUserSearchKey();
+		searchKey.setUserId(userId);
+		if (handler.query(searchKey).length == 0) {
+			DBUtils.closeConnection(connection);
+			return "UserId is invalid";
+		} else {
+			searchKey.clear();
+			searchKey.setUserId(userId);
+			searchKey.setPassword(password);
+			if (handler.query(searchKey).length == 0) {
+				DBUtils.closeConnection(connection);
+				return "Password is wrong";
+			}
+		}
+		DBUtils.closeConnection(connection);
+		
+		return null;
+	}
+
+	public static void udpateLastLoginDate(String userId) throws Exception {
+		Connection connection = UserDao.getInstance().getConnection();
+		LoginUserHandler handler = new LoginUserHandler(connection);
+		
+		LoginUserAlterKey alterKey = new LoginUserAlterKey();
+		alterKey.setUserId(userId);
+		alterKey.updateLastLoginDate(new Date());
+		
+		handler.update(alterKey);
+		
+		DBUtils.commit(connection);
+		DBUtils.closeConnection(connection);
+	}
+	
 }
