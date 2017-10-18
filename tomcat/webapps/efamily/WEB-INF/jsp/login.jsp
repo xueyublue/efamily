@@ -46,8 +46,7 @@
 					window.location.href = "home.do";
 				},
 				error : function(obj) {
-					$('#loginResult').text(
-							obj.responseText.replace('"', '').replace('"', ''));
+					$('#loginResult').text(obj.responseText.replace('"', '').replace('"', ''));
 				}
 			});
 		}

@@ -48,56 +48,6 @@
 		<div class="col-xs-5">
 			<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#popup_addUser">
 				<span class="glyphicon glyphicon-plus"></span>Add</button>
-			<!-- POPUP > Add User -->
-			<div class="modal fade" id="popup_addUser">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header"><strong>Add User</strong></div>
-						<div class="modal-body">
-							<form role="form" class="form-horizontal">
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="userId_add">User Id</label>
-									<div class="col-sm-9">
-										<input type="text" class="form-control" id="userId_add" placeholder="User Id"></input>
-									</div>
-									</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="userName">User Name</label>
-									<div class="col-sm-9">
-										<input type="text" class="form-control" id="userName_add" placeholder="User Name"></input>
-									</div>
-									</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="password1_add">Password</label>
-									<div class="col-sm-9">
-										<input type="password" class="form-control" id="password1_add" placeholder="Password"></input>
-									</div>
-									</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="password2_add"></label>
-									<div class="col-sm-9">
-										<input type="password" class="form-control" id="password2_add" placeholder="Re-Enter Password"></input>
-									</div>
-									</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="roleId_add">Role</label>
-									<div class="col-sm-9">
-										<select id="roleId_add" class="form-control">
-											<option>ADMIN</option>
-											<option>STANDARD</option>
-											<option>GUEST</option>
-										</select>
-									</div>
-									</div>
-							</form>
-							</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-sm btn-primary" onclick="addUser()">Commit</button>
-							<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-							</div>
-					</div>
-				</div>
-				</div>
 			</div>
 		<div class="col-xs-7" align="right">
 			<button class="btn btn-sm btn-primary"  id="btn_fastBackward"><span class="glyphicon glyphicon-fast-backward"></span></button>
@@ -124,35 +74,8 @@
 						<c:forEach items="${users}" var="c">
 							<tr>
 								<td width="80" align="center">
-									<button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#popup_updateUser"><span class="glyphicon glyphicon-pencil"></span></button>
-									<!-- POPUP > Update User -->
-									<div class="modal fade" id="popup_updateUser">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header" align="left"><strong>Update User</strong></div>
-													<div class="modal-body" align="left">
-														</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Commit</button>
-														<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-														</div>
-												</div>
-											</div>
-										</div>
-									<button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#popup_deleteUser"><span class="glyphicon glyphicon-remove"></span></button>
-									<!-- POPUP > Delete User -->
-									<div class="modal fade" id="popup_deleteUser">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header" align="left"><strong>Delete User</strong></div>
-												<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> ${c.userId}?</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="deleteUser('${c.userId}')">Confirm</button>
-													<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-												</div>
-											</div>
-										</div>
-										</div>
+									<button class="btn btn-xs btn-warning" onclick="popup_updateUser('${c.userId}')"><span class="glyphicon glyphicon-pencil"></span></button>
+									<button class="btn btn-xs btn-danger" onclick="popup_deleteUser('${c.userId}')"><span class="glyphicon glyphicon-remove"></span></button>
 									</td>
 								<td><span id="userId">${c.userId}</span></td>
 								<td><span id="userName">${c.userName}</span></td>
@@ -166,7 +89,86 @@
 		</div>
 	
 	<!-- POPUPs -->
-	
+	<!-- POPUP > Add User -->
+	<div class="modal fade" id="popup_addUser">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header"><strong>Add User</strong></div>
+				<div class="modal-body">
+					<form role="form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="userId_add">User Id</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="userId_add" placeholder="User Id"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="userName">User Name</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="userName_add" placeholder="User Name"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="password1_add">Password</label>
+							<div class="col-sm-9">
+								<input type="password" class="form-control" id="password1_add" placeholder="Password"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="password2_add"></label>
+							<div class="col-sm-9">
+								<input type="password" class="form-control" id="password2_add" placeholder="Re-Enter Password"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="roleId_add">Role</label>
+							<div class="col-sm-9">
+								<select id="roleId_add" class="form-control">
+									<option>ADMIN</option>
+									<option>STANDARD</option>
+									<option>GUEST</option>
+								</select>
+							</div>
+							</div>
+					</form>
+					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-primary" onclick="addUser()">Commit</button>
+					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+			</div>
+		</div>
+		</div>
+				
+	<!-- POPUP > Update User -->
+	<div class="modal fade" id="popup_updateUser">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" align="left"><strong>Update User</strong></div>
+					<div class="modal-body" align="left">
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm btn-primary" onclick="updateUser()">Commit</button>
+						<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+						</div>
+				</div>
+			</div>
+		</div>
+		
+	<!-- POPUP > Delete User -->
+	<div class="modal fade" id="popup_deleteUser">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="left"><strong>Delete User</strong></div>
+				<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> <span id="txt_userId_delete"></span>?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-primary" onclick="deleteUser()">Confirm</button>
+					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+		</div>
+		
 	<!-- End of Container -->
 	</div>
 	<script src="static/js/jquery/jquery.min.js"></script>
@@ -181,8 +183,13 @@
 			$('#btn_fastForward').addClass('enabled');
 		});
 		
-		function queryUser() {
-			// TODO:
+		function popup_updateUser(userId) {
+			$('#popup_updateUser').modal('show');
+		}
+		
+		function popup_deleteUser(userId) {
+			$('#txt_userId_delete').text(userId);
+			$('#popup_deleteUser').modal('show');
 		}
 		
 		function addUser() {
@@ -211,20 +218,28 @@
 			}
 		}
 		
-		function deleteUser(userId) {
-			$.ajax({
-				type : "get",
-				url : "user/deleteUser.do?" 
-						+ "userId=" + userId,
-				cache : false,
-				async : true,
-				success : function(obj) {
-					window.location.href = "user.do";
-				},
-				error : function(obj) {
-					// TODO: 
-				}
-			});
+		function updateUser() {
+			// TODO:
+		}
+		
+		function deleteUser() {
+			var userId = $('#txt_userId_delete').text();
+			if(userId) {
+				$.ajax({
+					type : "get",
+					url : "user/deleteUser.do?" 
+							+ "userId=" + userId,
+					cache : false,
+					async : true,
+					success : function(obj) {
+						$('#popup_deleteUser').modal('hide');
+						window.location.href = "user.do";
+					},
+					error : function(obj) {
+						// TODO: 
+					}
+				});	
+			}
 		}
 	</script>
 </body>
