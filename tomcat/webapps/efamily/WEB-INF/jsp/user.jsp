@@ -240,6 +240,7 @@
 							$('#txt_userId_update').val(user.userId);
 							$('#txt_userName_update').val(user.userName);
 							$('#txt_roleId_update').val(user.roleId);
+							$("#txt_userId_update").attr("disabled","disabled");
 							$('#popup_updateUser').modal('show');
 						}
 					},
@@ -259,7 +260,9 @@
 		function addUser() {
 			var pwd1 = $('#txt_password1_add').val();
 			var pwd2 = $('#txt_password2_add').val();
-			if (pwd1 != pwd2) {
+			if (pwd1 == null || pwd2 == null || pwd1 == '' || pwd2 == '') {
+				alert("New password can not be null!");
+			} else if (pwd1 != pwd2) {
 				alert("Passwrod is not match!");
 			} else {
 				$.ajax({
@@ -286,8 +289,10 @@
 		function updateUser() {
 			var pwd1 = $('#txt_password1_update').val();
 			var pwd2 = $('#txt_password2_update').val();
-			if (pwd1 != pwd2) {
-				alert("Passwrod is not match!");
+			if (pwd1 == null || pwd2 == null || pwd1 == '' || pwd2 == '') {
+				alert("New password can not be null!");
+			} else if (pwd1 != pwd2) {
+				alert("Passwrod isn't match!");
 			} else {
 				$.ajax({
 					type : "get",
