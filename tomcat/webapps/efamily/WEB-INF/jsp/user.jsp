@@ -228,13 +228,15 @@
 			if(userId) {
 				$.ajax({
 					type : "get",
-					url : "user/getUser.do?" 
-							+ "userId=" + userId,
+					url : "user/getUser.do?",
+					data: {'userId' : userId},
+					dataType: 'json',
 					cache : false,
 					async : true,
 					success : function(obj) {
 						if (obj) {
-							var user = $.parseJSON(obj);
+							// var user = $.parseJSON(obj);
+							var user = obj;
 							$('#txt_userId_update').val(user.userId);
 							$('#txt_userName_update').val(user.userName);
 							$('#txt_roleId_update').val(user.roleId);
@@ -262,11 +264,12 @@
 			} else {
 				$.ajax({
 					type : "get",
-					url : "user/addUser.do?" 
-							+ "userId=" + $('#txt_userId_add').val()
-							+ "&userName=" + $('#txt_userName_add').val()
-							+ "&password=" + $('#txt_password2_add').val()
-							+ "&roleId=" + $('#sel_roleId_add').val(),
+					url : "user/addUser.do?",
+					data: {'userId' : $('#txt_userId_add').val(),
+						'userName' : $('#txt_userName_add').val(), 
+						'password' : $('#txt_password2_add').val(), 
+						'roleId' : $('#sel_roleId_add').val()},
+					dataType: 'json',
 					cache : false,
 					async : true,
 					success : function(obj) {
@@ -288,11 +291,12 @@
 			} else {
 				$.ajax({
 					type : "get",
-					url : "user/updateUser.do?" 
-							+ "userId=" + $('#txt_userId_update').val()
-							+ "&userName=" + $('#txt_userName_update').val()
-							+ "&password=" + $('#txt_password2_update').val()
-							+ "&roleId=" + $('#sel_roleId_update').val(),
+					url : "user/updateUser.do?",
+					data: {'userId' : $('#txt_userId_update').val(),
+						'userName' : $('#txt_userName_update').val(), 
+						'password' : $('#txt_password2_update').val(), 
+						'roleId' : $('#sel_roleId_update').val()},
+					dataType: 'json',
 					cache : false,
 					async : true,
 					success : function(obj) {
@@ -311,8 +315,9 @@
 			if(userId) {
 				$.ajax({
 					type : "get",
-					url : "user/deleteUser.do?" 
-							+ "userId=" + userId,
+					url : "user/deleteUser.do?",
+					data: {'userId' : userId},
+					dataType: 'json',
 					cache : false,
 					async : true,
 					success : function(obj) {
