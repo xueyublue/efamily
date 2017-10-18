@@ -135,6 +135,7 @@ public class UserDao extends DataSource {
 		alterKey.updateRoleId(roleId);
 		
 		alterKey.updateLastUpdateDate(new Date());
+		alterKey.updateLastUpdatePname(UserDao.class.getSimpleName());
 		
 		handler.update(alterKey);
 		
