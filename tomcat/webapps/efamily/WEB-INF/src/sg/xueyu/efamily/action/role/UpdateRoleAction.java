@@ -1,6 +1,7 @@
 package sg.xueyu.efamily.action.role;
 
 import java.sql.Connection;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,13 +23,15 @@ import sg.xueyu.zebra.action.ResultType;
 
 public class UpdateRoleAction implements Action {
 
-	private String userId;
-
-	private String userName;
-
-	private String password;
-
 	private String roleId;
+
+	private String roleName;
+
+	private String adminFlag;
+
+	private String guestFlag;
+	
+//	private Date expiryDate;
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -68,24 +71,15 @@ public class UpdateRoleAction implements Action {
 				return new ActionResult(resultContent, ResultType.Ajax);
 			}
 
-			// Do not allow to Update Administrator if administrator flag is
-			// false
-			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(sessionRole.getAdminFlag())
-					&& SystemConstants.ROLE_ADMIN_FLAG_TRUE.equals(role.getAdminFlag())) {
+			// Do not allow to Update any Role if administrator flag is false
+			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(sessionRole.getAdminFlag())) {
 				resp.setStatus(500);
 				resultContent = new ResultContent(null, "Insufficient Previlege!");
 				return new ActionResult(resultContent, ResultType.Ajax);
 			}
 
-			// User is not exist
-			if (userDao.getUser(userId) == null) {
-				resp.setStatus(500);
-				resultContent = new ResultContent(null, "User is not exist!");
-				return new ActionResult(resultContent, ResultType.Ajax);
-			}
-
-			// Perform to UPDATE user
-			userDao.updateUser(userId, userName, password, roleId);
+			// Perform to UPDATE role
+			roleDao.updateRole(roleId, roleName, adminFlag, guestFlag, new Date());
 
 			resultContent = new ResultContent(null, null);
 
