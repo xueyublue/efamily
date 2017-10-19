@@ -30,7 +30,7 @@
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Administrator<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="user.do">User</a></li>
-	                    <li><a href="#">Role</a></li>
+	                    <li><a href="role.do">Role</a></li>
 	                    <li class="divider"></li>
 	                    <li><a href="#">Log</a></li>
 	                	</ul>
