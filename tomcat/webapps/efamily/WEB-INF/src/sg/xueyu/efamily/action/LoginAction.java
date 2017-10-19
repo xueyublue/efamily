@@ -1,8 +1,5 @@
 package sg.xueyu.efamily.action;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +12,7 @@ public class LoginAction implements Action {
 	private static final String RESULT_URL = "login.jsp";
 	
 	@Override
-	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = new ResultContent(RESULT_URL, null);
 		ActionResult result = new ActionResult(resultContent);
 		return result;
