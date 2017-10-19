@@ -200,7 +200,7 @@
 				<div class="modal-header" align="left"><strong>Delete User</strong></div>
 				<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> <span id="lbl_userId_delete"></span>?</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-primary" onclick="deleteUser()">Confirm</button>
+					<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="deleteUser()">Confirm</button>
 					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
@@ -326,12 +326,11 @@
 					cache : false,
 					async : true,
 					success : function(obj) {
-						$('#popup_deleteUser').modal('hide');
 						window.location.href = "user.do";
 					},
 					error : function(obj) {
 						var response = obj.responseText.replace('"', '').replace('"', '');
-						alert(response); 
+						alert(response);
 					}
 				});	
 			}

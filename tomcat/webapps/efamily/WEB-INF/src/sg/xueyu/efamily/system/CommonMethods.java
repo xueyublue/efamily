@@ -7,6 +7,11 @@ import javax.servlet.http.HttpSession;
 
 public class CommonMethods {
 
+	public static final String getSessionCredentials(HttpSession session) {
+		Object userId = session.getAttribute("userId");
+		return userId.toString();
+	}
+	
 	public static final boolean checkSessionCredentials(HttpSession session) {
 		Object userId = session.getAttribute("userId");
 		Object userName = session.getAttribute("userName");
