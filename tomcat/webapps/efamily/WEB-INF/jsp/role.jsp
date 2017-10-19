@@ -256,7 +256,7 @@
 		
 		function addRole() {
 			var adminFlag = $('#sel_adminFlag_add').val();
-			var guestFlag = $('#sel_adminFlag_add').val();
+			var guestFlag = $('#sel_guestFlag_add').val();
 			if (adminFlag == '1' && guestFlag == '1') {
 				alert("Admin-Flag and Guest-Flag cannot both be 1!");
 			} else {
@@ -287,7 +287,7 @@
 		
 		function updateRole() {
 			var adminFlag = $('#sel_adminFlag_update').val();
-			var guestFlag = $('#sel_adminFlag_update').val();
+			var guestFlag = $('#sel_guestFlag_update').val();
 			if (adminFlag == '1' && guestFlag == '1') {
 				alert("Admin-Flag and Guest-Flag cannot both be 1!");
 			} else {

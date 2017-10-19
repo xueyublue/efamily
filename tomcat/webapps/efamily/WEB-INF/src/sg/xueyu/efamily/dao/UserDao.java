@@ -58,7 +58,7 @@ public class UserDao {
 
 		AbstractEntity[] results = handler.query(searchKey);
 		
-		if (results != null) {
+		if (results.length > 0) {
 			LoginUserEJB[] users = new LoginUserEJB[results.length];
 			for (int i = 0; i < results.length; i++) {
 				users[i] = (LoginUserEJB) HandlerUtil.entity2bean(results[i], LoginUserEJB.class);
