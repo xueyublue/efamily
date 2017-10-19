@@ -245,8 +245,12 @@
 						}
 					},
 					error : function(obj) {
-						var response = obj.responseText.replace('"', '').replace('"', '');
-						alert(response); 
+						if (obj.status == '901') {
+							window.location.href = "login.do";
+						} else {
+							var response = obj.responseText.replace('"', '').replace('"', '');
+							alert(response);	
+						}
 					}
 				});	
 			}
@@ -279,8 +283,12 @@
 						window.location.href = "user.do";
 					},
 					error : function(obj) {
-						var response = obj.responseText.replace('"', '').replace('"', '');
-						alert(response);
+						if (obj.status == '901') {
+							window.location.href = "login.do";
+						} else {
+							var response = obj.responseText.replace('"', '').replace('"', '');
+							alert(response);	
+						}
 					}
 				});
 			}
@@ -308,8 +316,12 @@
 						window.location.href = "user.do";
 					},
 					error : function(obj) {
-						var response = obj.responseText.replace('"', '').replace('"', '');
-						alert(response);
+						if (obj.status == '901') {
+							window.location.href = "login.do";
+						} else {
+							var response = obj.responseText.replace('"', '').replace('"', '');
+							alert(response);	
+						}
 					}
 				});
 			}
@@ -329,8 +341,12 @@
 						window.location.href = "user.do";
 					},
 					error : function(obj) {
-						var response = obj.responseText.replace('"', '').replace('"', '');
-						alert(response);
+						if (obj.status == '901') {
+							window.location.href = "login.do";
+						} else {
+							var response = obj.responseText.replace('"', '').replace('"', '');
+							alert(response);	
+						}
 					}
 				});	
 			}

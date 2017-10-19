@@ -11,6 +11,7 @@ import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
+import sg.xueyu.efamily.system.ActionResultController;
 import sg.xueyu.efamily.system.CommonMethods;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
@@ -21,54 +22,45 @@ import sg.xueyu.zebra.action.ResultType;
 public class UserAction implements Action {
 
 	private static final String RESULT_URL = "user.jsp";
-	
+
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = null;
 		ActionResult actionResult = null;
-		
+
 		Connection conn = null;
 		UserDao userDao = null;
 		RoleDao roleDao = null;
-		
+
 		try {
 			conn = new DataSource().getConnection();
 			userDao = new UserDao(conn);
 			roleDao = new RoleDao(conn);
-			
+
 			// Session UserId is null
 			String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
 			if (sessionUserId == null) {
-				resultContent = new ResultContent("login.jsp", null);
-				actionResult = new ActionResult(resultContent);
-
-				return actionResult;
+				return ActionResultController.sessionError(resp);
 			}
 			// Session User is not exist in DB
 			LoginUserEJB sessionUser = userDao.getUser(sessionUserId);
 			if (sessionUser == null) {
-				resultContent = new ResultContent("login.jsp", null);
-				actionResult = new ActionResult(resultContent);
-
-				return actionResult;
+				return ActionResultController.sessionError(resp);
 			}
 			// Role of session User is not exist in DB
 			RoleEJB sessionRole = roleDao.getRole(sessionUser.getRoleId());
 			if (sessionRole == null) {
-				resultContent = new ResultContent("login.jsp", null);
-				actionResult = new ActionResult(resultContent);
-
-				return actionResult;
+				return ActionResultController.sessionError(resp);
 			}
-			
+
 			// Perform to get all users from DB
 			req.setAttribute("users", userDao.getAllUsers());
-			
+
 			resultContent = new ResultContent(RESULT_URL, null);
 			actionResult = new ActionResult(resultContent);
-			
+
 			return actionResult;
-			
+
 		} catch (Exception e) {
 			SystemLogger.error(e);
 

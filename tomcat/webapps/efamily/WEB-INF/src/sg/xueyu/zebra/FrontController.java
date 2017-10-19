@@ -74,24 +74,30 @@ public class FrontController extends HttpServlet {
 			if (actionResult != null) {
 				ResultContent resultContent = actionResult.getResultContent();
 				ResultType resultType = actionResult.getResultType();
+				
 				switch (resultType) {
 				case Redirect:
 					resp.sendRedirect(contextPath + resultContent.getUrl());
 					break;
+					
 				case Forward:
 					req.getRequestDispatcher(getFullJspPath(servletPath) + resultContent.getUrl()).forward(req, resp);
 					break;
+					
 				case Ajax:
 					PrintWriter pw = resp.getWriter();
 					pw.println(resultContent.getJsonData());
 					pw.close();
 					break;
+					
 				case Chain:
 					req.getRequestDispatcher(contextPath + resultContent.getUrl()).forward(req, resp);
 					break;
+					
 				case RedirectChain:
 					resp.sendRedirect(contextPath + resultContent.getUrl());
 					break;
+					
 				default:
 				}
 			}
@@ -104,20 +110,24 @@ public class FrontController extends HttpServlet {
 	private String getFullActionName(String servletPath) {
 		int start = servletPath.lastIndexOf("/") + 1;
 		int end = servletPath.lastIndexOf(".do");
+		
 		return packagePrefix + getSubPackage(servletPath) + CommonUtil.capitalize(servletPath.substring(start, end)) + actionSuffix;
 	}
 
 	private String getFullJspPath(String servletPath) {
+		
 		return jspPrefix + getSubJspPath(servletPath);
 	}
 
 	private String getSubPackage(String servletPath) {
+		
 		return getSubJspPath(servletPath).replaceAll("\\/", ".");
 	}
 
 	private String getSubJspPath(String servletPath) {
 		int start = 1;
 		int end = servletPath.lastIndexOf("/");
+		
 		return end > start ? servletPath.substring(start, end > 0 ? end + 1 : 0) : "";
 	} 
 		 

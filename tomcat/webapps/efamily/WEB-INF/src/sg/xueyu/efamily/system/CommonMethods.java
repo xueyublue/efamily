@@ -14,7 +14,7 @@ public class CommonMethods {
 		}
 		return userId.toString();
 	}
-	
+
 	public static final boolean checkSessionCredentials(HttpSession session) {
 		Object userId = session.getAttribute("userId");
 		Object userName = session.getAttribute("userName");
@@ -23,17 +23,17 @@ public class CommonMethods {
 		}
 		return false;
 	}
-	
+
 	public static final void setSessionCredentials(HttpSession session, String userId, String userName) {
 		session.setAttribute("userId", userId);
 		session.setAttribute("userName", userName);
 	}
-	
+
 	public static final void removeSessionCredentials(HttpSession session) {
 		session.removeAttribute("userId");
 		session.removeAttribute("userName");
 	}
-	
+
 	public static boolean isVoid(Object obj) {
 		if (obj == null || obj.toString() == null) {
 			return true;

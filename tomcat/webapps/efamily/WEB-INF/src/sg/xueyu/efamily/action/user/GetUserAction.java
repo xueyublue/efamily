@@ -11,6 +11,7 @@ import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
+import sg.xueyu.efamily.system.ActionResultController;
 import sg.xueyu.efamily.system.CommonMethods;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
@@ -39,20 +40,17 @@ public class GetUserAction implements Action {
 			// Session UserId is null
 			String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
 			if (sessionUserId == null) {
-				resultContent = new ResultContent("login.jsp", null);
-				return new ActionResult(resultContent);
+				return ActionResultController.sessionError(resp);
 			}
 			// Session User is not exist in DB
 			LoginUserEJB sessionUser = userDao.getUser(sessionUserId);
 			if (sessionUser == null) {
-				resultContent = new ResultContent("login.jsp", null);
-				return new ActionResult(resultContent);
+				return ActionResultController.sessionError(resp);
 			}
 			// Role of session User is not exist in DB
 			RoleEJB sessionRole = roleDao.getRole(sessionUser.getRoleId());
 			if (sessionRole == null) {
-				resultContent = new ResultContent("login.jsp", null);
-				return new ActionResult(resultContent);
+				return ActionResultController.sessionError(resp);
 			}
 
 			// Perform to GET user
