@@ -2,7 +2,7 @@
 	path="/efamily" 
 	reloadable="true" 
 	docBase="C:\efamily\tomcat\webapps\efamily" 
-	workDir="C:\efamily\tomcat\webapps\efamily\work">
+	workDir="C:\efamily\tomcat\work">
 	
 	<Resource 
 		name="orcl/orcl" 
