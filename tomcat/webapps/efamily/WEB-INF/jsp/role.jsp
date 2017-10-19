@@ -316,9 +316,9 @@
 			}
 		}
 		
-		function deleteUser() {
-			var userId = $('#lbl_roleId_delete').text();
-			if(userId) {
+		function deleteRole() {
+			var roleId = $('#lbl_roleId_delete').text();
+			if(roleId) {
 				$.ajax({
 					type : "get",
 					url : "role/deleteRole.do?",

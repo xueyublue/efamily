@@ -49,6 +49,26 @@ public class UserDao {
 
 		return null;
 	}
+	
+	public LoginUserEJB[] getUsersByRoleId(String roleId) throws Exception {
+		LoginUserHandler handler = new LoginUserHandler(mConnection);
+
+		LoginUserSearchKey searchKey = new LoginUserSearchKey();
+		searchKey.setRoleId(roleId);
+
+		AbstractEntity[] results = handler.query(searchKey);
+		
+		if (results != null) {
+			LoginUserEJB[] users = new LoginUserEJB[results.length];
+			for (int i = 0; i < results.length; i++) {
+				users[i] = (LoginUserEJB) HandlerUtil.entity2bean(results[i], LoginUserEJB.class);
+			}
+			
+			return users;
+		}
+		
+		return null;
+	}
 
 	public void createUser(String userId, String userName, String password, String roleId) throws Exception {
 		LoginUserHandler handler = new LoginUserHandler(mConnection);
