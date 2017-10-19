@@ -126,7 +126,7 @@
 								<select id="sel_roleId_add" class="form-control">
 									<option>DEV</option>
 									<option>ADMIN</option>
-									<option>STANDARD</option>
+									<option>MEMBER</option>
 									<option>GUEST</option>
 								</select>
 							</div>
@@ -157,19 +157,19 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="txt_userName_update">User Name</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="txt_userName_update" placeholder="User Name"></input>
+								<input type="text" class="form-control" id="txt_userName_update" placeholder="New User Name"></input>
 							</div>
 							</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="txt_password1_update">Password</label>
 							<div class="col-sm-9">
-								<input type="password" class="form-control" id="txt_password1_update" placeholder="Password"></input>
+								<input type="password" class="form-control" id="txt_password1_update" placeholder="New Password"></input>
 							</div>
 							</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="txt_password2_update"></label>
 							<div class="col-sm-9">
-								<input type="password" class="form-control" id="txt_password2_update" placeholder="Re-Enter Password"></input>
+								<input type="password" class="form-control" id="txt_password2_update" placeholder="Re-Enter New Password"></input>
 							</div>
 							</div>
 						<div class="form-group">
@@ -178,7 +178,7 @@
 								<select id="sel_roleId_update" class="form-control">
 									<option>DEV</option>
 									<option>ADMIN</option>
-									<option>STANDARD</option>
+									<option>MEMBER</option>
 									<option>GUEST</option>
 								</select>
 							</div>
@@ -239,7 +239,7 @@
 							var user = obj;
 							$('#txt_userId_update').val(user.userId);
 							$('#txt_userName_update').val(user.userName);
-							$('#txt_roleId_update').val(user.roleId);
+							$('#sel_roleId_update').val(user.roleId);
 							$("#txt_userId_update").attr("disabled","disabled");
 							$('#popup_updateUser').modal('show');
 						}

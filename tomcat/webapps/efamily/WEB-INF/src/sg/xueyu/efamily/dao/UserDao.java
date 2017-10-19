@@ -70,6 +70,8 @@ public class UserDao extends DataSource {
 		user.setPassword(password);
 		user.setRoleId(roleId);
 		
+		user.setRegistPname(UserDao.class.getSimpleName());
+		
 		handler.create(user);
 		
 		DBUtils.commit(connection);
@@ -136,6 +138,8 @@ public class UserDao extends DataSource {
 		
 		LoginUserAlterKey alterKey = new LoginUserAlterKey();
 		alterKey.setUserId(userId);
+		
+		alterKey.updateLastUpdatePname(UserDao.class.getSimpleName());
 		alterKey.updateLastLoginDate(new Date());
 		
 		handler.update(alterKey);
