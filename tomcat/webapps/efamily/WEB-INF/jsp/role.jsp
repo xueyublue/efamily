@@ -255,16 +255,16 @@
 		}
 		
 		function addRole() {
-			var adminFlag = $('#txt_adminFlag_add').val();
-			var guestFlag = $('#txt_guestFlag_add').val();
-			if (pwd1 == pwd2 == '1') {
+			var adminFlag = $('#sel_adminFlag_add').val();
+			var guestFlag = $('#sel_adminFlag_add').val();
+			if (adminFlag == '1' && guestFlag == '1') {
 				alert("Admin-Flag and Guest-Flag cannot both be 1!");
 			} else {
 				$.ajax({
 					type : "get",
 					url : "role/addRole.do?",
-					data: {'userId' : $('#txt_roleId_add').val(),
-						'userName' : $('#txt_roleName_add').val(), 
+					data: {'roleId' : $('#txt_roleId_add').val(),
+						'roleName' : $('#txt_roleName_add').val(), 
 						'adminFlag' : $('#sel_adminFlag_add').val(), 
 						'guestFlag' : $('#sel_guestFlag_add').val()},
 					dataType: 'json',
@@ -286,16 +286,16 @@
 		}
 		
 		function updateRole() {
-			var adminFlag = $('#txt_adminFlag_update').val();
-			var guestFlag = $('#txt_guestFlag_update').val();
-			if (pwd1 == pwd2 == '1') {
+			var adminFlag = $('#sel_adminFlag_update').val();
+			var guestFlag = $('#sel_adminFlag_update').val();
+			if (adminFlag == '1' && guestFlag == '1') {
 				alert("Admin-Flag and Guest-Flag cannot both be 1!");
 			} else {
 				$.ajax({
 					type : "get",
 					url : "role/updateRole.do?",
-					data: {'userId' : $('#txt_roleId_update').val(),
-						'userName' : $('#txt_roleName_update').val(), 
+					data: {'roleId' : $('#txt_roleId_update').val(),
+						'roleName' : $('#txt_roleName_update').val(), 
 						'adminFlag' : $('#sel_adminFlag_update').val(), 
 						'guestFlag' : $('#sel_guestFlag_update').val()},
 					dataType: 'json',
