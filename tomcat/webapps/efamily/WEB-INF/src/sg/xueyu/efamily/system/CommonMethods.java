@@ -9,6 +9,9 @@ public class CommonMethods {
 
 	public static final String getSessionCredentials(HttpSession session) {
 		Object userId = session.getAttribute("userId");
+		if (userId == null) {
+			return null;
+		}
 		return userId.toString();
 	}
 	

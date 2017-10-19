@@ -1,14 +1,19 @@
 package sg.xueyu.efamily.action.user;
 
+import java.sql.Connection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sg.xueyu.dbhandler.util.DBUtils;
+import sg.xueyu.efamily.base.DataSource;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.CommonMethods;
 import sg.xueyu.efamily.system.SystemConstants;
+import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
@@ -21,55 +26,77 @@ public class DeleteUserAction implements Action {
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = null;
+		ActionResult actionResult = null;
 
-		// Session UserId is null
-		String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
-		if (sessionUserId == null) {
-			resultContent = new ResultContent("login.jsp", null);
-			return new ActionResult(resultContent);
-		}
-		// Session User is not exist in DB
-		LoginUserEJB sessionUser = UserDao.getUser(sessionUserId);
-		if (sessionUser == null) {
-			resultContent = new ResultContent("login.jsp", null);
-			return new ActionResult(resultContent);
-		}
-		// Role of session User is not exist in DB
-		RoleEJB sessionRole = RoleDao.getRole(sessionUser.getRoleId());
-		if (sessionRole == null) {
-			resultContent = new ResultContent("login.jsp", null);
-			return new ActionResult(resultContent);
-		}
+		Connection conn = null;
+		UserDao userDao = null;
+		RoleDao roleDao = null;
 
-		// User is not exist
-		LoginUserEJB user = UserDao.getUser(userId);
-		if (user == null) {
-			resp.setStatus(500);
-			resultContent = new ResultContent(null, "User is not exist!");
+		try {
+			conn = new DataSource().getConnection();
+			userDao = new UserDao(conn);
+			roleDao = new RoleDao(conn);
+
+			// Session UserId is null
+			String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
+			if (sessionUserId == null) {
+				resultContent = new ResultContent("login.jsp", null);
+				return new ActionResult(resultContent);
+			}
+			// Session User is not exist in DB
+			LoginUserEJB sessionUser = userDao.getUser(sessionUserId);
+			if (sessionUser == null) {
+				resultContent = new ResultContent("login.jsp", null);
+				return new ActionResult(resultContent);
+			}
+			// Role of session User is not exist in DB
+			RoleEJB sessionRole = roleDao.getRole(sessionUser.getRoleId());
+			if (sessionRole == null) {
+				resultContent = new ResultContent("login.jsp", null);
+				return new ActionResult(resultContent);
+			}
+
+			// User is not exist
+			LoginUserEJB user = userDao.getUser(userId);
+			if (user == null) {
+				resp.setStatus(500);
+				resultContent = new ResultContent(null, "User is not exist!");
+				return new ActionResult(resultContent, ResultType.Ajax);
+			}
+
+			// Role Id is not exist
+			RoleEJB role = roleDao.getRole(user.getRoleId());
+			if (role == null) {
+				resp.setStatus(500);
+				resultContent = new ResultContent(null, "Role Id is not exist!");
+				return new ActionResult(resultContent, ResultType.Ajax);
+			}
+
+			// Do not allow to DELETE Administrator if administrator flag is
+			// false
+			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(sessionRole.getAdminFlag())
+					&& SystemConstants.ROLE_ADMIN_FLAG_TRUE.equals(role.getAdminFlag())) {
+				resp.setStatus(500);
+				resultContent = new ResultContent(null, "Insufficient Previlege!");
+				return new ActionResult(resultContent, ResultType.Ajax);
+			}
+
+			// Perform to DELETE user
+			userDao.deleteUser(userId);
+
+			resultContent = new ResultContent(null, null);
+
 			return new ActionResult(resultContent, ResultType.Ajax);
-		}
-				
-		// Role Id is not exist
-		RoleEJB role = RoleDao.getRole(user.getRoleId());
-		if (role == null) {
+		} catch (Exception e) {
+			SystemLogger.error(e);
+
 			resp.setStatus(500);
-			resultContent = new ResultContent(null, "Role Id is not exist!");
-			return new ActionResult(resultContent, ResultType.Ajax);
-		}
-		
-		// Do not allow to DELETE Administrator if administrator flag is false
-		if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(sessionRole.getAdminFlag())
-				&& SystemConstants.ROLE_ADMIN_FLAG_TRUE.equals(role.getAdminFlag())) {
-			resp.setStatus(500);
-			resultContent = new ResultContent(null, "Insufficient Previlege!");
-			return new ActionResult(resultContent, ResultType.Ajax);
+			resultContent = new ResultContent(null, "UnHandled Exception Occurred!!!");
+			actionResult = new ActionResult(resultContent, ResultType.Ajax);
+		} finally {
+			DBUtils.closeConnection(conn);
 		}
 
-		// Perform to DELETE user
-		UserDao.deleteUser(userId);
-
-		resultContent = new ResultContent(null, null);
-
-		return new ActionResult(resultContent, ResultType.Ajax);
+		return actionResult;
 	}
 }

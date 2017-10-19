@@ -1,11 +1,16 @@
 package sg.xueyu.efamily.action.auth;
 
+import java.sql.Connection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sg.xueyu.dbhandler.util.DBUtils;
+import sg.xueyu.efamily.base.DataSource;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.CommonMethods;
+import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
@@ -19,27 +24,49 @@ public class LoginAuthAction implements Action {
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = null;
-		ActionResult result = null;
-		
-		String authResult = UserDao.auth(userId, password);
-		
-		if (authResult == null) {
-			// set user info to result content
-			resultContent = new ResultContent(null, null);
-			// set user info to session
-			LoginUserEJB loginUserEJB = UserDao.getUser(userId);
-			CommonMethods.setSessionCredentials(req.getSession(), loginUserEJB.getUserId(), loginUserEJB.getUserName());
-			// Update LastLoginDate
-			UserDao.udpateLastLoginDate(userId);
-		} else {
-			resp.setStatus(401);
-			resultContent = new ResultContent(null, authResult);
-			// set user info in session to null
-			CommonMethods.removeSessionCredentials(req.getSession());
-		}
-		result = new ActionResult(resultContent, ResultType.Ajax);
+		ActionResult actionResult = null;
 
-		return result;
+		Connection conn = null;
+		UserDao userDao = null;
+
+		try {
+			conn = new DataSource().getConnection();
+			userDao = new UserDao(conn);
+
+			String authResult = userDao.auth(userId, password);
+
+			// Authentication is failed
+			if (authResult != null) {
+				CommonMethods.removeSessionCredentials(req.getSession());
+
+				resp.setStatus(401);
+				resultContent = new ResultContent(null, authResult);
+				actionResult = new ActionResult(resultContent, ResultType.Ajax);
+
+				return actionResult;
+			}
+
+			// Perform to Authentication is successfully
+			LoginUserEJB user = userDao.getUser(userId);
+			CommonMethods.setSessionCredentials(req.getSession(), user.getUserId(), user.getUserName());
+			userDao.udpateLastLoginDate(userId);
+
+			resultContent = new ResultContent(null, null);
+			actionResult = new ActionResult(resultContent, ResultType.Ajax);
+			
+			return actionResult;
+
+		} catch (Exception e) {
+			SystemLogger.error(e);
+			
+			resp.setStatus(500);
+			resultContent = new ResultContent(null, "UnHandled Exception Occurred!!!");
+			actionResult = new ActionResult(resultContent, ResultType.Ajax);
+		} finally {
+			DBUtils.closeConnection(conn);
+		}
+
+		return actionResult;
 	}
 
 }
