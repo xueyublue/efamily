@@ -11,8 +11,8 @@ import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
-import sg.xueyu.efamily.system.ActionResultController;
 import sg.xueyu.efamily.system.CommonMethods;
+import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
@@ -20,8 +20,6 @@ import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 
 public class RoleAction implements Action {
-
-	private static final String RESULT_URL = "role.jsp";
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -40,23 +38,32 @@ public class RoleAction implements Action {
 			// Session UserId is null
 			String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
 			if (sessionUserId == null) {
-				return ActionResultController.sessionError(resp);
+				resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
+				actionResult = new ActionResult(resultContent);
+
+				return actionResult;
 			}
 			// Session User is not exist in DB
 			LoginUserEJB sessionUser = userDao.getUser(sessionUserId);
 			if (sessionUser == null) {
-				return ActionResultController.sessionError(resp);
+				resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
+				actionResult = new ActionResult(resultContent);
+
+				return actionResult;
 			}
 			// Role of session User is not exist in DB
 			RoleEJB sessionRole = roleDao.getRole(sessionUser.getRoleId());
 			if (sessionRole == null) {
-				return ActionResultController.sessionError(resp);
+				resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
+				actionResult = new ActionResult(resultContent);
+
+				return actionResult;
 			}
 
 			// Perform to get all users from DB
 			req.setAttribute("roles", roleDao.getAllRoles());
 
-			resultContent = new ResultContent(RESULT_URL, null);
+			resultContent = new ResultContent(SystemConstants.URL_ROLE, null);
 			actionResult = new ActionResult(resultContent);
 
 			return actionResult;
