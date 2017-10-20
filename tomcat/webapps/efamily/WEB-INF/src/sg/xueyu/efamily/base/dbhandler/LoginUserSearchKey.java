@@ -85,4 +85,41 @@ public class LoginUserSearchKey extends AbstractSearchKey {
 		setStringKeyWithCompCode(LoginUser.LAST_UPDATE_PNAME, compCode, value);
 	}
 
+
+	public void setUserIdOrder(boolean value) {
+		setOrder(LoginUser.USER_ID, value);
+	}
+
+	public void setUserNameOrder(boolean value) {
+		setOrder(LoginUser.USER_NAME, value);
+	}
+
+	public void setRoleIdOrder(boolean value) {
+		setOrder(LoginUser.ROLE_ID, value);
+	}
+
+	public void setPasswordOrder(boolean value) {
+		setOrder(LoginUser.PASSWORD, value);
+	}
+
+	public void setLastLoginDateOrder(boolean value) {
+		setOrder(LoginUser.LAST_LOGIN_DATE, value);
+	}
+
+	public void setRegistDateOrder(boolean value) {
+		setOrder(LoginUser.REGIST_DATE, value);
+	}
+
+	public void setRegistPnameOrder(boolean value) {
+		setOrder(LoginUser.REGIST_PNAME, value);
+	}
+
+	public void setLastUpdateDateOrder(boolean value) {
+		setOrder(LoginUser.LAST_UPDATE_DATE, value);
+	}
+
+	public void setLastUpdatePnameOrder(boolean value) {
+		setOrder(LoginUser.LAST_UPDATE_PNAME, value);
+	}
+
 }

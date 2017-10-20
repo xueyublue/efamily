@@ -85,4 +85,41 @@ public class RoleSearchKey extends AbstractSearchKey {
 		setStringKeyWithCompCode(Role.LAST_UPDATE_PNAME, compCode, value);
 	}
 
+
+	public void setRoleIdOrder(boolean value) {
+		setOrder(Role.ROLE_ID, value);
+	}
+
+	public void setRoleNameOrder(boolean value) {
+		setOrder(Role.ROLE_NAME, value);
+	}
+
+	public void setAdminFlagOrder(boolean value) {
+		setOrder(Role.ADMIN_FLAG, value);
+	}
+
+	public void setGuestFlagOrder(boolean value) {
+		setOrder(Role.GUEST_FLAG, value);
+	}
+
+	public void setExpiryDateOrder(boolean value) {
+		setOrder(Role.EXPIRY_DATE, value);
+	}
+
+	public void setRegistDateOrder(boolean value) {
+		setOrder(Role.REGIST_DATE, value);
+	}
+
+	public void setRegistPnameOrder(boolean value) {
+		setOrder(Role.REGIST_PNAME, value);
+	}
+
+	public void setLastUpdateDateOrder(boolean value) {
+		setOrder(Role.LAST_UPDATE_DATE, value);
+	}
+
+	public void setLastUpdatePnameOrder(boolean value) {
+		setOrder(Role.LAST_UPDATE_PNAME, value);
+	}
+
 }

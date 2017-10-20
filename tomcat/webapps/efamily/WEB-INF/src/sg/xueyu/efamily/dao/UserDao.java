@@ -26,6 +26,8 @@ public class UserDao {
 		LoginUserHandler handler = new LoginUserHandler(mConnection);
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
 
+		searchKey.setUserIdOrder(true);
+		
 		AbstractEntity[] results = handler.query(searchKey);
 		List<LoginUserEJB> actualResults = new ArrayList<>();
 

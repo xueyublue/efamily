@@ -26,6 +26,8 @@ public class RoleDao {
 		RoleHandler handler = new RoleHandler(mConnection);
 		RoleSearchKey searchKey = new RoleSearchKey();
 
+		searchKey.setRoleIdOrder(true);
+		
 		AbstractEntity[] results = handler.query(searchKey);
 		List<RoleEJB> actualResults = new ArrayList<>();
 
