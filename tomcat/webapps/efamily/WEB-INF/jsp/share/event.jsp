@@ -66,7 +66,6 @@
 					<thead>
 						<tr>
 							<th>Action</th>
-							<th class="hide">Event Id</th>
 							<th>Title</th>
 							<th>Location</th>
 							<th>Start Date</th>
@@ -77,15 +76,14 @@
 						<c:forEach items="${events}" var="c">
 							<tr>
 								<td width="80" align="center">
-									<button class="btn btn-xs btn-warning" onclick="popup_updateRole('${c.eventId}')"><span class="glyphicon glyphicon-pencil"></span></button>
-									<button class="btn btn-xs btn-danger" onclick="popup_deleteRole('${c.eventId}')"><span class="glyphicon glyphicon-remove"></span></button>
+									<button class="btn btn-xs btn-warning" onclick="popup_updateEvent('${c.eventId}')"><span class="glyphicon glyphicon-pencil"></span></button>
+									<button class="btn btn-xs btn-danger" onclick="popup_deleteEvent('${c.eventId}')"><span class="glyphicon glyphicon-remove"></span></button>
 									</td>
-								<td class="hide"><span id="eventId">${c.eventId}</span></td>
 								<td><span id="title">${c.title}</span></td>
-								<td><span id="location">${c.location}</span></td>
-								<td><span id="startDate"><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
-								<td><span id="endDate"><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
-								<td><span id="adminFlag">${c.isAllDay}</span></td></tr>
+								<td width="200"><span id="location">${c.location}</span></td>
+								<td width="150"><span id="startDate"><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td width="150"><span id="endDate"><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td width="80"><span id="adminFlag">${c.isAllDay}</span></td></tr>
 							</c:forEach>
 						</tbody>
 				</table>
@@ -154,72 +152,74 @@
 		</div>
 		</div>
 				
-	<!-- POPUP > Update Role -->
-	<div class="modal fade" id="popup_updateRole">
+	<!-- POPUP > Add Event -->
+	<div class="modal fade" id="popup_addEvent">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header"><strong>Update Role</strong></div>
+				<div class="modal-header"><strong>Add Event</strong></div>
 				<div class="modal-body">
 					<form role="form" class="form-horizontal">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="txt_roleId_update">Role Id</label>
+							<label class="col-sm-3 control-label" for="txt_title_add">Title</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="txt_roleId_update" placeholder="Role Id"></input>
+								<input type="text" class="form-control" id="txt_title_add" placeholder="Event Title"></input>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="txt_roleName_update">Role Name</label>
+							<label class="col-sm-3 control-label" for="txt_location_add">Location</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="txt_roleName_update" placeholder="New Role Name"></input>
+								<input type="text" class="form-control" id="txt_location_add" placeholder="Event Location"></input>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_adminFlag_update">Administrator</label>
+							<label class="col-sm-3 control-label" for="sel_allDay_add">All Day</label>
 							<div class="col-sm-9">
-								<select id="sel_adminFlag_update" class="form-control">
+								<select id="sel_allDay_add" class="form-control">
 									<option>No</option>
 									<option>Yes</option>
 								</select>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_guestFlag_update">Guest</label>
-							<div class="col-sm-9">
-								<select id="sel_guestFlag_update" class="form-control">
-									<option>No</option>
-									<option>Yes</option>
-								</select>
-							</div>
-							</div>
-						<div class="form-group">
-			                <label class="col-sm-3 control-label" for="dtp_expiryDate_update" >Expiry Date</label>
+			                <label class="col-sm-3 control-label" for="dtp_startDate" >Start Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_expiryDate_update">
-				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_expiryDate_update">
+			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_startDate">
+				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_startDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 				                	</div>
-				                	<input type="hidden" id="dtp_expiryDate_update" value="" />
+			                	<input type="hidden" id="dtp_startDate" value="" />
+			                	</div>
+			            	</div>
+			            <div class="form-group">
+			                <label class="col-sm-3 control-label" for="dtp_endDate" >End Date</label>
+			                <div class="col-sm-9">
+			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_endDate">
+				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_endDate_add">
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				                	</div>
+			                	<input type="hidden" id="dtp_endDate" value="" />
 			                	</div>
 			            	</div>
 					</form>
 					</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-primary" onclick="updateRole()">Commit</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="updateEvent()">Commit</button>
 					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
 					</div>
 			</div>
 		</div>
 		</div>
-		
-	<!-- POPUP > Delete Role -->
+
+	<!-- POPUP > Delete Event -->
 	<div class="modal fade" id="popup_deleteRole">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header" align="left"><strong>Delete Role</strong></div>
-				<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> <span id="lbl_roleId_delete"></span>?</div>
+				<div class="modal-header" align="left"><strong>Delete Event</strong></div>
+				<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> <span id="lbl_eventId_delete"></span>?</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="deleteRole()">Confirm</button>
+					<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="deleteEvent()">Confirm</button>
 					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
@@ -248,7 +248,7 @@
 			// Change DB value to display text
 			// 1: Yes, 0: No
 			$("tbody tr").each(function() {
-				var td_isAllDay = $(this).children('td:eq(6)');
+				var td_isAllDay = $(this).children('td:eq(5)');
 				if (td_isAllDay.text() == '1') {
 					td_isAllDay.text('Yes');
 				} else {
@@ -269,12 +269,12 @@
 		    });
 		});
 		
-		function popup_updateRole(roleId) {
-			if(roleId) {
+		function popup_updateEvent(eventId) {
+			if(eventId) {
 				$.ajax({
 					type : "get",
 					url : "role/getRole.do?",
-					data: {'roleId' : roleId},
+					data: {'eventId' : eventId},
 					dataType: 'json',
 					cache : false,
 					async : true,
@@ -282,7 +282,7 @@
 						if (obj) {
 							// var user = $.parseJSON(obj);
 							var role = obj;
-							$('#txt_roleId_update').val(role.roleId);
+							$('#txt_roleId_update').val(role.eventId);
 							$('#txt_roleName_update').val(role.roleName);
 							if (role.adminFlag == '1') {
 								$('#sel_adminFlag_update').val('Yes');
@@ -311,7 +311,7 @@
 			}
 		}
 		
-		function popup_deleteRole(roleId) {
+		function popup_deleteEvent(eventId) {
 			$('#lbl_roleId_delete').text(roleId);
 			$('#popup_deleteRole').modal('show');
 		}
@@ -359,7 +359,7 @@
 			}
 		}
 		
-		function updateRole() {
+		function updateEvent() {
 			var roleId = $('#txt_roleId_update').val();
 			var roleName = $('#txt_roleName_update').val();
 			var adminFlag = $('#sel_adminFlag_update').val();
@@ -407,18 +407,18 @@
 			}
 		}
 		
-		function deleteRole() {
-			var roleId = $('#lbl_roleId_delete').text();
-			if(roleId) {
+		function deleteEvent() {
+			var eventId = $('#lbl_eventId_delete').text();
+			if(eventId) {
 				$.ajax({
 					type : "get",
-					url : "role/deleteRole.do?",
-					data: {'roleId' : roleId},
+					url : "event/deleteEvent.do?",
+					data: {'eventId' : eventId},
 					dataType: 'json',
 					cache : false,
 					async : true,
 					success : function(obj) {
-						window.location.href = "role.do";
+						window.location.href = "event.do";
 					},
 					error : function(obj) {
 						if (obj.status == '901') {
