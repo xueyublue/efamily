@@ -12,6 +12,6 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/standard.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/log4j-1.2.15.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/db-handler-1.0.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/db-handler-1.0.3.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
