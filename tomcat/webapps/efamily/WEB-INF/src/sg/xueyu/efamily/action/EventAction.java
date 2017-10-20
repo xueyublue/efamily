@@ -61,6 +61,8 @@ public class EventAction implements Action {
 			}
 
 			// Perform to forward to Event.jsp
+			req.setAttribute("events", roleDao.getAllRoles());
+			
 			resultContent = new ResultContent(SystemConstants.URL_EVENT, null);
 			actionResult = new ActionResult(resultContent);
 
