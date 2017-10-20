@@ -66,26 +66,26 @@
 					<thead>
 						<tr>
 							<th>Action</th>
-							<th>Role Id</th>
-							<th>Role Name</th>
-							<th>Administrator</th>
-							<th>Guest</th>
-							<th>Expiry Date</th></tr>
+							<th>Event Id</th>
+							<th>Title</th>
+							<th>Location</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>All Day</th></tr>
 						</thead>
 					<tbody>
-						<c:forEach items="${roles}" var="c">
+						<c:forEach items="${events}" var="c">
 							<tr>
 								<td width="80" align="center">
-									<button class="btn btn-xs btn-warning" onclick="popup_updateRole('${c.roleId}')"><span class="glyphicon glyphicon-pencil"></span></button>
-									<button class="btn btn-xs btn-danger" onclick="popup_deleteRole('${c.roleId}')"><span class="glyphicon glyphicon-remove"></span></button>
+									<button class="btn btn-xs btn-warning" onclick="popup_updateRole('${c.eventId}')"><span class="glyphicon glyphicon-pencil"></span></button>
+									<button class="btn btn-xs btn-danger" onclick="popup_deleteRole('${c.eventId}')"><span class="glyphicon glyphicon-remove"></span></button>
 									</td>
-								<td><span id="roleId">${c.roleId}</span></td>
-								<!-- Can be updated by doing: $("#roleId_DEV").text('1'); -->
-								<!--<td><span id="roleId_${c.roleId}">${c.roleId}</span></td>-->
-								<td><span id="roleName">${c.roleName}</span></td>
-								<td><span id="adminFlag">${c.adminFlag}</span></td>
-								<td><span id="guestFlag">${c.guestFlag}</span></td>
-								<td><span id="expiryDate"><fmt:formatDate value="${c.expiryDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
+								<td><span id="roleId">${c.eventId}</span></td>
+								<td><span id="roleName">${c.title}</span></td>
+								<td><span id="adminFlag">${c.location}</span></td>
+								<td><span id="expiryDate"><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td><span id="expiryDate"><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td><span id="adminFlag">${c.isAllDay}</span></td></tr>
 							</c:forEach>
 						</tbody>
 				</table>
@@ -242,35 +242,6 @@
 			$('#btn_backward').addClass('disabled');
 			$('#btn_forward').addClass('enabled');
 			$('#btn_fastForward').addClass('enabled');
-
-			// Change DB value to display text
-			// 1: Yes, 0: No
-			$("tbody tr").each(function() {
-				var td_adminFlag = $(this).children('td:eq(3)');
-				if (td_adminFlag.text() == '1') {
-					td_adminFlag.text('Yes');
-				} else {
-					td_adminFlag.text('No');
-				}
-				var td_guestFlag = $(this).children('td:eq(4)');
-				if (td_guestFlag.text() == '1') {
-					td_guestFlag.text('Yes');
-				} else {
-					td_guestFlag.text('No');
-				}
-			});
-
-			// Initialize DateTimePicker
-			$('.form_datetime').datetimepicker({
-		        //language:  'fr',
-		        weekStart: 1,
-		        todayBtn:  1,
-				autoclose: 1,
-				todayHighlight: 1,
-				startView: 2,
-				forceParse: 0,
-		        showMeridian: 1
-		    });
 		});
 		
 		function popup_updateRole(roleId) {
