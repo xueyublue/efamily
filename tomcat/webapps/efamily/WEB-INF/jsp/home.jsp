@@ -28,7 +28,11 @@
 			</div>
 		</div>
 
-
+	<div>
+		<p>
+			Hi <%=session.getAttribute("userName")%>, Welcome to E-Family. Today is //TODO: ?
+			</p>
+		</div>
 	<!-- End of Container -->
 	</div>
 	

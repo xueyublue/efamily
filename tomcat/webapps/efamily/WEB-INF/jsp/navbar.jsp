@@ -31,8 +31,6 @@
 	                <ul class="dropdown-menu">
 	                    <li><a href="user.do">User</a></li>
 	                    <li><a href="role.do">Role</a></li>
-	                    <li class="divider"></li>
-	                    <li><a href="#">Log</a></li>
 	                	</ul>
 	            	</li>
 	            
