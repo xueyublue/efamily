@@ -9,6 +9,7 @@ import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.base.DataSource;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
+import sg.xueyu.efamily.dao.EventDao;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.CommonMethods;
@@ -29,11 +30,13 @@ public class EventAction implements Action {
 		Connection conn = null;
 		UserDao userDao = null;
 		RoleDao roleDao = null;
+		EventDao eventDao = null;
 
 		try {
 			conn = new DataSource().getConnection();
 			userDao = new UserDao(conn);
 			roleDao = new RoleDao(conn);
+			eventDao = new EventDao(conn);
 
 			// Session UserId is null
 			String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
@@ -61,8 +64,8 @@ public class EventAction implements Action {
 			}
 
 			// Perform to forward to Event.jsp
-			req.setAttribute("events", roleDao.getAllRoles());
-			
+			req.setAttribute("events", eventDao.getAllEvents());
+
 			resultContent = new ResultContent(SystemConstants.URL_EVENT, null);
 			actionResult = new ActionResult(resultContent);
 

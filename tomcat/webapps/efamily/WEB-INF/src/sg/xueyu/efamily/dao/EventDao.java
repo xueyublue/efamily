@@ -8,11 +8,11 @@ import java.util.List;
 import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.dbhandler.util.HandlerUtil;
-import sg.xueyu.efamily.base.dbhandler.LoginUser;
-import sg.xueyu.efamily.base.dbhandler.LoginUserAlterKey;
-import sg.xueyu.efamily.base.dbhandler.LoginUserHandler;
-import sg.xueyu.efamily.base.dbhandler.LoginUserSearchKey;
-import sg.xueyu.efamily.base.ejb.LoginUserEJB;
+import sg.xueyu.efamily.base.dbhandler.Event;
+import sg.xueyu.efamily.base.dbhandler.EventAlterKey;
+import sg.xueyu.efamily.base.dbhandler.EventHandler;
+import sg.xueyu.efamily.base.dbhandler.EventSearchKey;
+import sg.xueyu.efamily.base.ejb.EventEJB;
 
 public class EventDao {
 
@@ -22,82 +22,70 @@ public class EventDao {
 		this.mConnection = conn;
 	}
 
-	public List<LoginUserEJB> getAllUsers() throws Exception {
-		LoginUserHandler handler = new LoginUserHandler(mConnection);
-		LoginUserSearchKey searchKey = new LoginUserSearchKey();
+	public List<EventEJB> getAllEvents() throws Exception {
+		EventHandler handler = new EventHandler(mConnection);
+		EventSearchKey searchKey = new EventSearchKey();
 
-		searchKey.setUserIdOrder(true);
-		
+		searchKey.setStartDateOrder(true);
+
 		AbstractEntity[] results = handler.query(searchKey);
-		List<LoginUserEJB> actualResults = new ArrayList<>();
+		List<EventEJB> actualResults = new ArrayList<>();
 
 		for (int i = 0; i < results.length; i++) {
-			actualResults.add((LoginUserEJB) HandlerUtil.entity2bean(results[i], LoginUserEJB.class));
+			actualResults.add((EventEJB) HandlerUtil.entity2bean(results[i], EventEJB.class));
 		}
 
 		return actualResults;
 	}
 
-	public LoginUserEJB getUser(String userId) throws Exception {
-		LoginUserHandler handler = new LoginUserHandler(mConnection);
+	public EventEJB getEvent(String eventId) throws Exception {
+		EventHandler handler = new EventHandler(mConnection);
 
-		LoginUserSearchKey searchKey = new LoginUserSearchKey();
-		searchKey.setUserId(userId);
+		EventSearchKey searchKey = new EventSearchKey();
+		searchKey.setEventId(eventId);
 
 		AbstractEntity[] results = handler.query(searchKey);
 		if (results.length == 1) {
-			return (LoginUserEJB) HandlerUtil.entity2bean(results[0], LoginUserEJB.class);
+			return (EventEJB) HandlerUtil.entity2bean(results[0], EventEJB.class);
 		}
 
 		return null;
 	}
-	
-	public LoginUserEJB[] getUsersByRoleId(String roleId) throws Exception {
-		LoginUserHandler handler = new LoginUserHandler(mConnection);
 
-		LoginUserSearchKey searchKey = new LoginUserSearchKey();
-		searchKey.setRoleId(roleId);
+	public void createEvent(String eventId, String title, String location, Date startDate, Date endDate,
+			String isAllDay, String registBy) throws Exception {
+		EventHandler handler = new EventHandler(mConnection);
 
-		AbstractEntity[] results = handler.query(searchKey);
-		
-		if (results.length > 0) {
-			LoginUserEJB[] users = new LoginUserEJB[results.length];
-			for (int i = 0; i < results.length; i++) {
-				users[i] = (LoginUserEJB) HandlerUtil.entity2bean(results[i], LoginUserEJB.class);
-			}
-			
-			return users;
-		}
-		
-		return null;
-	}
+		Event event = new Event();
+		event.setEventId(eventId);
+		event.setTitle(title);
+		event.setLocation(location);
+		event.setStartDate(startDate);
+		event.setEndDate(endDate);
+		event.setIsAllDay(isAllDay);
+		event.setRegistBy(registBy);
 
-	public void createUser(String userId, String userName, String password, String roleId) throws Exception {
-		LoginUserHandler handler = new LoginUserHandler(mConnection);
+		event.setRegistPname(EventDao.class.getSimpleName());
 
-		LoginUser user = new LoginUser();
-		user.setUserId(userId);
-		user.setUserName(userName);
-		user.setPassword(password);
-		user.setRoleId(roleId);
-
-		user.setRegistPname(EventDao.class.getSimpleName());
-
-		handler.create(user);
+		handler.create(event);
 
 		DBUtils.commit(mConnection);
 	}
 
-	public void updateUser(String userId, String userName, String password, String roleId) throws Exception {
-		LoginUserHandler handler = new LoginUserHandler(mConnection);
-		LoginUserAlterKey alterKey = new LoginUserAlterKey();
+	public void updateEvent(String eventId, String title, String location, Date startDate, Date endDate,
+			String isAllDay, String updateBy) throws Exception {
+		EventHandler handler = new EventHandler(mConnection);
+		EventAlterKey alterKey = new EventAlterKey();
 
-		alterKey.setUserId(userId);
-		alterKey.updateUserName(userName);
-		alterKey.updatePassword(password);
-		alterKey.updateRoleId(roleId);
+		alterKey.setEventId(eventId);
 
-		alterKey.updateLastUpdateDate(new Date());
+		alterKey.updateTitle(title);
+		alterKey.updateLocation(location);
+		alterKey.updateStartDate(startDate);
+		alterKey.updateEndDate(endDate);
+		alterKey.updateIsAllDay(isAllDay);
+		alterKey.updateUpdateBy(updateBy);
+
 		alterKey.updateLastUpdatePname(EventDao.class.getSimpleName());
 
 		handler.update(alterKey);
@@ -105,45 +93,13 @@ public class EventDao {
 		DBUtils.commit(mConnection);
 	}
 
-	public void deleteUser(String userId) throws Exception {
-		LoginUserHandler handler = new LoginUserHandler(mConnection);
+	public void deleteEvent(String eventId) throws Exception {
+		EventHandler handler = new EventHandler(mConnection);
 
-		LoginUserAlterKey alterKey = new LoginUserAlterKey();
-		alterKey.setUserId(userId);
+		EventAlterKey alterKey = new EventAlterKey();
+		alterKey.setEventId(eventId);
 
 		handler.delete(alterKey);
-
-		DBUtils.commit(mConnection);
-	}
-
-	public String auth(String userId, String password) throws Exception {
-		LoginUserHandler handler = new LoginUserHandler(mConnection);
-		LoginUserSearchKey searchKey = new LoginUserSearchKey();
-		searchKey.setUserId(userId);
-		if (handler.query(searchKey).length == 0) {
-			return "UserId is invalid";
-		} else {
-			searchKey.clear();
-			searchKey.setUserId(userId);
-			searchKey.setPassword(password);
-			if (handler.query(searchKey).length == 0) {
-				return "Password is wrong";
-			}
-		}
-
-		return null;
-	}
-
-	public void udpateLastLoginDate(String userId) throws Exception {
-		LoginUserHandler handler = new LoginUserHandler(mConnection);
-
-		LoginUserAlterKey alterKey = new LoginUserAlterKey();
-		alterKey.setUserId(userId);
-
-		alterKey.updateLastUpdatePname(EventDao.class.getSimpleName());
-		alterKey.updateLastLoginDate(new Date());
-
-		handler.update(alterKey);
 
 		DBUtils.commit(mConnection);
 	}
