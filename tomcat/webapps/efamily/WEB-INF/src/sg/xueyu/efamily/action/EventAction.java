@@ -19,7 +19,7 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 
-public class CalendarAction implements Action {
+public class EventAction implements Action {
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -60,8 +60,8 @@ public class CalendarAction implements Action {
 				return actionResult;
 			}
 
-			// Perform to forward to Home.jsp
-			resultContent = new ResultContent(SystemConstants.URL_CALENDAR, null);
+			// Perform to forward to Event.jsp
+			resultContent = new ResultContent(SystemConstants.URL_EVENT, null);
 			actionResult = new ActionResult(resultContent);
 
 			return actionResult;

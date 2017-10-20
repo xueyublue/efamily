@@ -21,7 +21,7 @@
 	           <li id="family-share" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cloud"></span> Family Share<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
-	                    <li><a href="calendar.do">Calendar</a></li>
+	                    <li><a href="event.do">Event</a></li>
 	                	</ul>
 	            	</li>
 	            

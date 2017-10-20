@@ -24,7 +24,7 @@
 		<div class="col-xs-12">
 			<ol class="breadcrumb">
 				<li>Family Share</li>
-				<li><a href="" class="active">Calendar</a></li>
+				<li><a href="" class="active">Event</a></li>
 				</ol>
 			</div>
 		</div>
