@@ -31,13 +31,17 @@
 	
 	<!-- End of Container -->
 	</div>
+	
 	<script src="static/js/jquery/jquery.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
+	
+	<!-- Customize Scripts -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
 			$('#family-share').addClass('active');
 		});
-</script>
+		
+	</script>
 </body>
 </html>

@@ -33,6 +33,8 @@
 	
 	<script src="static/js/jquery/jquery.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
+	
+	<!-- Customize Scripts -->
 	<script type="text/javascript">
 		function login() {
 			$.ajax({
@@ -50,6 +52,6 @@
 				}
 			});
 		}
-</script>
+	</script>
 </body>
 </html>
