@@ -134,8 +134,8 @@
 						<div class="form-group">
 			                <label class="col-sm-3 control-label" for="dtp_expiryDate" >Expiry Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="1979-09-16T05:25:07Z" data-date-format="yyyy-mm-dd HH:ii:ss" data-link-field="dtp_expiryDate">
-				                    <input class="form-control" size="16" type="text" value="" readonly>
+			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd HH:ii:ss" data-link-field="dtp_expiryDate">
+				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_expiryDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 				                	</div>
@@ -189,6 +189,17 @@
 								</select>
 							</div>
 							</div>
+						<div class="form-group">
+			                <label class="col-sm-3 control-label" for="dtp_expiryDate_update" >Expiry Date</label>
+			                <div class="col-sm-9">
+			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd HH:ii:ss" data-link-field="dtp_expiryDate_update">
+				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_expiryDate_update">
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				                	</div>
+				                	<input type="hidden" id="dtp_expiryDate_update" value="" />
+			                	</div>
+			            	</div>
 					</form>
 					</div>
 				<div class="modal-footer">
@@ -287,6 +298,7 @@
 							} else {
 								$('#sel_guestFlag_update').val('No');
 							}
+							$('#txt_expiryDate_update').val(role.expiryDate);
 							$("#txt_roleId_update").attr("disabled", "disabled");
 							$('#popup_updateRole').modal('show');
 						}
@@ -309,10 +321,16 @@
 		}
 		
 		function addRole() {
+			var roleId = $('#txt_roleId_add').val();
+			var roleName = $('#txt_roleName_add').val();
 			var adminFlag = $('#sel_adminFlag_add').val();
 			var guestFlag = $('#sel_guestFlag_add').val();
+			var expiryDate = $('#txt_expiryDate_add').val();
+			
 			if (adminFlag == 'Yes' && guestFlag == 'Yes') {
 				alert("Admin-Flag and Guest-Flag cannot both be Yes!");
+			} else if (!expiryDate) {
+				alert("Expiry Date cannot be empty!");
 			} else {
 				if(adminFlag == 'Yes') {
 					adminFlag = '1';
@@ -327,10 +345,11 @@
 				$.ajax({
 					type : "get",
 					url : "role/addRole.do?",
-					data: {'roleId' : $('#txt_roleId_add').val(),
-						'roleName' : $('#txt_roleName_add').val(), 
-						'adminFlag' : $('#sel_adminFlag_add').val(), 
-						'guestFlag' : $('#sel_guestFlag_add').val()},
+					data: {'roleId' : roleId,
+						'roleName' : roleName, 
+						'adminFlag' : adminFlag, 
+						'guestFlag' : guestFlag,
+						'expiryDate' : expiryDate},
 					dataType: 'json',
 					cache : false,
 					async : true,
@@ -350,10 +369,16 @@
 		}
 		
 		function updateRole() {
+			var roleId = $('#txt_roleId_update').val();
+			var roleName = $('#txt_roleName_update').val();
 			var adminFlag = $('#sel_adminFlag_update').val();
 			var guestFlag = $('#sel_guestFlag_update').val();
+			var expiryDate = $('#txt_expiryDate_update').val();
+			
 			if (adminFlag == 'Yes' && guestFlag == 'Yes') {
 				alert("Admin-Flag and Guest-Flag cannot both be Yes!");
+			} else if (!expiryDate) {
+				alert("Expiry Date cannot be empty!");
 			} else {
 				if(adminFlag == 'Yes') {
 					adminFlag = '1';
@@ -368,10 +393,11 @@
 				$.ajax({
 					type : "get",
 					url : "role/updateRole.do?",
-					data: {'roleId' : $('#txt_roleId_update').val(),
-						'roleName' : $('#txt_roleName_update').val(), 
-						'adminFlag' : $('#sel_adminFlag_update').val(), 
-						'guestFlag' : $('#sel_guestFlag_update').val()},
+					data: {'roleId' : roleId,
+						'roleName' : roleName, 
+						'adminFlag' : adminFlag, 
+						'guestFlag' : guestFlag,
+						'expiryDate' : expiryDate},
 					dataType: 'json',
 					cache : false,
 					async : true,

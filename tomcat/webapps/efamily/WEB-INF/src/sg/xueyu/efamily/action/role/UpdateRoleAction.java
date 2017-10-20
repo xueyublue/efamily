@@ -31,7 +31,7 @@ public class UpdateRoleAction implements Action {
 
 	private String guestFlag;
 	
-//	private Date expiryDate;
+	private Date expiryDate;
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -79,7 +79,7 @@ public class UpdateRoleAction implements Action {
 			}
 
 			// Perform to UPDATE role
-			roleDao.updateRole(roleId, roleName, adminFlag, guestFlag, new Date());
+			roleDao.updateRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
 
 			resultContent = new ResultContent(null, null);
 

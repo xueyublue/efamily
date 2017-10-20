@@ -31,7 +31,7 @@ public class AddRoleAction implements Action {
 
 	private String guestFlag;
 
-//	private Date expiryDate;
+	private Date expiryDate;
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -83,7 +83,7 @@ public class AddRoleAction implements Action {
 			}
 			
 			// Perform to ADD user
-			roleDao.createRole(roleId, roleName, adminFlag, guestFlag, new Date());
+			roleDao.createRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
 			
 			resultContent = new ResultContent(null, null);
 			actionResult = new ActionResult(resultContent, ResultType.Ajax);
