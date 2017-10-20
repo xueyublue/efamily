@@ -79,6 +79,8 @@
 									<button class="btn btn-xs btn-danger" onclick="popup_deleteRole('${c.roleId}')"><span class="glyphicon glyphicon-remove"></span></button>
 									</td>
 								<td><span id="roleId">${c.roleId}</span></td>
+								<!-- Can be updated by doing: $("#roleId_DEV").text('1'); -->
+								<!--<td><span id="roleId_${c.roleId}">${c.roleId}</span></td>-->
 								<td><span id="roleName">${c.roleName}</span></td>
 								<td><span id="adminFlag">${c.adminFlag}</span></td>
 								<td><span id="guestFlag">${c.guestFlag}</span></td>
@@ -114,8 +116,8 @@
 							<label class="col-sm-3 control-label" for="sel_adminFlag_add">Admin Flag</label>
 							<div class="col-sm-9">
 								<select id="sel_adminFlag_add" class="form-control">
-									<option>0</option>
-									<option>1</option>
+									<option>No</option>
+									<option>Yes</option>
 								</select>
 							</div>
 							</div>
@@ -123,8 +125,8 @@
 							<label class="col-sm-3 control-label" for="sel_guestFlag_add">Guest Flag</label>
 							<div class="col-sm-9">
 								<select id="sel_guestFlag_add" class="form-control">
-									<option>0</option>
-									<option>1</option>
+									<option>No</option>
+									<option>Yes</option>
 								</select>
 							</div>
 							</div>
@@ -161,8 +163,8 @@
 							<label class="col-sm-3 control-label" for="sel_adminFlag_update">Admin Flag</label>
 							<div class="col-sm-9">
 								<select id="sel_adminFlag_update" class="form-control">
-									<option>0</option>
-									<option>1</option>
+									<option>No</option>
+									<option>Yes</option>
 								</select>
 							</div>
 							</div>
@@ -170,8 +172,8 @@
 							<label class="col-sm-3 control-label" for="sel_guestFlag_update">Guest Flag</label>
 							<div class="col-sm-9">
 								<select id="sel_guestFlag_update" class="form-control">
-									<option>0</option>
-									<option>1</option>
+									<option>No</option>
+									<option>Yes</option>
 								</select>
 							</div>
 							</div>
@@ -209,11 +211,29 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
+			
 			$('#administrator').addClass('active');
 			$('#btn_fastBackward').addClass('disabled');
 			$('#btn_backward').addClass('disabled');
 			$('#btn_forward').addClass('enabled');
 			$('#btn_fastForward').addClass('enabled');
+
+			// Change DB value to display text
+			// 1: Yes, 0: No
+			$("tbody tr").each(function() {
+				var td_adminFlag = $(this).children('td:eq(3)');
+				if (td_adminFlag.text() == '1') {
+					td_adminFlag.text('Yes');
+				} else {
+					td_adminFlag.text('No');
+				}
+				var td_guestFlag = $(this).children('td:eq(4)');
+				if (td_guestFlag.text() == '1') {
+					td_guestFlag.text('Yes');
+				} else {
+					td_guestFlag.text('No');
+				}
+			});
 		});
 		
 		function popup_updateRole(roleId) {
@@ -231,8 +251,16 @@
 							var role = obj;
 							$('#txt_roleId_update').val(role.roleId);
 							$('#txt_roleName_update').val(role.roleName);
-							$('#sel_adminFlag_update').val(role.adminFlag);
-							$('#sel_guestFlag_update').val(role.guestFlag);
+							if (role.adminFlag == '1') {
+								$('#sel_adminFlag_update').val('Yes');
+							} else {
+								$('#sel_adminFlag_update').val('No');
+							}
+							if (role.guestFlag == '1') {
+								$('#sel_guestFlag_update').val('Yes');
+							} else {
+								$('#sel_guestFlag_update').val('No');
+							}
 							$("#txt_roleId_update").attr("disabled", "disabled");
 							$('#popup_updateRole').modal('show');
 						}
@@ -257,9 +285,19 @@
 		function addRole() {
 			var adminFlag = $('#sel_adminFlag_add').val();
 			var guestFlag = $('#sel_guestFlag_add').val();
-			if (adminFlag == '1' && guestFlag == '1') {
-				alert("Admin-Flag and Guest-Flag cannot both be 1!");
+			if (adminFlag == 'Yes' && guestFlag == 'Yes') {
+				alert("Admin-Flag and Guest-Flag cannot both be Yes!");
 			} else {
+				if(adminFlag == 'Yes') {
+					adminFlag = '1';
+				} else {
+					adminFlag = '0';
+				}
+				if(guestFlag == 'Yes') {
+					guestFlag = '1';
+				} else {
+					guestFlag = '0';
+				}
 				$.ajax({
 					type : "get",
 					url : "role/addRole.do?",
@@ -288,9 +326,19 @@
 		function updateRole() {
 			var adminFlag = $('#sel_adminFlag_update').val();
 			var guestFlag = $('#sel_guestFlag_update').val();
-			if (adminFlag == '1' && guestFlag == '1') {
-				alert("Admin-Flag and Guest-Flag cannot both be 1!");
+			if (adminFlag == 'Yes' && guestFlag == 'Yes') {
+				alert("Admin-Flag and Guest-Flag cannot both be Yes!");
 			} else {
+				if(adminFlag == 'Yes') {
+					adminFlag = '1';
+				} else {
+					adminFlag = '0';
+				}
+				if(guestFlag == 'Yes') {
+					guestFlag = '1';
+				} else {
+					guestFlag = '0';
+				}
 				$.ajax({
 					type : "get",
 					url : "role/updateRole.do?",
