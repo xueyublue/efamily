@@ -39,7 +39,7 @@
 	<div class="row hide">
 		<div class="col-xs-12">
 			<ol class="breadcrumb">
-				<li>Administrator</li>
+				<li>Family Share</li>
 				</ol>
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 	<!-- Buttons -->
 	<div class="row">
 		<div class="col-xs-5">
-			<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#popup_addUser">
+			<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#popup_addEvent">
 				<span class="glyphicon glyphicon-plus"></span>Add</button>
 			</div>
 		<div class="col-xs-7" align="right">
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		
-	<!-- User List Table -->
+	<!-- Event List Table -->
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="table-responsive">
@@ -66,7 +66,7 @@
 					<thead>
 						<tr>
 							<th>Action</th>
-							<th>Event Id</th>
+							<th class="hide">Event Id</th>
 							<th>Title</th>
 							<th>Location</th>
 							<th>Start Date</th>
@@ -80,11 +80,11 @@
 									<button class="btn btn-xs btn-warning" onclick="popup_updateRole('${c.eventId}')"><span class="glyphicon glyphicon-pencil"></span></button>
 									<button class="btn btn-xs btn-danger" onclick="popup_deleteRole('${c.eventId}')"><span class="glyphicon glyphicon-remove"></span></button>
 									</td>
-								<td><span id="roleId">${c.eventId}</span></td>
-								<td><span id="roleName">${c.title}</span></td>
-								<td><span id="adminFlag">${c.location}</span></td>
-								<td><span id="expiryDate"><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
-								<td><span id="expiryDate"><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td class="hide"><span id="eventId">${c.eventId}</span></td>
+								<td><span id="title">${c.title}</span></td>
+								<td><span id="location">${c.location}</span></td>
+								<td><span id="startDate"><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td><span id="endDate"><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
 								<td><span id="adminFlag">${c.isAllDay}</span></td></tr>
 							</c:forEach>
 						</tbody>
@@ -94,58 +94,60 @@
 		</div>
 	
 	<!-- POPUPs -->
-	<!-- POPUP > Add Role -->
-	<div class="modal fade" id="popup_addUser">
+	<!-- POPUP > Add Event -->
+	<div class="modal fade" id="popup_addEvent">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header"><strong>Add Role</strong></div>
+				<div class="modal-header"><strong>Add Event</strong></div>
 				<div class="modal-body">
 					<form role="form" class="form-horizontal">
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="txt_roleId_add">Role Id</label>
+							<label class="col-sm-3 control-label" for="txt_title_add">Title</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="txt_roleId_add" placeholder="Role Id"></input>
+								<input type="text" class="form-control" id="txt_title_add" placeholder="Event Title"></input>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="txt_roleName_add">Role Name</label>
+							<label class="col-sm-3 control-label" for="txt_location_add">Location</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="txt_roleName_add" placeholder="Role Name"></input>
+								<input type="text" class="form-control" id="txt_location_add" placeholder="Event Location"></input>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_adminFlag_add">Administrator</label>
+							<label class="col-sm-3 control-label" for="sel_allDay_add">All Day</label>
 							<div class="col-sm-9">
-								<select id="sel_adminFlag_add" class="form-control">
+								<select id="sel_allDay_add" class="form-control">
 									<option>No</option>
 									<option>Yes</option>
 								</select>
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_guestFlag_add">Guest</label>
-							<div class="col-sm-9">
-								<select id="sel_guestFlag_add" class="form-control">
-									<option>No</option>
-									<option>Yes</option>
-								</select>
-							</div>
-							</div>
-						<div class="form-group">
-			                <label class="col-sm-3 control-label" for="dtp_expiryDate" >Expiry Date</label>
+			                <label class="col-sm-3 control-label" for="dtp_startDate" >Start Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_expiryDate">
-				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_expiryDate_add">
+			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_startDate">
+				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_startDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 				                	</div>
-			                	<input type="hidden" id="dtp_expiryDate" value="" />
+			                	<input type="hidden" id="dtp_startDate" value="" />
+			                	</div>
+			            	</div>
+			            <div class="form-group">
+			                <label class="col-sm-3 control-label" for="dtp_endDate" >End Date</label>
+			                <div class="col-sm-9">
+			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_endDate">
+				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_endDate_add">
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				                	</div>
+			                	<input type="hidden" id="dtp_endDate" value="" />
 			                	</div>
 			            	</div>
 					</form>
 					</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-primary" onclick="addRole()">Commit</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="addEvent()">Commit</button>
 					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
 					</div>
 			</div>
@@ -242,6 +244,29 @@
 			$('#btn_backward').addClass('disabled');
 			$('#btn_forward').addClass('enabled');
 			$('#btn_fastForward').addClass('enabled');
+			
+			// Change DB value to display text
+			// 1: Yes, 0: No
+			$("tbody tr").each(function() {
+				var td_isAllDay = $(this).children('td:eq(6)');
+				if (td_isAllDay.text() == '1') {
+					td_isAllDay.text('Yes');
+				} else {
+					td_isAllDay.text('No');
+				}
+			});
+
+			// Initialize DateTimePicker
+			$('.form_datetime').datetimepicker({
+		        //language:  'fr',
+		        weekStart: 1,
+		        todayBtn:  1,
+				autoclose: 1,
+				todayHighlight: 1,
+				startView: 2,
+				forceParse: 0,
+		        showMeridian: 1
+		    });
 		});
 		
 		function popup_updateRole(roleId) {
@@ -291,41 +316,36 @@
 			$('#popup_deleteRole').modal('show');
 		}
 		
-		function addRole() {
-			var roleId = $('#txt_roleId_add').val();
-			var roleName = $('#txt_roleName_add').val();
-			var adminFlag = $('#sel_adminFlag_add').val();
-			var guestFlag = $('#sel_guestFlag_add').val();
-			var expiryDate = $('#txt_expiryDate_add').val();
+		function addEvent() {
+			var title = $('#txt_title_add').val();
+			var location = $('#txt_location_add').val();
+			var startDate = $('#txt_startDate_add').val();
+			var endDate = $('#txt_endDate_add').val();
+			var isAllDay = $('#sel_allDay_add').val();
 			
-			if (adminFlag == 'Yes' && guestFlag == 'Yes') {
-				alert("Admin-Flag and Guest-Flag cannot both be Yes!");
-			} else if (!expiryDate) {
-				alert("Expiry Date cannot be empty!");
+			if (!startDate) {
+				alert("Start Date cannot be empty!");
+			} else if (!endDate) {
+				alert("End Date cannot be empty!");
 			} else {
-				if(adminFlag == 'Yes') {
-					adminFlag = '1';
+				if(isAllDay == 'Yes') {
+					isAllDay = '1';
 				} else {
-					adminFlag = '0';
-				}
-				if(guestFlag == 'Yes') {
-					guestFlag = '1';
-				} else {
-					guestFlag = '0';
+					isAllDay = '0';
 				}
 				$.ajax({
 					type : "get",
-					url : "role/addRole.do?",
-					data: {'roleId' : roleId,
-						'roleName' : roleName, 
-						'adminFlag' : adminFlag, 
-						'guestFlag' : guestFlag,
-						'expiryDate' : expiryDate},
+					url : "event/addEvent.do?",
+					data: {'title' : title, 
+						'location' : location, 
+						'startDate' : startDate,
+						'endDate' : endDate,
+						'isAllDay' : isAllDay},
 					dataType: 'json',
 					cache : false,
 					async : true,
 					success : function(obj) {
-						window.location.href = "role.do";
+						window.location.href = "event.do";
 					},
 					error : function(obj) {
 						if (obj.status == '901') {
