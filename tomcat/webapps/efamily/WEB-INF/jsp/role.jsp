@@ -68,8 +68,8 @@
 							<th>Action</th>
 							<th>Role Id</th>
 							<th>Role Name</th>
-							<th>Admin Flag</th>
-							<th>Guest Flag</th>
+							<th>Administrator</th>
+							<th>Guest</th>
 							<th>Expiry Date</th></tr>
 						</thead>
 					<tbody>
@@ -114,7 +114,7 @@
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_adminFlag_add">Admin Flag</label>
+							<label class="col-sm-3 control-label" for="sel_adminFlag_add">Administrator</label>
 							<div class="col-sm-9">
 								<select id="sel_adminFlag_add" class="form-control">
 									<option>No</option>
@@ -123,7 +123,7 @@
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_guestFlag_add">Guest Flag</label>
+							<label class="col-sm-3 control-label" for="sel_guestFlag_add">Guest</label>
 							<div class="col-sm-9">
 								<select id="sel_guestFlag_add" class="form-control">
 									<option>No</option>
@@ -172,7 +172,7 @@
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_adminFlag_update">Admin Flag</label>
+							<label class="col-sm-3 control-label" for="sel_adminFlag_update">Administrator</label>
 							<div class="col-sm-9">
 								<select id="sel_adminFlag_update" class="form-control">
 									<option>No</option>
@@ -181,7 +181,7 @@
 							</div>
 							</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_guestFlag_update">Guest Flag</label>
+							<label class="col-sm-3 control-label" for="sel_guestFlag_update">Guest</label>
 							<div class="col-sm-9">
 								<select id="sel_guestFlag_update" class="form-control">
 									<option>No</option>
