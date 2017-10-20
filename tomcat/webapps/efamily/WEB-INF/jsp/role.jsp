@@ -8,7 +8,8 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Role</title>
-<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="static/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <style type="text/css">
 	
 </style>
@@ -130,6 +131,17 @@
 								</select>
 							</div>
 							</div>
+						<div class="form-group">
+			                <label class="col-sm-3 control-label" for="dtp_expiryDate" >Expiry Date</label>
+			                <div class="col-sm-9">
+			                	<div class="input-group date form_datetime" data-date="1979-09-16T05:25:07Z" data-date-format="yyyy-mm-dd HH:ii:ss" data-link-field="dtp_expiryDate">
+				                    <input class="form-control" size="16" type="text" value="" readonly>
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				                	</div>
+			                	<input type="hidden" id="dtp_expiryDate" value="" />
+			                	</div>
+			            	</div>
 					</form>
 					</div>
 				<div class="modal-footer">
@@ -204,8 +216,10 @@
 	<!-- End of Container -->
 	</div>
 	
-	<script src="static/js/jquery/jquery.min.js"></script>
-	<script src="static/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="static/js/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="static/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="static/datetimepicker/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
 	
 	<!-- Customize Scripts -->
 	<script type="text/javascript">
@@ -234,6 +248,18 @@
 					td_guestFlag.text('No');
 				}
 			});
+
+			// Initialize DateTimePicker
+			$('.form_datetime').datetimepicker({
+		        //language:  'fr',
+		        weekStart: 1,
+		        todayBtn:  1,
+				autoclose: 1,
+				todayHighlight: 1,
+				startView: 2,
+				forceParse: 0,
+		        showMeridian: 1
+		    });
 		});
 		
 		function popup_updateRole(roleId) {
