@@ -123,7 +123,7 @@
 						<div class="form-group">
 			                <label class="col-sm-3 control-label" for="dtp_startDate" >Start Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_startDate">
+			                	<div class="input-group date form_datetime" data-link-field="dtp_startDate">
 				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_startDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
@@ -134,7 +134,7 @@
 			            <div class="form-group">
 			                <label class="col-sm-3 control-label" for="dtp_endDate" >End Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_endDate">
+			                	<div class="input-group date form_datetime" data-link-field="dtp_endDate">
 				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_endDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
@@ -206,18 +206,25 @@
 				todayHighlight: 1,
 				startView: 2,
 				forceParse: 0,
-		        showMeridian: 1
+		        showMeridian: 1,
+		        format : 'yyyy-mm-dd hh:ii'
 		    });
 
-			// NOT WOKRING
 		    $('#sel_allDay_add').bind('change', function(){
-		    	if($(this).val()=='0'){
+		    	if($(this).val() == '0'){
       				// alert('You selcted No.');
-      				$('.form_datetime').attr("data-date-format", "yyyy-mm-dd hh:ii");
+      				// $('.form_datetime').attr("data-date-format", "yyyy-mm-dd hh:ii");
+      				// $('.form_datetime').datetimepicker({
+      				// 	format : 'yyyy-mm-dd hh:ii'
+      				// });
       			} else {
       				// alert('You selcted Yes.');
-      				$('.form_datetime').attr("data-date-format", "yyyy-mm-dd");
+      				// $('.form_datetime').attr("data-date-format", "yyyy-mm-dd");
+      				// $('.form_datetime').datetimepicker({
+      				// 	format : 'yyyy-mm-dd'
+      				// });
       			}
+      			// alert($('.form_datetime').attr("data-date-format"));
 		    });
 		});
 		
