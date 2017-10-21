@@ -304,7 +304,6 @@
 						todayHighlight: 1,
 						startView: 2,
 						forceParse: 0,
-				        showMeridian: 1,
 				        format : 'yyyy-mm-dd'
 				    });
       			}
