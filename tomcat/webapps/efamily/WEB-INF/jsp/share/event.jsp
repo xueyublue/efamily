@@ -123,7 +123,7 @@
 						<div class="form-group">
 			                <label class="col-sm-3 control-label" for="dtp_startDate" >Start Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_startDate">
+			                	<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_startDate">
 				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_startDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
@@ -134,7 +134,7 @@
 			            <div class="form-group">
 			                <label class="col-sm-3 control-label" for="dtp_endDate" >End Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_endDate">
+			                	<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_endDate">
 				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_endDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
