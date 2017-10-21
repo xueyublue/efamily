@@ -115,8 +115,8 @@
 							<label class="col-sm-3 control-label" for="sel_allDay_add">All Day</label>
 							<div class="col-sm-9">
 								<select id="sel_allDay_add" class="form-control">
-									<option>No</option>
-									<option>Yes</option>
+									<option value="0">No</option>
+									<option value="1">Yes</option>
 								</select>
 							</div>
 							</div>
@@ -207,6 +207,17 @@
 				startView: 2,
 				forceParse: 0,
 		        showMeridian: 1
+		    });
+
+			// NOT WOKRING
+		    $('#sel_allDay_add').bind('change', function(){
+		    	if($(this).val()=='0'){
+      				// alert('You selcted No.');
+      				$('.form_datetime').attr("data-date-format", "yyyy-mm-dd hh:ii");
+      			} else {
+      				// alert('You selcted Yes.');
+      				$('.form_datetime').attr("data-date-format", "yyyy-mm-dd");
+      			}
 		    });
 		});
 		
