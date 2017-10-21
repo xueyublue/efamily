@@ -142,6 +142,18 @@
 			                	<input type="hidden" id="dtp_endDate" value="" />
 			                	</div>
 			            	</div>
+			            <div class="form-group">
+							<label class="col-sm-3 control-label" for="sel_category_add">Category</label>
+							<div class="col-sm-9">
+								<select id="sel_category_add" class="form-control">
+									<option>Appointment</option>
+									<option>Social</option>
+									<option>Travel</option>
+									<option>Working</option>
+									<option>OTHERS</option>
+								</select>
+							</div>
+							</div>
 					</form>
 					</div>
 				<div class="modal-footer">
@@ -152,8 +164,8 @@
 		</div>
 		</div>
 				
-	<!-- POPUP > Add Event -->
-	<div class="modal fade" id="popup_addEvent">
+	<!-- POPUP > Update Event -->
+	<div class="modal fade" id="popup_updateEvent">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header"><strong>Add Event</strong></div>
