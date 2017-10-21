@@ -15,6 +15,7 @@ public final class CommonUtil {
 
 	static {
 		patterns.add("yyyy-MM-dd HH:mm:ss");
+		patterns.add("yyyy-MM-dd HH:mm");
 		patterns.add("yyyy-MM-dd");
 	}
 
