@@ -81,8 +81,8 @@
 									</td>
 								<td><span id="title">${c.title}</span></td>
 								<td width="200"><span id="location">${c.location}</span></td>
-								<td width="150"><span id="startDate"><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
-								<td width="150"><span id="endDate"><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td width="160"><span id="startDate"><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td width="160"><span id="endDate"><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
 								<td width="80"><span id="adminFlag">${c.isAllDay}</span></td></tr>
 							</c:forEach>
 						</tbody>

@@ -61,6 +61,14 @@ public class EventSearchKey extends AbstractSearchKey {
 		setStringKeyWithCompCode(Event.IS_ALL_DAY, compCode, value);
 	}
 
+	public void setCategory(String value) {
+		setStringKey(Event.CATEGORY, value);
+	}
+
+	public void setCategory(CompareCode compCode, String value) {
+		setStringKeyWithCompCode(Event.CATEGORY, compCode, value);
+	}
+
 	public void setRegistBy(String value) {
 		setStringKey(Event.REGIST_BY, value);
 	}
@@ -101,14 +109,6 @@ public class EventSearchKey extends AbstractSearchKey {
 		setDateKeyWithCompCode(Event.LAST_UPDATE_DATE, compCode, value);
 	}
 
-	public void setLastUpdatePname(String value) {
-		setStringKey(Event.LAST_UPDATE_PNAME, value);
-	}
-
-	public void setLastUpdatePname(CompareCode compCode, String value) {
-		setStringKeyWithCompCode(Event.LAST_UPDATE_PNAME, compCode, value);
-	}
-
 
 	public void setEventIdOrder(boolean value) {
 		setOrder(Event.EVENT_ID, value);
@@ -134,6 +134,10 @@ public class EventSearchKey extends AbstractSearchKey {
 		setOrder(Event.IS_ALL_DAY, value);
 	}
 
+	public void setCategoryOrder(boolean value) {
+		setOrder(Event.CATEGORY, value);
+	}
+
 	public void setRegistByOrder(boolean value) {
 		setOrder(Event.REGIST_BY, value);
 	}
@@ -152,10 +156,6 @@ public class EventSearchKey extends AbstractSearchKey {
 
 	public void setLastUpdateDateOrder(boolean value) {
 		setOrder(Event.LAST_UPDATE_DATE, value);
-	}
-
-	public void setLastUpdatePnameOrder(boolean value) {
-		setOrder(Event.LAST_UPDATE_PNAME, value);
 	}
 
 }

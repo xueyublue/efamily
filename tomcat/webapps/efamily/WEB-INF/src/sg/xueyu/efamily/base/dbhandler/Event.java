@@ -21,6 +21,8 @@ public class Event extends AbstractEntity {
 
 	public static final FieldName IS_ALL_DAY = new FieldName(STORE_NAME, "IS_ALL_DAY");
 
+	public static final FieldName CATEGORY = new FieldName(STORE_NAME, "CATEGORY");
+
 	public static final FieldName REGIST_BY = new FieldName(STORE_NAME, "REGIST_BY");
 
 	public static final FieldName UPDATE_BY = new FieldName(STORE_NAME, "UPDATE_BY");
@@ -30,8 +32,6 @@ public class Event extends AbstractEntity {
 	public static final FieldName REGIST_PNAME = new FieldName(STORE_NAME, "REGIST_PNAME");
 
 	public static final FieldName LAST_UPDATE_DATE = new FieldName(STORE_NAME, "LAST_UPDATE_DATE");
-
-	public static final FieldName LAST_UPDATE_PNAME = new FieldName(STORE_NAME, "LAST_UPDATE_PNAME");
 
 	public Event() {
 		super(STORE_NAME);
@@ -85,6 +85,14 @@ public class Event extends AbstractEntity {
 		setValue(IS_ALL_DAY, value);
 	}
 
+	public String getCategory() {
+		return String.valueOf(getValue(CATEGORY, ""));
+	}
+
+	public void setCategory(String value) {
+		setValue(CATEGORY, value);
+	}
+
 	public String getRegistBy() {
 		return String.valueOf(getValue(REGIST_BY, ""));
 	}
@@ -123,14 +131,6 @@ public class Event extends AbstractEntity {
 
 	public void setLastUpdateDate(Date value) {
 		setValue(LAST_UPDATE_DATE, value);
-	}
-
-	public String getLastUpdatePname() {
-		return String.valueOf(getValue(LAST_UPDATE_PNAME, ""));
-	}
-
-	public void setLastUpdatePname(String value) {
-		setValue(LAST_UPDATE_PNAME, value);
 	}
 
 }
