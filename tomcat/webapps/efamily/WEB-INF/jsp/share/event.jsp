@@ -225,7 +225,7 @@
 					</form>
 					</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-primary" onclick="addEvent()">Commit</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="updateEvent()">Commit</button>
 					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
 					</div>
 			</div>
@@ -233,7 +233,7 @@
 		</div>
 
 	<!-- POPUP > Delete Event -->
-	<div class="modal fade" id="popup_deleteRole">
+	<div class="modal fade" id="popup_deleteEvent">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="left"><strong>Delete Event</strong></div>
@@ -315,14 +315,13 @@
 			if(eventId) {
 				$.ajax({
 					type : "get",
-					url : "role/getRole.do?",
+					url : "event/getEvent.do?",
 					data: {'eventId' : eventId},
 					dataType: 'json',
 					cache : false,
 					async : true,
 					success : function(obj) {
 						if (obj) {
-							// var user = $.parseJSON(obj);
 							var role = obj;
 							$('#txt_roleId_update').val(role.eventId);
 							$('#txt_roleName_update').val(role.roleName);
@@ -354,8 +353,8 @@
 		}
 		
 		function popup_deleteEvent(eventId) {
-			$('#lbl_roleId_delete').text(roleId);
-			$('#popup_deleteRole').modal('show');
+			$('#lbl_eventId_delete').text(eventId);
+			$('#popup_deleteEvent').modal('show');
 		}
 		
 		function addEvent() {
