@@ -16,6 +16,8 @@ public class EventEJB {
 
 	private String isAllDay;
 
+	private String category;
+
 	private String registBy;
 
 	private String updateBy;
@@ -74,6 +76,14 @@ public class EventEJB {
 
 	public void setIsAllDay(String isAllDay) {
 		this.isAllDay = isAllDay;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getRegistBy() {

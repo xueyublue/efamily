@@ -33,6 +33,8 @@ public class Event extends AbstractEntity {
 
 	public static final FieldName LAST_UPDATE_DATE = new FieldName(STORE_NAME, "LAST_UPDATE_DATE");
 
+	public static final FieldName LAST_UPDATE_PNAME = new FieldName(STORE_NAME, "LAST_UPDATE_PNAME");
+
 	public Event() {
 		super(STORE_NAME);
 	}
@@ -131,6 +133,14 @@ public class Event extends AbstractEntity {
 
 	public void setLastUpdateDate(Date value) {
 		setValue(LAST_UPDATE_DATE, value);
+	}
+
+	public String getLastUpdatePname() {
+		return String.valueOf(getValue(LAST_UPDATE_PNAME, ""));
+	}
+
+	public void setLastUpdatePname(String value) {
+		setValue(LAST_UPDATE_PNAME, value);
 	}
 
 }

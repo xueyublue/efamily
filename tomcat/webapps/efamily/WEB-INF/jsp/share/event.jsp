@@ -70,7 +70,7 @@
 							<th>Location</th>
 							<th>Start Date</th>
 							<th>End Date</th>
-							<th>All Day</th></tr>
+							<th>Category</th></tr>
 						</thead>
 					<tbody>
 						<c:forEach items="${events}" var="c">
@@ -80,10 +80,10 @@
 									<button class="btn btn-xs btn-danger" onclick="popup_deleteEvent('${c.eventId}')"><span class="glyphicon glyphicon-remove"></span></button>
 									</td>
 								<td><span id="title">${c.title}</span></td>
-								<td width="200"><span id="location">${c.location}</span></td>
-								<td width="160"><span id="startDate"><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
-								<td width="160"><span id="endDate"><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
-								<td width="80"><span id="adminFlag">${c.isAllDay}</span></td></tr>
+								<td width="200"><span>${c.location}</span></td>
+								<td width="160"><span><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td width="160"><span><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td width="100"><span>${c.category}</span></td></tr>
 							</c:forEach>
 						</tbody>
 				</table>
@@ -244,17 +244,6 @@
 			$('#btn_backward').addClass('disabled');
 			$('#btn_forward').addClass('enabled');
 			$('#btn_fastForward').addClass('enabled');
-			
-			// Change DB value to display text
-			// 1: Yes, 0: No
-			$("tbody tr").each(function() {
-				var td_isAllDay = $(this).children('td:eq(5)');
-				if (td_isAllDay.text() == '1') {
-					td_isAllDay.text('Yes');
-				} else {
-					td_isAllDay.text('No');
-				}
-			});
 
 			// Initialize DateTimePicker
 			$('.form_datetime').datetimepicker({

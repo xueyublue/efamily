@@ -109,6 +109,14 @@ public class EventSearchKey extends AbstractSearchKey {
 		setDateKeyWithCompCode(Event.LAST_UPDATE_DATE, compCode, value);
 	}
 
+	public void setLastUpdatePname(String value) {
+		setStringKey(Event.LAST_UPDATE_PNAME, value);
+	}
+
+	public void setLastUpdatePname(CompareCode compCode, String value) {
+		setStringKeyWithCompCode(Event.LAST_UPDATE_PNAME, compCode, value);
+	}
+
 
 	public void setEventIdOrder(boolean value) {
 		setOrder(Event.EVENT_ID, value);
@@ -156,6 +164,10 @@ public class EventSearchKey extends AbstractSearchKey {
 
 	public void setLastUpdateDateOrder(boolean value) {
 		setOrder(Event.LAST_UPDATE_DATE, value);
+	}
+
+	public void setLastUpdatePnameOrder(boolean value) {
+		setOrder(Event.LAST_UPDATE_PNAME, value);
 	}
 
 }

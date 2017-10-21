@@ -109,6 +109,14 @@ public class EventAlterKey extends AbstractAlterKey {
 		setDateKeyWithCompCode(Event.LAST_UPDATE_DATE, compCode, value);
 	}
 
+	public void setLastUpdatePname(String value) {
+		setStringKey(Event.LAST_UPDATE_PNAME, value);
+	}
+
+	public void setLastUpdatePname(CompareCode compCode, String value) {
+		setStringKeyWithCompCode(Event.LAST_UPDATE_PNAME, compCode, value);
+	}
+
 	public void updateEventId(String value) {
 		setStringUpdateKey(Event.EVENT_ID, value);
 	}
@@ -155,6 +163,10 @@ public class EventAlterKey extends AbstractAlterKey {
 
 	public void updateLastUpdateDate(Date value) {
 		setDateUpdateKey(Event.LAST_UPDATE_DATE, value);
+	}
+
+	public void updateLastUpdatePname(String value) {
+		setStringUpdateKey(Event.LAST_UPDATE_PNAME, value);
 	}
 
 }
