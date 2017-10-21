@@ -121,25 +121,23 @@
 							</div>
 							</div>
 						<div class="form-group">
-			                <label class="col-sm-3 control-label" for="dtp_startDate" >Start Date</label>
+			                <label class="col-sm-3 control-label">Start Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-link-field="dtp_startDate">
+			                	<div class="input-group date form_datetime">
 				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_startDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 				                	</div>
-			                	<input type="hidden" id="dtp_startDate" value="" />
 			                	</div>
 			            	</div>
 			            <div class="form-group">
-			                <label class="col-sm-3 control-label" for="dtp_endDate" >End Date</label>
+			                <label class="col-sm-3 control-label">End Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-link-field="dtp_endDate">
+			                	<div class="input-group date form_datetime">
 				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_endDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 				                	</div>
-			                	<input type="hidden" id="dtp_endDate" value="" />
 			                	</div>
 			            	</div>
 			            <div class="form-group">
@@ -212,19 +210,34 @@
 
 		    $('#sel_allDay_add').bind('change', function(){
 		    	if($(this).val() == '0'){
-      				// alert('You selcted No.');
-      				// $('.form_datetime').attr("data-date-format", "yyyy-mm-dd hh:ii");
-      				// $('.form_datetime').datetimepicker({
-      				// 	format : 'yyyy-mm-dd hh:ii'
-      				// });
+		    		// Must detach old format dirst
+      				$('.form_datetime').datetimepicker('remove');
+      				$('.form_datetime').datetimepicker({
+				        //language:  'fr',
+				        weekStart: 1,
+				        todayBtn:  1,
+						autoclose: 1,
+						todayHighlight: 1,
+						startView: 2,
+						forceParse: 0,
+				        showMeridian: 1,
+				        format : 'yyyy-mm-dd hh:ii'
+				    });
       			} else {
-      				// alert('You selcted Yes.');
-      				// $('.form_datetime').attr("data-date-format", "yyyy-mm-dd");
-      				// $('.form_datetime').datetimepicker({
-      				// 	format : 'yyyy-mm-dd'
-      				// });
+      				// Must detach old format dirst
+      				$('.form_datetime').datetimepicker('remove');
+      				$('.form_datetime').datetimepicker({
+				        //language:  'fr',
+				        weekStart: 1,
+				        todayBtn:  1,
+						autoclose: 1,
+						todayHighlight: 1,
+						startView: 2,
+						forceParse: 0,
+				        showMeridian: 1,
+				        format : 'yyyy-mm-dd'
+				    });
       			}
-      			// alert($('.form_datetime').attr("data-date-format"));
 		    });
 		});
 		
