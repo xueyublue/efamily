@@ -81,8 +81,8 @@
 									</td>
 								<td><span id="title">${c.title}</span></td>
 								<td width="200"><span>${c.location}</span></td>
-								<td width="160"><span><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
-								<td width="160"><span><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
+								<td width="140"><span><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm"/></span></td>
+								<td width="140"><span><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm"/></span></td>
 								<td width="100"><span>${c.category}</span></td></tr>
 							</c:forEach>
 						</tbody>
@@ -164,66 +164,6 @@
 		</div>
 		</div>
 				
-	<!-- POPUP > Update Event -->
-	<div class="modal fade" id="popup_updateEvent">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header"><strong>Add Event</strong></div>
-				<div class="modal-body">
-					<form role="form" class="form-horizontal">
-						<div class="form-group">
-							<label class="col-sm-3 control-label" for="txt_title_add">Title</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="txt_title_add" placeholder="Event Title"></input>
-							</div>
-							</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label" for="txt_location_add">Location</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="txt_location_add" placeholder="Event Location"></input>
-							</div>
-							</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label" for="sel_allDay_add">All Day</label>
-							<div class="col-sm-9">
-								<select id="sel_allDay_add" class="form-control">
-									<option>No</option>
-									<option>Yes</option>
-								</select>
-							</div>
-							</div>
-						<div class="form-group">
-			                <label class="col-sm-3 control-label" for="dtp_startDate" >Start Date</label>
-			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_startDate">
-				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_startDate_add">
-				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-				                	</div>
-			                	<input type="hidden" id="dtp_startDate" value="" />
-			                	</div>
-			            	</div>
-			            <div class="form-group">
-			                <label class="col-sm-3 control-label" for="dtp_endDate" >End Date</label>
-			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="2017-01-01T00:00:07Z" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_endDate">
-				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_endDate_add">
-				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-				                	</div>
-			                	<input type="hidden" id="dtp_endDate" value="" />
-			                	</div>
-			            	</div>
-					</form>
-					</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-primary" onclick="updateEvent()">Commit</button>
-					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-					</div>
-			</div>
-		</div>
-		</div>
-
 	<!-- POPUP > Delete Event -->
 	<div class="modal fade" id="popup_deleteRole">
 		<div class="modal-dialog">
@@ -323,6 +263,7 @@
 			var startDate = $('#txt_startDate_add').val();
 			var endDate = $('#txt_endDate_add').val();
 			var isAllDay = $('#sel_allDay_add').val();
+			var category = $('#sel_category_add').val();
 			
 			if (!startDate) {
 				alert("Start Date cannot be empty!");
@@ -341,7 +282,8 @@
 						'location' : location, 
 						'startDate' : startDate,
 						'endDate' : endDate,
-						'isAllDay' : isAllDay},
+						'isAllDay' : isAllDay,
+						'category' : category},
 					dataType: 'json',
 					cache : false,
 					async : true,
