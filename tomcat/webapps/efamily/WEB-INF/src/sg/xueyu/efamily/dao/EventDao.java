@@ -53,7 +53,7 @@ public class EventDao {
 	}
 
 	public void createEvent(String eventId, String title, String location, Date startDate, Date endDate,
-			String isAllDay, String registBy) throws Exception {
+			String isAllDay, String category, String registBy) throws Exception {
 		EventHandler handler = new EventHandler(mConnection);
 
 		Event event = new Event();
@@ -63,6 +63,7 @@ public class EventDao {
 		event.setStartDate(startDate);
 		event.setEndDate(endDate);
 		event.setIsAllDay(isAllDay);
+		event.setCategory(category);
 		event.setRegistBy(registBy);
 
 		event.setRegistPname(EventDao.class.getSimpleName());

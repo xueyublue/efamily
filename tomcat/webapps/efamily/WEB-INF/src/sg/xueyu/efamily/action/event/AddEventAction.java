@@ -34,6 +34,8 @@ public class AddEventAction implements Action {
 	
 	private String isAllDay;
 	
+	private String category;
+	
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = null;
@@ -67,7 +69,7 @@ public class AddEventAction implements Action {
 			}
 			
 			// Perform to ADD event
-			eventDao.createEvent(SequenceHandler.nextEventId(conn), title, location, startDate, endDate, isAllDay, sessionUserId);
+			eventDao.createEvent(SequenceHandler.nextEventId(conn), title, location, startDate, endDate, isAllDay, category, sessionUserId);
 			
 			resultContent = new ResultContent(null, null);
 			actionResult = new ActionResult(resultContent, ResultType.Ajax);
