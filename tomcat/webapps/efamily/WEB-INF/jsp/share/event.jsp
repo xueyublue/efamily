@@ -161,7 +161,77 @@
 			</div>
 		</div>
 		</div>
-				
+
+	<!-- POPUP > Update Event -->
+	<div class="modal fade" id="popup_updateEvent">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header"><strong>Update Event</strong></div>
+				<div class="modal-body">
+					<form role="form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="txt_title_update">Title</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="txt_title_update" placeholder="Event Title"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="txt_location_update">Location</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="txt_location_update" placeholder="Event Location"></input>
+							</div>
+							</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="sel_allDay_update">All Day</label>
+							<div class="col-sm-9">
+								<select id="sel_allDay_update" class="form-control">
+									<option value="0">No</option>
+									<option value="1">Yes</option>
+								</select>
+							</div>
+							</div>
+						<div class="form-group">
+			                <label class="col-sm-3 control-label">Start Date</label>
+			                <div class="col-sm-9">
+			                	<div class="input-group date form_datetime">
+				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_startDate_update">
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				                	</div>
+			                	</div>
+			            	</div>
+			            <div class="form-group">
+			                <label class="col-sm-3 control-label">End Date</label>
+			                <div class="col-sm-9">
+			                	<div class="input-group date form_datetime">
+				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_endDate_update">
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				                	</div>
+			                	</div>
+			            	</div>
+			            <div class="form-group">
+							<label class="col-sm-3 control-label" for="sel_category_update">Category</label>
+							<div class="col-sm-9">
+								<select id="sel_category_update" class="form-control">
+									<option>Appointment</option>
+									<option>Social</option>
+									<option>Travel</option>
+									<option>Working</option>
+									<option>OTHERS</option>
+								</select>
+							</div>
+							</div>
+					</form>
+					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-primary" onclick="addEvent()">Commit</button>
+					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+			</div>
+		</div>
+		</div>
+
 	<!-- POPUP > Delete Event -->
 	<div class="modal fade" id="popup_deleteRole">
 		<div class="modal-dialog">
