@@ -237,7 +237,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="left"><strong>Delete Event</strong></div>
-				<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> <span id="lbl_eventId_delete"></span>?</div>
+				<div class="modal-body" align="left">Are you sure to <span class="text-danger"><strong>DELETE</strong></span> <span id="lbl_eventId_delete" class="hide"></span><span id="lbl_eventDetails"></span>?</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="deleteEvent()">Confirm</button>
 					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
@@ -352,8 +352,32 @@
 		}
 		
 		function popup_deleteEvent(eventId) {
-			$('#lbl_eventId_delete').text(eventId);
-			$('#popup_deleteEvent').modal('show');
+			if(eventId) {
+				$.ajax({
+					type : "get",
+					url : "event/getEvent.do?",
+					data: {'eventId' : eventId},
+					dataType: 'json',
+					cache : false,
+					async : true,
+					success : function(obj) {
+						if (obj) {
+							var event = obj;
+							$('#lbl_eventId_delete').text(eventId);
+							$('#lbl_eventDetails').text(': ' + event.title + ', ' + event.startDate);
+							$('#popup_deleteEvent').modal('show');
+						}
+					},
+					error : function(obj) {
+						if (obj.status == '901') {
+							window.location.href = "login.do";
+						} else {
+							var response = obj.responseText.replace('"', '').replace('"', '');
+							alert(response);	
+						}
+					}
+				});	
+			}
 		}
 		
 		function addEvent() {
