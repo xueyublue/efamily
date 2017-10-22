@@ -324,12 +324,11 @@
 							var event = obj;
 							$('#txt_title_update').val(event.title);
 							$('#txt_location_update').val(event.location);
+							$('#sel_allDay_update').val(event.isAllDay);
 							if (event.isAllDay == '1') {
-								$('#sel_allDay_update').val('Yes');
 								$('#txt_startDate_update').val(event.startDate.substr(0, 10));
 								$('#txt_endDate_update').val(event.endDate.substr(0, 10));
 							} else {
-								$('#sel_allDay_update').val('No');
 								$('#txt_startDate_update').val(event.startDate.substr(0, 16));
 								$('#txt_endDate_update').val(event.endDate.substr(0, 16));
 							}
