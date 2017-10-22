@@ -321,22 +321,20 @@
 					async : true,
 					success : function(obj) {
 						if (obj) {
-							var role = obj;
-							$('#txt_roleId_update').val(role.eventId);
-							$('#txt_roleName_update').val(role.roleName);
-							if (role.adminFlag == '1') {
-								$('#sel_adminFlag_update').val('Yes');
+							var event = obj;
+							$('#txt_title_update').val(event.title);
+							$('#txt_location_update').val(event.location);
+							if (event.isAllDay == '1') {
+								$('#sel_allDay_update').val('Yes');
+								$('#txt_startDate_update').val(event.startDate.substr(0, 10));
+								$('#txt_endDate_update').val(event.endDate.substr(0, 10));
 							} else {
-								$('#sel_adminFlag_update').val('No');
+								$('#sel_allDay_update').val('No');
+								$('#txt_startDate_update').val(event.startDate.substr(0, 16));
+								$('#txt_endDate_update').val(event.endDate.substr(0, 16));
 							}
-							if (role.guestFlag == '1') {
-								$('#sel_guestFlag_update').val('Yes');
-							} else {
-								$('#sel_guestFlag_update').val('No');
-							}
-							$('#txt_expiryDate_update').val(role.expiryDate);
-							$("#txt_roleId_update").attr("disabled", "disabled");
-							$('#popup_updateRole').modal('show');
+							$('#sel_category_update').val(event.category);
+							$('#popup_updateEvent').modal('show');
 						}
 					},
 					error : function(obj) {
