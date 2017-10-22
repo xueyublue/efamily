@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.base.DataSource;
+import sg.xueyu.efamily.base.ejb.EventEJB;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
+import sg.xueyu.efamily.dao.EventDao;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.ActionResultController;
 import sg.xueyu.efamily.system.CommonMethods;
-import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
@@ -23,15 +24,19 @@ import sg.xueyu.zebra.action.ResultType;
 
 public class UpdateEventAction implements Action {
 
-	private String roleId;
-
-	private String roleName;
-
-	private String adminFlag;
-
-	private String guestFlag;
+	private String eventId;
 	
-	private Date expiryDate;
+	private String title;
+	
+	private String location;
+	
+	private String isAllDay;
+	
+	private Date startDate;
+	
+	private Date endDate;
+	
+	private String category;
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -41,11 +46,13 @@ public class UpdateEventAction implements Action {
 		Connection conn = null;
 		UserDao userDao = null;
 		RoleDao roleDao = null;
+		EventDao eventDao = null;
 
 		try {
 			conn = new DataSource().getConnection();
 			userDao = new UserDao(conn);
 			roleDao = new RoleDao(conn);
+			eventDao = new EventDao(conn);
 
 			// Session UserId is null
 			String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
@@ -64,23 +71,16 @@ public class UpdateEventAction implements Action {
 			}
 
 			// Role Id is not exist
-			RoleEJB role = roleDao.getRole(roleId);
-			if (role == null) {
+			EventEJB event = eventDao.getEvent(eventId);
+			if (event == null) {
 				resp.setStatus(500);
-				resultContent = new ResultContent(null, "Role Id is not exist!");
+				resultContent = new ResultContent(null, "Event is not exist!");
 				return new ActionResult(resultContent, ResultType.Ajax);
 			}
 
-			// Do not allow to Update any Role if administrator flag is false
-			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(sessionRole.getAdminFlag())) {
-				resp.setStatus(500);
-				resultContent = new ResultContent(null, "Insufficient Previlege!");
-				return new ActionResult(resultContent, ResultType.Ajax);
-			}
-
-			// Perform to UPDATE role
-			roleDao.updateRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
-
+			// Perform to UPDATE event
+			eventDao.updateEvent(eventId, title, location, startDate, endDate, isAllDay, category, sessionUserId);
+			
 			resultContent = new ResultContent(null, null);
 
 			return new ActionResult(resultContent, ResultType.Ajax);

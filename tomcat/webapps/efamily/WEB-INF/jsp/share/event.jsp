@@ -170,6 +170,7 @@
 				<div class="modal-body">
 					<form role="form" class="form-horizontal">
 						<div class="form-group">
+							<span class="hide" id="txt_eventId_update"></span>
 							<label class="col-sm-3 control-label" for="txt_title_update">Title</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="txt_title_update" placeholder="Event Title"></input>
@@ -322,6 +323,7 @@
 					success : function(obj) {
 						if (obj) {
 							var event = obj;
+							$('#txt_eventId_update').val(event.eventId);
 							$('#txt_title_update').val(event.title);
 							$('#txt_location_update').val(event.location);
 							$('#sel_allDay_update').val(event.isAllDay);
@@ -423,40 +425,34 @@
 		}
 		
 		function updateEvent() {
-			var roleId = $('#txt_roleId_update').val();
-			var roleName = $('#txt_roleName_update').val();
-			var adminFlag = $('#sel_adminFlag_update').val();
-			var guestFlag = $('#sel_guestFlag_update').val();
-			var expiryDate = $('#txt_expiryDate_update').val();
+			var eventId = $('#txt_eventId_update').val();
+			var title = $('#txt_title_update').val();
+			var location = $('#txt_location_update').val();
+			var isAllDay = $('#sel_allDay_update').val();
+			var startDate = $('#txt_startDate_update').val();
+			var endDate = $('#txt_endDate_update').val();
+			var category = $('#sel_category_update').val();
 			
-			if (adminFlag == 'Yes' && guestFlag == 'Yes') {
-				alert("Admin-Flag and Guest-Flag cannot both be Yes!");
-			} else if (!expiryDate) {
-				alert("Expiry Date cannot be empty!");
+			if (!startDate) {
+				alert("Start Date cannot be empty!");
+			} else if (!endDate) {
+				alert("End Date cannot be empty!");
 			} else {
-				if(adminFlag == 'Yes') {
-					adminFlag = '1';
-				} else {
-					adminFlag = '0';
-				}
-				if(guestFlag == 'Yes') {
-					guestFlag = '1';
-				} else {
-					guestFlag = '0';
-				}
 				$.ajax({
 					type : "get",
-					url : "role/updateRole.do?",
-					data: {'roleId' : roleId,
-						'roleName' : roleName, 
-						'adminFlag' : adminFlag, 
-						'guestFlag' : guestFlag,
-						'expiryDate' : expiryDate},
+					url : "event/updateEvent.do?",
+					data: {'eventId' : eventId,
+						'title' : title, 
+						'location' : location,
+						'isAllDay' : isAllDay, 
+						'startDate' : startDate,
+						'endDate' : endDate,
+						'category' : category},
 					dataType: 'json',
 					cache : false,
 					async : true,
 					success : function(obj) {
-						window.location.href = "role.do";
+						window.location.href = "event.do";
 					},
 					error : function(obj) {
 						if (obj.status == '901') {

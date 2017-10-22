@@ -74,7 +74,7 @@ public class EventDao {
 	}
 
 	public void updateEvent(String eventId, String title, String location, Date startDate, Date endDate,
-			String isAllDay, String updateBy) throws Exception {
+			String isAllDay, String category, String updateBy) throws Exception {
 		EventHandler handler = new EventHandler(mConnection);
 		EventAlterKey alterKey = new EventAlterKey();
 
@@ -85,6 +85,7 @@ public class EventDao {
 		alterKey.updateStartDate(startDate);
 		alterKey.updateEndDate(endDate);
 		alterKey.updateIsAllDay(isAllDay);
+		alterKey.updateCategory(category);
 		alterKey.updateUpdateBy(updateBy);
 
 		alterKey.updateLastUpdatePname(EventDao.class.getSimpleName());
