@@ -7,6 +7,9 @@ public interface SystemConstants {
 	public static final String ROLE_ADMIN_FLAG_TRUE = "1";
 	public static final String ROLE_ADMIN_FLAG_FALSE = "0";
 	
+	public static final String EVENT_ISALLDAY_TRUE = "1";
+	public static final String EVENT_ISALLDAY_FALSE = "0";
+	
 	// URLs
 	public static final String URL_INDEX = "login.jsp";
 	// Login

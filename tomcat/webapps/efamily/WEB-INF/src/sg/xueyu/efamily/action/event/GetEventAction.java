@@ -15,6 +15,7 @@ import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.ActionResultController;
 import sg.xueyu.efamily.system.CommonMethods;
+import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
@@ -61,7 +62,12 @@ public class GetEventAction implements Action {
 			EventEJB event = eventDao.getEvent(eventId);
 
 			resultContent = new ResultContent(null, event);
-
+			if (SystemConstants.EVENT_ISALLDAY_TRUE.equals(event.getIsAllDay())) {
+				resultContent.setDateFormat("yyyy-MM-dd");	
+			} else {
+				resultContent.setDateFormat("yyyy-MM-dd HH:mm");
+			}
+			
 			return new ActionResult(resultContent, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
