@@ -83,7 +83,8 @@
 								<td width="200"><span>${c.location}</span></td>
 								<td width="140"><span><fmt:formatDate value="${c.startDate}" pattern="yyyy-MM-dd HH:mm"/></span></td>
 								<td width="140"><span><fmt:formatDate value="${c.endDate}" pattern="yyyy-MM-dd HH:mm"/></span></td>
-								<td width="100"><span>${c.category}</span></td></tr>
+								<td width="100"><span>${c.category}</span></td>
+								</tr>
 							</c:forEach>
 						</tbody>
 				</table>
