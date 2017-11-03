@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.base.DataSource;
+import sg.xueyu.efamily.base.SessionManager;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
-import sg.xueyu.efamily.system.CommonMethod;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
@@ -26,6 +26,8 @@ public class RoleAction implements Action {
 		ResultContent resultContent = null;
 		ActionResult actionResult = null;
 
+		SessionManager sessionManager = SessionManager.getInstance();
+		
 		Connection conn = null;
 		UserDao userDao = null;
 		RoleDao roleDao = null;
@@ -36,7 +38,7 @@ public class RoleAction implements Action {
 			roleDao = new RoleDao(conn);
 
 			// Session UserId is null
-			String sessionUserId = CommonMethod.getSessionCredentials(req.getSession());
+			String sessionUserId = sessionManager.getCredentials(req.getSession());
 			if (sessionUserId == null) {
 				resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 				actionResult = new ActionResult(resultContent);
