@@ -9,7 +9,7 @@ import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.base.DataSource;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.dao.UserDao;
-import sg.xueyu.efamily.system.CommonMethods;
+import sg.xueyu.efamily.system.CommonMethod;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
@@ -37,7 +37,7 @@ public class LoginAuthAction implements Action {
 
 			// Authentication is failed
 			if (authResult != null) {
-				CommonMethods.removeSessionCredentials(req.getSession());
+				CommonMethod.removeSessionCredentials(req.getSession());
 
 				resp.setStatus(401);
 				resultContent = new ResultContent(null, authResult);
@@ -48,7 +48,7 @@ public class LoginAuthAction implements Action {
 
 			// Perform to Authentication is successfully
 			LoginUserEJB user = userDao.getUser(userId);
-			CommonMethods.setSessionCredentials(req.getSession(), user.getUserId(), user.getUserName());
+			CommonMethod.setSessionCredentials(req.getSession(), user.getUserId(), user.getUserName());
 			userDao.udpateLastLoginDate(userId);
 
 			resultContent = new ResultContent(null, null);

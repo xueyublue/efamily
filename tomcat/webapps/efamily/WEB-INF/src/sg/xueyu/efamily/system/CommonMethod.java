@@ -5,7 +5,7 @@ import java.io.StringWriter;
 
 import javax.servlet.http.HttpSession;
 
-public class CommonMethods {
+public class CommonMethod {
 
 	public static final String getSessionCredentials(HttpSession session) {
 		Object userId = session.getAttribute("userId");

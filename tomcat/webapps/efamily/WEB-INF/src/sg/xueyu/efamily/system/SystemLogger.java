@@ -45,7 +45,7 @@ public class SystemLogger {
 	}
 	
 	public static void error(Exception exception) {
-		System.err.println(DATE_TIME_FORMATTER.format(new Date()) + " ERROR " + CommonMethods.getStackTrace(exception));
-		logger.error(CommonMethods.getStackTrace(exception));
+		System.err.println(DATE_TIME_FORMATTER.format(new Date()) + " ERROR " + CommonMethod.getStackTrace(exception));
+		logger.error(CommonMethod.getStackTrace(exception));
 	}
 }

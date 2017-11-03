@@ -12,7 +12,7 @@ import sg.xueyu.efamily.base.ejb.RoleEJB;
 import sg.xueyu.efamily.dao.EventDao;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
-import sg.xueyu.efamily.system.CommonMethods;
+import sg.xueyu.efamily.system.CommonMethod;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
@@ -39,7 +39,7 @@ public class EventAction implements Action {
 			eventDao = new EventDao(conn);
 
 			// Session UserId is null
-			String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
+			String sessionUserId = CommonMethod.getSessionCredentials(req.getSession());
 			if (sessionUserId == null) {
 				resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 				actionResult = new ActionResult(resultContent);

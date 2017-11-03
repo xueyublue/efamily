@@ -15,7 +15,7 @@ import sg.xueyu.efamily.dao.EventDao;
 import sg.xueyu.efamily.dao.RoleDao;
 import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.ActionResultController;
-import sg.xueyu.efamily.system.CommonMethods;
+import sg.xueyu.efamily.system.CommonMethod;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
@@ -53,7 +53,7 @@ public class AddEventAction implements Action {
 			eventDao = new EventDao(conn);
 
 			// Session UserId is null
-			String sessionUserId = CommonMethods.getSessionCredentials(req.getSession());
+			String sessionUserId = CommonMethod.getSessionCredentials(req.getSession());
 			if (sessionUserId == null) {
 				return ActionResultController.sessionError(resp);
 			}

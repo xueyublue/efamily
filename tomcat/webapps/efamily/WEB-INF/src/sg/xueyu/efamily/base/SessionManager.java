@@ -3,7 +3,7 @@ package sg.xueyu.efamily.base;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import sg.xueyu.efamily.system.CommonMethods;
+import sg.xueyu.efamily.system.CommonMethod;
 import sg.xueyu.efamily.system.EFamilyParam;
 import sg.xueyu.efamily.system.SystemLogger;
 
@@ -22,7 +22,7 @@ public class SessionManager implements HttpSessionListener {
 		SystemLogger.info("Session Destroyed: " + sessionEvent.getSession().getId() 
 				+ "_" + sessionEvent.getSession().getCreationTime());
 		// Remove Credentials from current session
-		CommonMethods.removeSessionCredentials(sessionEvent.getSession());
+		CommonMethod.removeSessionCredentials(sessionEvent.getSession());
 	}
 
 }

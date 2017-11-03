@@ -3,7 +3,7 @@ package sg.xueyu.efamily.base;
 import java.sql.Connection;
 
 import sg.xueyu.dbhandler.handler.AbstractSequenceHandler;
-import sg.xueyu.efamily.system.CommonMethods;
+import sg.xueyu.efamily.system.CommonMethod;
 
 public class SequenceHandler extends AbstractSequenceHandler {
 
@@ -14,7 +14,7 @@ public class SequenceHandler extends AbstractSequenceHandler {
 
 /** Private Methods **/	
 	private static String addLeadingZeros(String value, int length) {
-		if (CommonMethods.isVoid(value) || length <= 0) {
+		if (CommonMethod.isVoid(value) || length <= 0) {
 			return null;
 		} else if (value.length() >= length) {
 			return value;
