@@ -12,8 +12,8 @@ import sg.xueyu.efamily.dao.EventDao;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
-import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
+import sg.xueyu.zebra.controller.ActionController;
 
 public class AddEventAction extends BaseAction implements Action {
 
@@ -35,9 +35,6 @@ public class AddEventAction extends BaseAction implements Action {
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		ResultContent resultContent = null;
-		ActionResult actionResult = null;
-
 		EventDao eventDao = null;
 
 		try {
@@ -51,21 +48,15 @@ public class AddEventAction extends BaseAction implements Action {
 			// Perform to ADD event
 			eventDao.createEvent(SequenceHandler.nextEventId(getConnection()), title, location, startDate, endDate,
 					isAllDay, category, getSessionUserId());
-
-			resultContent = new ResultContent(null, null);
-			actionResult = new ActionResult(resultContent, ResultType.Ajax);
-
-			return actionResult;
+			
+			return ActionController.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
-
 			resp.setStatus(500);
-			resultContent = new ResultContent(null, "UnHandled Exception Occurred!!!");
-			actionResult = new ActionResult(resultContent, ResultType.Ajax);
+
+			return ActionController.buildActionResult(null, "UnHandled Exception Occurred!!!", ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
-
-		return actionResult;
 	}
 }
