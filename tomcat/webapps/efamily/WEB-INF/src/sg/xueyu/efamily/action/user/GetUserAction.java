@@ -1,25 +1,22 @@
 package sg.xueyu.efamily.action.user;
 
-import java.sql.Connection;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
-import sg.xueyu.efamily.base.DataSource;
-import sg.xueyu.efamily.base.SessionManager;
+import sg.xueyu.efamily.action.BaseAction;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
-import sg.xueyu.efamily.base.ejb.RoleEJB;
-import sg.xueyu.efamily.dao.RoleDao;
-import sg.xueyu.efamily.dao.UserDao;
-import sg.xueyu.efamily.system.ActionResultController;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 
-public class GetUserAction implements Action {
+public class GetUserAction extends BaseAction implements Action {
+
+	public GetUserAction() throws Exception {
+		super();
+	}
 
 	private String userId;
 
@@ -28,35 +25,14 @@ public class GetUserAction implements Action {
 		ResultContent resultContent = null;
 		ActionResult actionResult = null;
 
-		SessionManager sessionManager = SessionManager.getInstance();
-		
-		Connection conn = null;
-		UserDao userDao = null;
-		RoleDao roleDao = null;
-
 		try {
-			conn = new DataSource().getConnection();
-			userDao = new UserDao(conn);
-			roleDao = new RoleDao(conn);
-
-			// Session UserId is null
-			String sessionUserId = sessionManager.getCredentials(req.getSession());
-			if (sessionUserId == null) {
-				return ActionResultController.sessionError(resp);
-			}
-			// Session User is not exist in DB
-			LoginUserEJB sessionUser = userDao.getUser(sessionUserId);
-			if (sessionUser == null) {
-				return ActionResultController.sessionError(resp);
-			}
-			// Role of session User is not exist in DB
-			RoleEJB sessionRole = roleDao.getRole(sessionUser.getRoleId());
-			if (sessionRole == null) {
-				return ActionResultController.sessionError(resp);
+			ActionResult authResult = credentialAuthentication(req);
+			if (authResult != null) {
+				return authResult;
 			}
 
 			// Perform to GET user
-			LoginUserEJB userEJB = userDao.getUser(userId);
+			LoginUserEJB userEJB = getUserDao().getUser(userId);
 
 			resultContent = new ResultContent(null, userEJB);
 
@@ -68,7 +44,7 @@ public class GetUserAction implements Action {
 			resultContent = new ResultContent(null, "UnHandled Exception Occurred!!!");
 			actionResult = new ActionResult(resultContent, ResultType.Ajax);
 		} finally {
-			DBUtils.closeConnection(conn);
+			DBUtils.closeConnection(getConnection());
 		}
 
 		return actionResult;
