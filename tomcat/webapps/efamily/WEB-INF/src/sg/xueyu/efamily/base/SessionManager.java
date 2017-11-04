@@ -103,6 +103,7 @@ public class SessionManager implements HttpSessionListener {
 			if (prvSession != session 
 					&& userId != null
 					&& credentials.getUserId().equals(userId.toString())) {
+				mSessionList.remove(prvSession);
 				prvSession.invalidate();
 				break;
 			}
