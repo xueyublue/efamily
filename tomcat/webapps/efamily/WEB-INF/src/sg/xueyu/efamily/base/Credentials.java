@@ -12,10 +12,9 @@ public class Credentials {
 	public Credentials() {
 	}
 
-	public Credentials(String mUserId, String mUserName) {
-		super();
-		this.mUserId = mUserId;
-		this.mUserName = mUserName;
+	public Credentials(String userId, String userName) {
+		this.mUserId = userId;
+		this.mUserName = userName;
 	}
 
 	public String getUserId() {

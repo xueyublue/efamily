@@ -59,7 +59,8 @@ public class UpdateEventAction extends BaseAction implements Action {
 			}
 
 			// Perform to UPDATE event
-			eventDao.updateEvent(eventId, title, location, startDate, endDate, isAllDay, category, getSessionManager().getCredentials(req.getSession()));
+			eventDao.updateEvent(eventId, title, location, startDate, endDate, isAllDay, category,
+					getSessionManager().getCredentials(req.getSession()).getUserId());
 
 			resultContent = new ResultContent(null, null);
 

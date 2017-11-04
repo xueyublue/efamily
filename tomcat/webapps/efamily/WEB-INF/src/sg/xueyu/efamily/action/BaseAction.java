@@ -78,7 +78,7 @@ public class BaseAction {
 		RoleDao roleDao = new RoleDao(mConnection);
 
 		// Session UserId is null
-		mSessionUserId = mSessionManager.getCredentials(req.getSession());
+		mSessionUserId = mSessionManager.getCredentials(req.getSession()).getUserId();
 		if (mSessionUserId == null) {
 			resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 			actionResult = new ActionResult(resultContent);

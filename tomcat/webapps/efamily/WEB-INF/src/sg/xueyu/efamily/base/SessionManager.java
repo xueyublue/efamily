@@ -56,20 +56,25 @@ public class SessionManager implements HttpSessionListener {
 		removeCredentials(sessionEvent.getSession());
 	}
 
-	public String getCredentials(HttpSession session) {
+	// Get credentials from session
+	public Credentials getCredentials(HttpSession session) {
 		if (!mSessionList.contains(session)) {
 			return null;
 		}
 
 		Object userId = session.getAttribute(Credentials.USER_ID);
-
+		Object userName = session.getAttribute(Credentials.USER_NAME);
+		
 		if (userId == null) {
 			return null;
 		}
+		
+		Credentials credentials = new Credentials(userId.toString(), userName.toString());
 
-		return userId.toString();
+		return credentials;
 	}
 
+	// Check credentials of session
 	public boolean checkCredentials(HttpSession session) {
 		if (!mSessionList.contains(session)) {
 			return false;
@@ -85,6 +90,7 @@ public class SessionManager implements HttpSessionListener {
 		return false;
 	}
 
+	// Add credentials to session
 	public boolean setCredentials(HttpSession session, Credentials credentials) {
 		if (!mSessionList.contains(session)) {
 			return false;
@@ -96,6 +102,7 @@ public class SessionManager implements HttpSessionListener {
 		return true;
 	}
 
+	// Remove credentials from session
 	public boolean removeCredentials(HttpSession session) {
 		if (!mSessionList.contains(session)) {
 			return false;
