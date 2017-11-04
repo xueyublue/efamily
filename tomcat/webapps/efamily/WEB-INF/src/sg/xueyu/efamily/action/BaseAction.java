@@ -28,7 +28,7 @@ public class BaseAction {
 		return mConnection;
 	}
 
-	protected SessionManager getmSessionManager() {
+	protected SessionManager getSessionManager() {
 		return mSessionManager;
 	}
 
