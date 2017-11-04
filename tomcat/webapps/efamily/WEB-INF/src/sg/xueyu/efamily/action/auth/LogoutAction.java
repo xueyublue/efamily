@@ -6,12 +6,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sg.xueyu.efamily.action.BaseAction;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 
-public class LogoutAction implements Action {
+public class LogoutAction extends BaseAction implements Action {
+
+	public LogoutAction() throws Exception {
+		super();
+	}
 
 	private static final String RESULT_URL = "login.do";
 	
@@ -23,6 +28,7 @@ public class LogoutAction implements Action {
 		// Redirect request to login.do
 		ResultContent resultContent = new ResultContent(RESULT_URL, null);
 		ActionResult result = new ActionResult(resultContent, ResultType.Redirect);
+		
 		return result;
 	}
 
