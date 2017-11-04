@@ -3,6 +3,7 @@ package sg.xueyu.efamily.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
@@ -38,6 +39,8 @@ public class HomeAction extends BaseAction implements Action {
 			resp.setStatus(500);
 			resultContent = new ResultContent(null, "UnHandled Exception Occurred!!!");
 			actionResult = new ActionResult(resultContent, ResultType.Ajax);
+		} finally {
+			DBUtils.closeConnection(getConnection());
 		}
 
 		return actionResult;
