@@ -10,8 +10,8 @@ import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
-import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
+import sg.xueyu.zebra.controller.ActionController;
 
 public class LoginAuthAction extends BaseAction implements Action {
 
@@ -24,21 +24,15 @@ public class LoginAuthAction extends BaseAction implements Action {
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		ResultContent resultContent = null;
-		ActionResult actionResult = null;
-
 		try {
 			String authResult = getUserDao().auth(userId, password);
 
 			// Authentication is failed
 			if (authResult != null) {
 				getSessionManager().removeCredentials(req.getSession());
-
 				resp.setStatus(401);
-				resultContent = new ResultContent(null, authResult);
-				actionResult = new ActionResult(resultContent, ResultType.Ajax);
 
-				return actionResult;
+				return ActionController.buildActionResult(null, authResult, ResultType.Ajax);
 			}
 
 			// Perform to Authentication is successfully
@@ -46,22 +40,15 @@ public class LoginAuthAction extends BaseAction implements Action {
 			getSessionManager().setCredentials(req.getSession(), new Credentials(user.getUserId(), user.getUserName()));
 			getUserDao().udpateLastLoginDate(userId);
 
-			resultContent = new ResultContent(null, null);
-			actionResult = new ActionResult(resultContent, ResultType.Ajax);
-
-			return actionResult;
-
+			return ActionController.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
-
 			resp.setStatus(500);
-			resultContent = new ResultContent(null, "UnHandled Exception Occurred!!!");
-			actionResult = new ActionResult(resultContent, ResultType.Ajax);
+
+			return ActionController.buildActionResult(null, "UnHandled Exception Occurred!!!", ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
-
-		return actionResult;
 	}
 
 }
