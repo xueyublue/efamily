@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.action.BaseAction;
+import sg.xueyu.efamily.base.Credentials;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
-import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
@@ -27,12 +27,8 @@ public class LoginAuthAction extends BaseAction implements Action {
 		ResultContent resultContent = null;
 		ActionResult actionResult = null;
 
-		UserDao userDao = null;
-
 		try {
-			userDao = new UserDao(getConnection());
-
-			String authResult = userDao.auth(userId, password);
+			String authResult = getUserDao().auth(userId, password);
 
 			// Authentication is failed
 			if (authResult != null) {
@@ -46,9 +42,9 @@ public class LoginAuthAction extends BaseAction implements Action {
 			}
 
 			// Perform to Authentication is successfully
-			LoginUserEJB user = userDao.getUser(userId);
-			getSessionManager().setCredentials(req.getSession(), user.getUserId(), user.getUserName());
-			userDao.udpateLastLoginDate(userId);
+			LoginUserEJB user = getUserDao().getUser(userId);
+			getSessionManager().setCredentials(req.getSession(), new Credentials(user.getUserId(), user.getUserName()));
+			getUserDao().udpateLastLoginDate(userId);
 
 			resultContent = new ResultContent(null, null);
 			actionResult = new ActionResult(resultContent, ResultType.Ajax);

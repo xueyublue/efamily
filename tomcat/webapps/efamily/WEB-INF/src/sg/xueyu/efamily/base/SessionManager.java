@@ -37,10 +37,10 @@ public class SessionManager implements HttpSessionListener {
 	@Override
 	public void sessionCreated(HttpSessionEvent sessionEvent) {
 		SystemLogger.info("Session Created: " + sessionEvent.getSession().getId());
-		
+
 		// Add session to session list
 		mSessionList.add(sessionEvent.getSession());
-		
+
 		// Set session timeout
 		sessionEvent.getSession().setMaxInactiveInterval(EFamilyParam.SESSION_TIME_OUT);
 	}
@@ -48,10 +48,10 @@ public class SessionManager implements HttpSessionListener {
 	@Override
 	public void sessionDestroyed(HttpSessionEvent sessionEvent) {
 		SystemLogger.info("Session Destroyed: " + sessionEvent.getSession().getId());
-		
+
 		// Add session to session list
 		mSessionList.remove(sessionEvent.getSession());
-		
+
 		// Remove Credentials from current session
 		removeCredentials(sessionEvent.getSession());
 	}
@@ -60,13 +60,13 @@ public class SessionManager implements HttpSessionListener {
 		if (!mSessionList.contains(session)) {
 			return null;
 		}
-		
-		Object userId = session.getAttribute("userId");
-		
+
+		Object userId = session.getAttribute(Credentials.USER_ID);
+
 		if (userId == null) {
 			return null;
 		}
-		
+
 		return userId.toString();
 	}
 
@@ -74,25 +74,25 @@ public class SessionManager implements HttpSessionListener {
 		if (!mSessionList.contains(session)) {
 			return false;
 		}
-		
-		Object userId = session.getAttribute("userId");
-		Object userName = session.getAttribute("userName");
-		
+
+		Object userId = session.getAttribute(Credentials.USER_ID);
+		Object userName = session.getAttribute(Credentials.USER_NAME);
+
 		if (userId != null && userName != null) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
-	public boolean setCredentials(HttpSession session, String userId, String userName) {
+	public boolean setCredentials(HttpSession session, Credentials credentials) {
 		if (!mSessionList.contains(session)) {
 			return false;
 		}
-		
-		session.setAttribute("userId", userId);
-		session.setAttribute("userName", userName);
-		
+
+		session.setAttribute(Credentials.USER_ID, credentials.getUserId());
+		session.setAttribute(Credentials.USER_NAME, credentials.getUserName());
+
 		return true;
 	}
 
@@ -100,10 +100,10 @@ public class SessionManager implements HttpSessionListener {
 		if (!mSessionList.contains(session)) {
 			return false;
 		}
-		
-		session.removeAttribute("userId");
-		session.removeAttribute("userName");
-		
+
+		session.removeAttribute(Credentials.USER_ID);
+		session.removeAttribute(Credentials.USER_NAME);
+
 		return true;
 	}
 }
