@@ -18,6 +18,10 @@ public class BaseAction {
 
 	private Connection mConnection = null;
 
+	private UserDao mUserDao = null;
+
+	private RoleDao mRoleDao = null;
+
 	private SessionManager mSessionManager = null;
 
 	private String mSessionUserId = null;
@@ -30,6 +34,8 @@ public class BaseAction {
 
 	public BaseAction() throws Exception {
 		mConnection = new DataSource().getConnection();
+		mUserDao = new UserDao(mConnection);
+		mRoleDao = new RoleDao(mConnection);
 		mSessionManager = SessionManager.getInstance();
 	}
 
@@ -37,23 +43,31 @@ public class BaseAction {
 		return mConnection;
 	}
 
+	protected UserDao getUserDao() {
+		return mUserDao;
+	}
+
+	protected RoleDao getRoleDao() {
+		return mRoleDao;
+	}
+
 	protected SessionManager getSessionManager() {
 		return mSessionManager;
 	}
 
-	public String getSessionUserId() {
+	protected String getSessionUserId() {
 		return mSessionUserId;
 	}
 
-	public LoginUserEJB getSessionUser() {
+	protected LoginUserEJB getSessionUser() {
 		return mSessionUser;
 	}
 
-	public String getSessionRoleId() {
+	protected String getSessionRoleId() {
 		return mSessionRoleId;
 	}
 
-	public RoleEJB getSessionRole() {
+	protected RoleEJB getSessionRole() {
 		return mSessionRole;
 	}
 
