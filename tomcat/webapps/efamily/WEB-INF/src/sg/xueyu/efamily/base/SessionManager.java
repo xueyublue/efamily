@@ -37,7 +37,7 @@ public class SessionManager implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent sessionEvent) {
-		SystemLogger.info("Session Created: " + sessionEvent.getSession().getId() + "_" + sessionEvent.getSession().getCreationTime());
+		SystemLogger.info("Session Created: " + sessionEvent.getSession().getId());
 		
 		// Add session to session list
 		mSessionList.add(sessionEvent.getSession());
@@ -48,7 +48,7 @@ public class SessionManager implements HttpSessionListener {
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent sessionEvent) {
-		SystemLogger.info("Session Destroyed: " + sessionEvent.getSession().getId() + "_" + sessionEvent.getSession().getCreationTime());
+		SystemLogger.info("Session Destroyed: " + sessionEvent.getSession().getId());
 		
 		// Add session to session list
 		mSessionList.remove(sessionEvent.getSession());
