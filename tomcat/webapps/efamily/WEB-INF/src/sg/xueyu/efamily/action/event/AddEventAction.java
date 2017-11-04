@@ -24,15 +24,15 @@ public class AddEventAction extends BaseAction implements Action {
 	private String title;
 
 	private String location;
-	
+
 	private Date startDate;
-	
+
 	private Date endDate;
-	
+
 	private String isAllDay;
-	
+
 	private String category;
-	
+
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = null;
@@ -45,12 +45,13 @@ public class AddEventAction extends BaseAction implements Action {
 			if (authResult != null) {
 				return authResult;
 			}
-			
+
 			eventDao = new EventDao(getConnection());
-			
+
 			// Perform to ADD event
-			eventDao.createEvent(SequenceHandler.nextEventId(getConnection()), title, location, startDate, endDate, isAllDay, category, getSessionManager().getCredentials(req.getSession()));
-			
+			eventDao.createEvent(SequenceHandler.nextEventId(getConnection()), title, location, startDate, endDate,
+					isAllDay, category, getSessionUserId());
+
 			resultContent = new ResultContent(null, null);
 			actionResult = new ActionResult(resultContent, ResultType.Ajax);
 

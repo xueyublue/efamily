@@ -7,8 +7,6 @@ import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.action.BaseAction;
 import sg.xueyu.efamily.base.ejb.EventEJB;
 import sg.xueyu.efamily.dao.EventDao;
-import sg.xueyu.efamily.dao.RoleDao;
-import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
@@ -29,8 +27,6 @@ public class DeleteEventAction extends BaseAction implements Action {
 		ResultContent resultContent = null;
 		ActionResult actionResult = null;
 
-		UserDao userDao = null;
-		RoleDao roleDao = null;
 		EventDao eventDao = null;
 
 		try {
@@ -39,8 +35,6 @@ public class DeleteEventAction extends BaseAction implements Action {
 				return authResult;
 			}
 
-			userDao = new UserDao(getConnection());
-			roleDao = new RoleDao(getConnection());
 			eventDao = new EventDao(getConnection());
 
 			// Event is not exist
@@ -52,9 +46,7 @@ public class DeleteEventAction extends BaseAction implements Action {
 			}
 
 			// Do not allow to DELETE any Event if administrator flag is false
-			String sessionUserId = getSessionManager().getCredentials(req.getSession());
-			String sessionRoleId = userDao.getUser(sessionUserId).getRoleId();
-			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(roleDao.getRole(sessionRoleId).getAdminFlag())) {
+			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())) {
 				resp.setStatus(500);
 				resultContent = new ResultContent(null, "Insufficient Previlege!");
 				return new ActionResult(resultContent, ResultType.Ajax);

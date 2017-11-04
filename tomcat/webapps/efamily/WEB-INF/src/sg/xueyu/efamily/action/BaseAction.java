@@ -17,7 +17,16 @@ import sg.xueyu.zebra.action.ResultContent;
 public class BaseAction {
 
 	private Connection mConnection = null;
+
 	private SessionManager mSessionManager = null;
+
+	private String mSessionUserId = null;
+
+	private LoginUserEJB mSessionUser = null;
+
+	private String mSessionRoleId = null;
+
+	private RoleEJB mSessionRole = null;
 
 	public BaseAction() throws Exception {
 		mConnection = new DataSource().getConnection();
@@ -32,6 +41,22 @@ public class BaseAction {
 		return mSessionManager;
 	}
 
+	public String getSessionUserId() {
+		return mSessionUserId;
+	}
+
+	public LoginUserEJB getSessionUser() {
+		return mSessionUser;
+	}
+
+	public String getSessionRoleId() {
+		return mSessionRoleId;
+	}
+
+	public RoleEJB getSessionRole() {
+		return mSessionRole;
+	}
+
 	protected ActionResult credentialAuthentication(HttpServletRequest req) throws Exception {
 		ResultContent resultContent = null;
 		ActionResult actionResult = null;
@@ -39,24 +64,24 @@ public class BaseAction {
 		RoleDao roleDao = new RoleDao(mConnection);
 
 		// Session UserId is null
-		String sessionUserId = mSessionManager.getCredentials(req.getSession());
-		if (sessionUserId == null) {
+		mSessionUserId = mSessionManager.getCredentials(req.getSession());
+		if (mSessionUserId == null) {
 			resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 			actionResult = new ActionResult(resultContent);
 
 			return actionResult;
 		}
 		// Session User is not exist in DB
-		LoginUserEJB sessionUser = userDao.getUser(sessionUserId);
-		if (sessionUser == null) {
+		mSessionUser = userDao.getUser(mSessionUserId);
+		if (mSessionUser == null) {
 			resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 			actionResult = new ActionResult(resultContent);
 
 			return actionResult;
 		}
 		// Role of session User is not exist in DB
-		RoleEJB sessionRole = roleDao.getRole(sessionUser.getRoleId());
-		if (sessionRole == null) {
+		mSessionRole = roleDao.getRole(mSessionUser.getRoleId());
+		if (mSessionRole == null) {
 			resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 			actionResult = new ActionResult(resultContent);
 
