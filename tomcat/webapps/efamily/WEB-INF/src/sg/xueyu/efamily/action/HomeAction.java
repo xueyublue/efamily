@@ -26,7 +26,7 @@ public class HomeAction extends BaseAction implements Action {
 			}
 
 			// Perform to forward to Home.jsp
-			return ActionController.buildActionResult(SystemConstants.URL_HOME, null);
+			return ActionController.buildActionResultWithURL(SystemConstants.URL_HOME);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			resp.setStatus(500);

@@ -19,6 +19,16 @@ public class ActionController {
 		return resultContent;
 	}
 
+	// Build ActionResult with URL
+	public static ActionResult buildActionResultWithURL(String url) {
+		return new ActionResult(buildResultContent(url, null), ResultType.Forward);
+	}
+
+	// Build ActionResult with Data
+	public static ActionResult buildActionResultWithData(Object data) {
+		return new ActionResult(buildResultContent(null, data), ResultType.Forward);
+	}
+
 	// Build ActionResult with URL/Data
 	public static ActionResult buildActionResult(String url, Object data) {
 		return new ActionResult(buildResultContent(url, data), ResultType.Forward);
