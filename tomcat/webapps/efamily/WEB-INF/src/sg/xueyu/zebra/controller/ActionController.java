@@ -1,4 +1,4 @@
-package sg.xueyu.zebra.util;
+package sg.xueyu.zebra.controller;
 
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
