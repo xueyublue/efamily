@@ -39,7 +39,7 @@ public class ActionController {
 		return new ActionResult(buildResultContent(url, data, dateFormat), ResultType.Forward);
 	}
 
-	// Build ActionResult with URL/Data/Date Format/ResultType
+	// Build ActionResult with URL/Data/ResultType
 	public static ActionResult buildActionResult(String url, Object data, ResultType resultType) {
 		return new ActionResult(buildResultContent(url, data), resultType);
 	}
