@@ -14,6 +14,7 @@ import sg.xueyu.efamily.dao.UserDao;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
+import sg.xueyu.zebra.action.ResultType;
 
 public class BaseAction {
 
@@ -33,6 +34,11 @@ public class BaseAction {
 
 	private RoleEJB mSessionRole = null;
 
+	private ResultContent mResultContent = null;
+
+	private ActionResult mActionResult = null;
+
+	// Default constructor
 	public BaseAction() throws Exception {
 		mConnection = new DataSource().getConnection();
 		mUserDao = new UserDao(mConnection);
@@ -72,6 +78,23 @@ public class BaseAction {
 		return mSessionRole;
 	}
 
+	protected void buildResultContent(String url, Object data) {
+		this.mResultContent = new ResultContent(url, data);
+	}
+
+	protected ResultContent getResultContent() {
+		return mResultContent;
+	}
+
+	protected ActionResult buildActionResult(ResultContent resultContent) {
+		return new ActionResult(resultContent, ResultType.Forward);
+	}
+
+	protected ActionResult buildActionResult(ResultContent resultContent, ResultType resultType) {
+		return new ActionResult(resultContent, resultType);
+	}
+
+	// Session credentials authentication
 	protected ActionResult credentialAuthentication(HttpServletRequest req) throws Exception {
 		ResultContent resultContent = null;
 		ActionResult actionResult = null;

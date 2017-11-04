@@ -10,9 +10,6 @@ public class ResultContent {
 
 	private String dateFormat;
 
-	public ResultContent() {
-	}
-
 	public ResultContent(String url, Object data) {
 		this.url = url;
 		this.data = data;
