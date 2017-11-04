@@ -16,6 +16,7 @@ public class SessionManager implements HttpSessionListener {
 
 	private List<HttpSession> mSessionList = null;
 
+	// Default constructor
 	public SessionManager() {
 		super();
 		mSessionManager = this;
@@ -26,10 +27,12 @@ public class SessionManager implements HttpSessionListener {
 		mSessionList = new ArrayList<>();
 	}
 
+	// Return instance of SessionManager
 	public static SessionManager getInstance() {
 		return mSessionManager;
 	}
 
+	// Return activated session list
 	public List<HttpSession> getSessionList() {
 		return mSessionList;
 	}
@@ -55,7 +58,32 @@ public class SessionManager implements HttpSessionListener {
 		// Remove Credentials from current session
 		removeCredentials(sessionEvent.getSession());
 	}
+	
+	// Add credentials to session
+	public boolean setCredentials(HttpSession session, Credentials credentials) {
+		if (!mSessionList.contains(session)) {
+			return false;
+		}
 
+		// Loop existing sessions
+		// Invalidate previous session if user id is same
+		for (HttpSession prvSession : mSessionList) {
+			Object userId = prvSession.getAttribute(Credentials.USER_ID);
+			if (prvSession != session 
+					&& userId != null
+					&& credentials.getUserId().equals(userId.toString())) {
+				mSessionList.remove(prvSession);
+				prvSession.invalidate();
+				break;
+			}
+		}
+
+		session.setAttribute(Credentials.USER_ID, credentials.getUserId());
+		session.setAttribute(Credentials.USER_NAME, credentials.getUserName());
+
+		return true;
+	}
+	
 	// Get credentials from session
 	public Credentials getCredentials(HttpSession session) {
 		if (!mSessionList.contains(session)) {
@@ -88,31 +116,6 @@ public class SessionManager implements HttpSessionListener {
 		}
 
 		return false;
-	}
-
-	// Add credentials to session
-	public boolean setCredentials(HttpSession session, Credentials credentials) {
-		if (!mSessionList.contains(session)) {
-			return false;
-		}
-
-		// Loop existing sessions
-		// Invalidate previous session if user id is same
-		for (HttpSession prvSession : mSessionList) {
-			Object userId = prvSession.getAttribute(Credentials.USER_ID);
-			if (prvSession != session 
-					&& userId != null
-					&& credentials.getUserId().equals(userId.toString())) {
-				mSessionList.remove(prvSession);
-				prvSession.invalidate();
-				break;
-			}
-		}
-
-		session.setAttribute(Credentials.USER_ID, credentials.getUserId());
-		session.setAttribute(Credentials.USER_NAME, credentials.getUserName());
-
-		return true;
 	}
 
 	// Remove credentials from session
