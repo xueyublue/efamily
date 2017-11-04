@@ -11,6 +11,7 @@ import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
+import sg.xueyu.zebra.controller.ActionController;
 
 public class EventAction extends BaseAction implements Action {
 
@@ -20,9 +21,6 @@ public class EventAction extends BaseAction implements Action {
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		ResultContent resultContent = null;
-		ActionResult actionResult = null;
-
 		EventDao eventDao = null;
 
 		try {
@@ -36,21 +34,15 @@ public class EventAction extends BaseAction implements Action {
 			// Perform to forward to Event.jsp
 			req.setAttribute("events", eventDao.getAllEvents());
 
-			resultContent = new ResultContent(SystemConstants.URL_EVENT, null);
-			actionResult = new ActionResult(resultContent);
-
-			return actionResult;
+			return ActionController.buildActionResultWithURL(SystemConstants.URL_EVENT);
 		} catch (Exception e) {
 			SystemLogger.error(e);
-
 			resp.setStatus(500);
-			resultContent = new ResultContent(null, "UnHandled Exception Occurred!!!");
-			actionResult = new ActionResult(resultContent, ResultType.Ajax);
+
+			return ActionController.buildActionResult(null, "UnHandled Exception Occurred!!!", ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
-
-		return actionResult;
 	}
 
 }
