@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import sg.xueyu.efamily.base.Credentials;
 import sg.xueyu.efamily.base.DataSource;
 import sg.xueyu.efamily.base.SessionManager;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
@@ -78,13 +79,14 @@ public class BaseAction {
 		RoleDao roleDao = new RoleDao(mConnection);
 
 		// Session UserId is null
-		mSessionUserId = mSessionManager.getCredentials(req.getSession()).getUserId();
-		if (mSessionUserId == null) {
+		Credentials credentials = mSessionManager.getCredentials(req.getSession());
+		if (credentials == null) {
 			resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 			actionResult = new ActionResult(resultContent);
 
 			return actionResult;
 		}
+		mSessionUserId = credentials.getUserId();
 		// Session User is not exist in DB
 		mSessionUser = userDao.getUser(mSessionUserId);
 		if (mSessionUser == null) {

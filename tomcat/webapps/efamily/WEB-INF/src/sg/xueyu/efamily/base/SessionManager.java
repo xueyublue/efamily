@@ -64,11 +64,11 @@ public class SessionManager implements HttpSessionListener {
 
 		Object userId = session.getAttribute(Credentials.USER_ID);
 		Object userName = session.getAttribute(Credentials.USER_NAME);
-		
+
 		if (userId == null) {
 			return null;
 		}
-		
+
 		Credentials credentials = new Credentials(userId.toString(), userName.toString());
 
 		return credentials;
@@ -94,6 +94,18 @@ public class SessionManager implements HttpSessionListener {
 	public boolean setCredentials(HttpSession session, Credentials credentials) {
 		if (!mSessionList.contains(session)) {
 			return false;
+		}
+
+		// Loop existing sessions
+		// Invalidate previous session if user id is same
+		for (HttpSession prvSession : mSessionList) {
+			Object userId = prvSession.getAttribute(Credentials.USER_ID);
+			if (prvSession != session 
+					&& userId != null
+					&& credentials.getUserId().equals(userId.toString())) {
+				prvSession.invalidate();
+				break;
+			}
 		}
 
 		session.setAttribute(Credentials.USER_ID, credentials.getUserId());

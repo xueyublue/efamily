@@ -30,7 +30,7 @@
 
 	<div>
 		<p>
-			Hi <%=session.getAttribute("userName")%>, Welcome to E-Family. Today is //TODO: ?
+			Hi <%=session.getAttribute("USER_NAME")%>, Welcome to E-Family. Today is //TODO: ?
 			</p>
 		</div>
 	<!-- End of Container -->
@@ -42,7 +42,7 @@
 	<!-- Customize Scripts -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
+			document.getElementById("userName").innerHTML = '<%=session.getAttribute("USER_NAME")%>';
 			$('#home').addClass('active');
 		});
 	</script>

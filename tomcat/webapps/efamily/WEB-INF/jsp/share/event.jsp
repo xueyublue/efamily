@@ -259,7 +259,7 @@
 	<!-- Customize Scripts -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-			document.getElementById("userName").innerHTML = '<%=session.getAttribute("userName")%>';
+			document.getElementById("userName").innerHTML = '<%=session.getAttribute("USER_NAME")%>';
 			
 			$('#family-share').addClass('active');
 			$('#btn_fastBackward').addClass('disabled');
