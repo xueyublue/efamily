@@ -85,7 +85,7 @@
 								<td><span id="roleName">${c.roleName}</span></td>
 								<td><span id="adminFlag">${c.adminFlag}</span></td>
 								<td><span id="guestFlag">${c.guestFlag}</span></td>
-								<td><span id="expiryDate"><fmt:formatDate value="${c.expiryDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td></tr>
+								<td><span id="expiryDate"><fmt:formatDate value="${c.expiryDate}" pattern="yyyy-MM-dd"/></span></td></tr>
 							</c:forEach>
 						</tbody>
 				</table>
@@ -134,7 +134,7 @@
 						<div class="form-group">
 			                <label class="col-sm-3 control-label" for="dtp_expiryDate" >Expiry Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_expiryDate">
+			                	<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_expiryDate">
 				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_expiryDate_add">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
@@ -192,7 +192,7 @@
 						<div class="form-group">
 			                <label class="col-sm-3 control-label" for="dtp_expiryDate_update" >Expiry Date</label>
 			                <div class="col-sm-9">
-			                	<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_expiryDate_update">
+			                	<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_expiryDate_update">
 				                    <input class="form-control" size="16" type="text" value="" readonly id="txt_expiryDate_update">
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
@@ -268,8 +268,8 @@
 				autoclose: 1,
 				todayHighlight: 1,
 				startView: 2,
-				forceParse: 0,
-		        showMeridian: 1
+				minView: 2,
+				forceParse: 0
 		    });
 		});
 		

@@ -35,7 +35,8 @@ public class GetRoleAction extends BaseAction implements Action {
 			RoleEJB role = getRoleDao().getRole(roleId);
 
 			resultContent = new ResultContent(null, role);
-
+			resultContent.setDateFormat("yyyy-MM-dd");
+			
 			return new ActionResult(resultContent, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
