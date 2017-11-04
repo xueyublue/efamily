@@ -14,6 +14,7 @@ public class LoginAction implements Action {
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 		ActionResult result = new ActionResult(resultContent);
+		
 		return result;
 	}
 

@@ -14,6 +14,7 @@ public class IndexAction implements Action {
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ResultContent resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 		ActionResult actionResult = new ActionResult(resultContent);
+		
 		return actionResult;
 	}
 

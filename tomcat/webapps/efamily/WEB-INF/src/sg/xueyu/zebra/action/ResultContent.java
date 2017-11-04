@@ -10,6 +10,9 @@ public class ResultContent {
 
 	private String dateFormat;
 
+	public ResultContent() {
+	}
+
 	public ResultContent(String url, Object data) {
 		this.url = url;
 		this.data = data;
@@ -42,7 +45,7 @@ public class ResultContent {
 	public String getJsonData() {
 		Gson gson = null;
 		if (dateFormat == null) {
-			gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();	
+			gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		} else {
 			gson = new GsonBuilder().setDateFormat(dateFormat).create();
 		}
