@@ -32,7 +32,7 @@ public class EventAction extends BaseAction implements Action {
 
 			// Perform to forward to Event.jsp
 			req.setAttribute("events", eventDao.getAllEvents());
-
+			
 			return ActionController.buildActionResultWithURL(SystemConstants.URL_EVENT);
 		} catch (Exception e) {
 			SystemLogger.error(e);

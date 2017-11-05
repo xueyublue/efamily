@@ -11,8 +11,8 @@ import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
-import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
+import sg.xueyu.zebra.controller.ActionController;
 
 public class DeleteUserAction extends BaseAction implements Action {
 
@@ -24,9 +24,6 @@ public class DeleteUserAction extends BaseAction implements Action {
 
 	@Override
 	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		ResultContent resultContent = null;
-		ActionResult actionResult = null;
-
 		try {
 			ActionResult authResult = credentialAuthentication(req);
 			if (authResult != null) {
@@ -37,16 +34,14 @@ public class DeleteUserAction extends BaseAction implements Action {
 			LoginUserEJB user = getUserDao().getUser(userId);
 			if (user == null) {
 				resp.setStatus(500);
-				resultContent = new ResultContent(null, "User is not exist!");
-				return new ActionResult(resultContent, ResultType.Ajax);
+				return ActionController.buildActionResult(null, "User is not exist!", ResultType.Ajax);
 			}
 
 			// Role Id is not exist
 			RoleEJB role = getRoleDao().getRole(user.getRoleId());
 			if (role == null) {
 				resp.setStatus(500);
-				resultContent = new ResultContent(null, "Role Id is not exist!");
-				return new ActionResult(resultContent, ResultType.Ajax);
+				return ActionController.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
 			}
 
 			// Do not allow to DELETE Administrator if administrator flag is
@@ -54,26 +49,19 @@ public class DeleteUserAction extends BaseAction implements Action {
 			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())
 					&& SystemConstants.ROLE_ADMIN_FLAG_TRUE.equals(role.getAdminFlag())) {
 				resp.setStatus(500);
-				resultContent = new ResultContent(null, "Insufficient Previlege!");
-				return new ActionResult(resultContent, ResultType.Ajax);
+				return ActionController.buildActionResult(null, "Insufficient Previlege!", ResultType.Ajax);
 			}
 
 			// Perform to DELETE user
 			getUserDao().deleteUser(userId);
 
-			resultContent = new ResultContent(null, null);
-
-			return new ActionResult(resultContent, ResultType.Ajax);
+			return ActionController.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
-
 			resp.setStatus(500);
-			resultContent = new ResultContent(null, "UnHandled Exception Occurred!!!");
-			actionResult = new ActionResult(resultContent, ResultType.Ajax);
+			return ActionController.buildActionResult(null, "UnHandled Exception Occurred!!!", ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
-
-		return actionResult;
 	}
 }
