@@ -49,7 +49,7 @@ public class GetEventAction extends BaseAction implements Action {
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			resp.setStatus(500);
-			return ActionController.buildActionResult(null, "UnHandled Exception Occurred!!!", ResultType.Ajax);
+			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}

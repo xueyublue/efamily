@@ -22,4 +22,8 @@ public interface SystemConstants {
 	public static final String URL_USER = "user.jsp";
 	public static final String URL_ROLE = "role.jsp";
 	
+	// Error Message
+	public static final String ERROR_MSG_UNHANDLED_EXCEPTION = "UnHandled Exception Occurred!!!";
+	public static final String ERROR_MSG_INSUFFICIENT_PREVILEGE = "Insufficient Previlege!";
+	
 }

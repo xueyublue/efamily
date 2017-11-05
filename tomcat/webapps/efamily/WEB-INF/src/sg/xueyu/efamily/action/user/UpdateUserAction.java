@@ -47,7 +47,7 @@ public class UpdateUserAction extends BaseAction implements Action {
 			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())
 					&& SystemConstants.ROLE_ADMIN_FLAG_TRUE.equals(role.getAdminFlag())) {
 				resp.setStatus(500);
-				return ActionController.buildActionResult(null, "Insufficient Previlege!", ResultType.Ajax);
+				return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
 			}
 
 			// User is not exist
@@ -63,7 +63,7 @@ public class UpdateUserAction extends BaseAction implements Action {
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			resp.setStatus(500);
-			return ActionController.buildActionResult(null, "UnHandled Exception Occurred!!!", ResultType.Ajax);
+			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}

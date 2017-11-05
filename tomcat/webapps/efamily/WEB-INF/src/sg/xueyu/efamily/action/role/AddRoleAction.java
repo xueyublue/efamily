@@ -49,7 +49,7 @@ public class AddRoleAction extends BaseAction implements Action {
 			// Do not allow to ADD role if administrator flag is false
 			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())) {
 				resp.setStatus(500);
-				return ActionController.buildActionResult(null, "Insufficient Previlege!", ResultType.Ajax);
+				return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
 			}
 
 			// Perform to ADD user
@@ -60,7 +60,7 @@ public class AddRoleAction extends BaseAction implements Action {
 			SystemLogger.error(e);
 			resp.setStatus(500);
 
-			return ActionController.buildActionResult(null, "UnHandled Exception Occurred!!!", ResultType.Ajax);
+			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}

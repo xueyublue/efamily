@@ -9,6 +9,7 @@ import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.action.BaseAction;
 import sg.xueyu.efamily.base.ejb.EventEJB;
 import sg.xueyu.efamily.dao.EventDao;
+import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
@@ -62,7 +63,7 @@ public class UpdateEventAction extends BaseAction implements Action {
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			resp.setStatus(500);
-			return ActionController.buildActionResult(null, "UnHandled Exception Occurred!!!", ResultType.Ajax);
+			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
