@@ -28,14 +28,17 @@ public class FrontController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+/** Static Variables **/	
 	private static final String DEFAULT_PACKAGE_NAME = "";
 	private static final String DEFAULT_ACTION_NAME = "Action";
 	private static final String DEFAULT_JSP_PATH = "/WEB-INF/jsp/";
 	
+/** Variables **/	
 	private String mPackagePrefix = null;
 	private String mActionSuffix = null;
 	private String mJspPrefix = null;
 
+/** Override Methods **/	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		String packagePrefix = config.getInitParameter("packagePrefix");
@@ -109,6 +112,7 @@ public class FrontController extends HttpServlet {
 		}
 	}
 	
+/** Private Methods **/	
 	// Get package path of Action
 	private String getFullActionName(String servletPath) {
 		int start = servletPath.lastIndexOf("/") + 1;
