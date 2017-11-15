@@ -31,24 +31,27 @@ public class FrontController extends HttpServlet {
 /** Static Variables **/	
 	private static final String DEFAULT_PACKAGE_NAME = "";
 	private static final String DEFAULT_ACTION_NAME = "Action";
-	private static final String DEFAULT_JSP_PATH = "/WEB-INF/jsp/";
+	private static final String DEFAULT_VIEW_PATH = "/WEB-INF/jsp/";
 	
 /** Variables **/	
 	private String mPackagePrefix = null;
 	private String mActionSuffix = null;
-	private String mJspPrefix = null;
+	private String mViewPrefix = null;
 
 /** Override Methods **/	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		String packagePrefix = config.getInitParameter("packagePrefix");
 		mPackagePrefix = packagePrefix != null ? packagePrefix : DEFAULT_PACKAGE_NAME;
+		if (!mPackagePrefix.endsWith(".")) {
+			mPackagePrefix += ".";
+		}
 		
 		String actionSuffix = config.getInitParameter("actionSuffix");
 		mActionSuffix = actionSuffix != null ? actionSuffix : DEFAULT_ACTION_NAME;
 		
-		String jspPrefix = config.getInitParameter("jspPrefix");
-		mJspPrefix = jspPrefix != null ? jspPrefix : DEFAULT_JSP_PATH;
+		String viewPrefix = config.getInitParameter("viewPrefix");
+		mViewPrefix = viewPrefix != null ? viewPrefix : DEFAULT_VIEW_PATH;
 	}
 	
 	@Override
@@ -57,11 +60,13 @@ public class FrontController extends HttpServlet {
 		String servletPath = req.getServletPath();
 
 		try {
+			// Get Action class
 			Action action = (Action) Class.forName(getFullActionName(servletPath)).newInstance();
-			try {
-				injectProperties(action, req);
-			} catch (Exception e) {
-			}
+			
+			// Inject request data to Action class
+			injectProperties(action, req);
+			
+			// Handle file upload Action
 			if (action instanceof Uploadable) {
 				List<Part> fileparts = new ArrayList<>();
 				List<String> filenames = new ArrayList<>();
@@ -75,7 +80,11 @@ public class FrontController extends HttpServlet {
 				((Uploadable) action).setParts(fileparts.toArray(new Part[fileparts.size()]));
 				((Uploadable) action).setFilenames(filenames.toArray(new String[filenames.size()]));
 			}
+			
+			// Execute Action
 			ActionResult actionResult = action.execute(req, resp);
+			
+			// Handle action result
 			if (actionResult != null) {
 				ResultContent resultContent = actionResult.getResultContent();
 				ResultType resultType = actionResult.getResultType();
@@ -86,7 +95,7 @@ public class FrontController extends HttpServlet {
 					break;
 					
 				case Forward:
-					req.getRequestDispatcher(getFullJspPath(servletPath) + resultContent.getUrl()).forward(req, resp);
+					req.getRequestDispatcher(getFullViewPath(servletPath) + resultContent.getUrl()).forward(req, resp);
 					break;
 					
 				case Ajax:
@@ -122,19 +131,19 @@ public class FrontController extends HttpServlet {
 	}
 
 	// Get JSP file path
-	private String getFullJspPath(String servletPath) {
+	private String getFullViewPath(String servletPath) {
 		
-		return mJspPrefix + getSubJspPath(servletPath);
+		return mViewPrefix + getSubViewPath(servletPath);
 	}
 
-	// Convert servlet path to sub package
+	// Convert SERVLET path to sub package
 	private String getSubPackage(String servletPath) {
 		
-		return getSubJspPath(servletPath).replaceAll("\\/", ".");
+		return getSubViewPath(servletPath).replaceAll("\\/", ".");
 	}
 
 	// Get sub JSP file path
-	private String getSubJspPath(String servletPath) {
+	private String getSubViewPath(String servletPath) {
 		int start = 1;
 		int end = servletPath.lastIndexOf("/");
 		
