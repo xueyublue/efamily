@@ -19,7 +19,7 @@
 	<!-- Navigation Bar -->
 	<div class="row">
 		<div class="col-xs-12">
-			<jsp:include page="../navbar.jsp"></jsp:include>
+			<jsp:include page="../base/navbar.jsp"></jsp:include>
 			</div>
 		</div>
 	
