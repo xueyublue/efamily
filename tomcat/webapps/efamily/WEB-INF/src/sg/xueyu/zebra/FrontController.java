@@ -31,7 +31,7 @@ public class FrontController extends HttpServlet {
 /** Static Variables **/	
 	private static final String DEFAULT_PACKAGE_NAME = "";
 	private static final String DEFAULT_ACTION_NAME = "Action";
-	private static final String DEFAULT_VIEW_PATH = "/WEB-INF/jsp/";
+	private static final String DEFAULT_VIEW_PATH = "/WEB-INF/view/";
 	
 /** Variables **/	
 	private String mPackagePrefix = null;
