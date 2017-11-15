@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public final class CommonUtil {
+public final class ZebraUtil {
 
 	private static final List<String> patterns = new ArrayList<>();
 	private static final List<TypeConverter> converters = new ArrayList<>();
@@ -19,7 +19,7 @@ public final class CommonUtil {
 		patterns.add("yyyy-MM-dd");
 	}
 
-	private CommonUtil() {
+	private ZebraUtil() {
 		throw new AssertionError();
 	}
 

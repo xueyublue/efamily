@@ -20,7 +20,7 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.action.Uploadable;
-import sg.xueyu.zebra.util.CommonUtil;
+import sg.xueyu.zebra.util.ZebraUtil;
 import sg.xueyu.zebra.util.ReflectionUtil;
 
 @MultipartConfig
@@ -32,18 +32,20 @@ public class FrontController extends HttpServlet {
 	private static final String DEFAULT_ACTION_NAME = "Action";
 	private static final String DEFAULT_JSP_PATH = "/WEB-INF/jsp/";
 	
-	private String packagePrefix = null;
-	private String actionSuffix = null;
-	private String jspPrefix = null;
+	private String mPackagePrefix = null;
+	private String mActionSuffix = null;
+	private String mJspPrefix = null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		String initParam = config.getInitParameter("packagePrefix");
-		packagePrefix = initParam != null ? initParam : DEFAULT_PACKAGE_NAME;
-		initParam = config.getInitParameter("actionSuffix");
-		actionSuffix = initParam != null ? initParam : DEFAULT_ACTION_NAME;
-		initParam = config.getInitParameter("jspPrefix");
-		jspPrefix = initParam != null ? initParam : DEFAULT_JSP_PATH;
+		String packagePrefix = config.getInitParameter("packagePrefix");
+		mPackagePrefix = packagePrefix != null ? packagePrefix : DEFAULT_PACKAGE_NAME;
+		
+		String actionSuffix = config.getInitParameter("actionSuffix");
+		mActionSuffix = actionSuffix != null ? actionSuffix : DEFAULT_ACTION_NAME;
+		
+		String jspPrefix = config.getInitParameter("jspPrefix");
+		mJspPrefix = jspPrefix != null ? jspPrefix : DEFAULT_JSP_PATH;
 	}
 	
 	@Override
@@ -107,30 +109,35 @@ public class FrontController extends HttpServlet {
 		}
 	}
 	
+	// Get package path of Action
 	private String getFullActionName(String servletPath) {
 		int start = servletPath.lastIndexOf("/") + 1;
 		int end = servletPath.lastIndexOf(".do");
 		
-		return packagePrefix + getSubPackage(servletPath) + CommonUtil.capitalize(servletPath.substring(start, end)) + actionSuffix;
+		return mPackagePrefix + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, end)) + mActionSuffix;
 	}
 
+	// Get JSP file path
 	private String getFullJspPath(String servletPath) {
 		
-		return jspPrefix + getSubJspPath(servletPath);
+		return mJspPrefix + getSubJspPath(servletPath);
 	}
 
+	// Convert servlet path to sub package
 	private String getSubPackage(String servletPath) {
 		
 		return getSubJspPath(servletPath).replaceAll("\\/", ".");
 	}
 
+	// Get sub JSP file path
 	private String getSubJspPath(String servletPath) {
 		int start = 1;
 		int end = servletPath.lastIndexOf("/");
 		
 		return end > start ? servletPath.substring(start, end > 0 ? end + 1 : 0) : "";
 	} 
-		 
+	
+	// Inject request data to Action class
 	private void injectProperties(Action action, HttpServletRequest req) throws Exception {
 		Enumeration<String> paramNamesEnum = req.getParameterNames();
 		while (paramNamesEnum.hasMoreElements()) {
@@ -143,11 +150,11 @@ public class FrontController extends HttpServlet {
 					String[] values = req.getParameterValues(paramName);
 					paramValue = Array.newInstance(elemType, values.length);
 					for (int i = 0; i < values.length; i++) {
-						Object tempObj = CommonUtil.changeStringToObject(elemType, values[i]);
+						Object tempObj = ZebraUtil.changeStringToObject(elemType, values[i]);
 						Array.set(paramValue, i, tempObj);
 					}
 				} else {
-					paramValue = CommonUtil.changeStringToObject(fieldType, req.getParameter(paramName));
+					paramValue = ZebraUtil.changeStringToObject(fieldType, req.getParameter(paramName));
 				}
 				ReflectionUtil.setValue(action, paramName.replaceAll("\\[|\\]", ""), paramValue);
 			}
