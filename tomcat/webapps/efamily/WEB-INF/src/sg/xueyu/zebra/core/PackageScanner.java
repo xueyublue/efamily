@@ -1,4 +1,4 @@
-package sg.xueyu.zebra.util;
+package sg.xueyu.zebra.core;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+
+import sg.xueyu.zebra.util.StringUtils;
 
 public class PackageScanner {
 

@@ -21,8 +21,8 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.action.Uploadable;
+import sg.xueyu.zebra.core.PackageScanner;
 import sg.xueyu.zebra.util.ZebraUtil;
-import sg.xueyu.zebra.util.PackageScanner;
 import sg.xueyu.zebra.util.ReflectionUtil;
 
 @MultipartConfig
