@@ -29,34 +29,34 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 /** Static Variables **/	
-	private static final String DEFAULT_PACKAGE_NAME = "";
-	private static final String DEFAULT_PAGE_NAME = "Page";
-	private static final String DEFAULT_ACTION_NAME = "Action";
-	private static final String DEFAULT_VIEW_PATH = "/WEB-INF/view/";
+	private static final String DEFAULT_PACKAGE_SCAN = "/";
+	private static final String DEFAULT_PAGE_SUFFIX = "Page";
+	private static final String DEFAULT_ACTION_SUFFIX = "Action";
+	private static final String DEFAULT_VIEW_PREFIX = "/WEB-INF/view/";
 	
 /** Variables **/	
-	private String mPackagePrefix = null;
+	private String mPackageScan = null;
 	private String mPageSuffix = null;
 	private String mActionSuffix = null;
 	private String mViewPrefix = null;
 
-/** Override Methods **/	
+/** Override Methods **/
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		String packagePrefix = config.getInitParameter("packagePrefix");
-		mPackagePrefix = packagePrefix != null ? packagePrefix : DEFAULT_PACKAGE_NAME;
-		if (!mPackagePrefix.endsWith(".")) {
-			mPackagePrefix += ".";
+		String packageScan = config.getInitParameter("packageScan");
+		mPackageScan = packageScan != null ? packageScan : DEFAULT_PACKAGE_SCAN;
+		if (!mPackageScan.endsWith(".")) {
+			mPackageScan += ".";
 		}
 		
 		String pageSuffix = config.getInitParameter("pageSuffix");
-		mPageSuffix = pageSuffix != null ? pageSuffix : DEFAULT_PAGE_NAME;
+		mPageSuffix = pageSuffix != null ? pageSuffix : DEFAULT_PAGE_SUFFIX;
 		
 		String actionSuffix = config.getInitParameter("actionSuffix");
-		mActionSuffix = actionSuffix != null ? actionSuffix : DEFAULT_ACTION_NAME;
+		mActionSuffix = actionSuffix != null ? actionSuffix : DEFAULT_ACTION_SUFFIX;
 		
 		String viewPrefix = config.getInitParameter("viewPrefix");
-		mViewPrefix = viewPrefix != null ? viewPrefix : DEFAULT_VIEW_PATH;
+		mViewPrefix = viewPrefix != null ? viewPrefix : DEFAULT_VIEW_PREFIX;
 	}
 	
 	@Override
@@ -134,10 +134,10 @@ public class FrontController extends HttpServlet {
 		int endPage = servletPath.lastIndexOf(".page");
 		
 		if (endDo != -1) {
-			return mPackagePrefix + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, endDo)) + mActionSuffix;	
+			return mPackageScan + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, endDo)) + mActionSuffix;	
 		}
 		else if (endPage != -1) {
-			return mPackagePrefix + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, endPage)) + mPageSuffix;	
+			return mPackageScan + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, endPage)) + mPageSuffix;	
 		} 
 		else {
 			return null;

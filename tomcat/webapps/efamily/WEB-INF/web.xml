@@ -19,7 +19,7 @@
 		<servlet-name>FrontController</servlet-name>
 		<servlet-class>sg.xueyu.zebra.FrontController</servlet-class>
 		<init-param>
-			<param-name>packagePrefix</param-name>
+			<param-name>packageScan</param-name>
 			<param-value>sg.xueyu.efamily.action</param-value>
 		</init-param>
 		<load-on-startup>0</load-on-startup>
