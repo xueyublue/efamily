@@ -30,11 +30,13 @@ public class FrontController extends HttpServlet {
 
 /** Static Variables **/	
 	private static final String DEFAULT_PACKAGE_NAME = "";
+	private static final String DEFAULT_PAGE_NAME = "Page";
 	private static final String DEFAULT_ACTION_NAME = "Action";
 	private static final String DEFAULT_VIEW_PATH = "/WEB-INF/view/";
 	
 /** Variables **/	
 	private String mPackagePrefix = null;
+	private String mPageSuffix = null;
 	private String mActionSuffix = null;
 	private String mViewPrefix = null;
 
@@ -46,6 +48,9 @@ public class FrontController extends HttpServlet {
 		if (!mPackagePrefix.endsWith(".")) {
 			mPackagePrefix += ".";
 		}
+		
+		String pageSuffix = config.getInitParameter("pageSuffix");
+		mPageSuffix = pageSuffix != null ? pageSuffix : DEFAULT_PAGE_NAME;
 		
 		String actionSuffix = config.getInitParameter("actionSuffix");
 		mActionSuffix = actionSuffix != null ? actionSuffix : DEFAULT_ACTION_NAME;
@@ -125,9 +130,18 @@ public class FrontController extends HttpServlet {
 	// Get package path of Action
 	private String getFullActionName(String servletPath) {
 		int start = servletPath.lastIndexOf("/") + 1;
-		int end = servletPath.lastIndexOf(".do");
+		int endDo = servletPath.lastIndexOf(".do");
+		int endPage = servletPath.lastIndexOf(".page");
 		
-		return mPackagePrefix + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, end)) + mActionSuffix;
+		if (endDo != -1) {
+			return mPackagePrefix + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, endDo)) + mActionSuffix;	
+		}
+		else if (endPage != -1) {
+			return mPackagePrefix + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, endPage)) + mPageSuffix;	
+		} 
+		else {
+			return null;
+		}
 	}
 
 	// Get JSP file path

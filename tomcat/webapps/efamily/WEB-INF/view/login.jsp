@@ -45,7 +45,7 @@
 				cache : false,
 				async : true,
 				success : function(obj) {
-					window.location.href = "home.do";
+					window.location.href = "home.page";
 				},
 				error : function(obj) {
 					$('#loginResult').text(obj.responseText.replace('"', '').replace('"', ''));

@@ -11,9 +11,9 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.controller.ActionController;
 
-public class RoleAction extends BaseAction implements Action {
+public class RolePage extends BaseAction implements Action {
 
-	public RoleAction() throws Exception {
+	public RolePage() throws Exception {
 		super();
 	}
 

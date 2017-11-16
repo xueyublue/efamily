@@ -11,9 +11,9 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.controller.ActionController;
 
-public class HomeAction extends BaseAction implements Action {
+public class UserPage extends BaseAction implements Action {
 
-	public HomeAction() throws Exception {
+	public UserPage() throws Exception {
 		super();
 	}
 
@@ -25,8 +25,10 @@ public class HomeAction extends BaseAction implements Action {
 				return authResult;
 			}
 
-			// Perform to forward to Home.jsp
-			return ActionController.buildActionResultWithURL(SystemConstants.URL_HOME);
+			// Perform to get all users from DB
+			req.setAttribute("users", getUserDao().getAllUsers());
+
+			return ActionController.buildActionResultWithURL(SystemConstants.URL_USER);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			resp.setStatus(500);

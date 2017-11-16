@@ -12,9 +12,9 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.controller.ActionController;
 
-public class EventAction extends BaseAction implements Action {
+public class EventPage extends BaseAction implements Action {
 
-	public EventAction() throws Exception {
+	public EventPage() throws Exception {
 		super();
 	}
 
