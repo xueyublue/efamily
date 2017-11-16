@@ -1,5 +1,6 @@
 package sg.xueyu.zebra;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
@@ -21,6 +22,7 @@ import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.action.Uploadable;
 import sg.xueyu.zebra.util.ZebraUtil;
+import sg.xueyu.zebra.util.PackageScanner;
 import sg.xueyu.zebra.util.ReflectionUtil;
 
 @MultipartConfig
@@ -40,6 +42,8 @@ public class FrontController extends HttpServlet {
 	private String mActionSuffix = null;
 	private String mViewPrefix = null;
 
+	private List<String> mQualifiedClassNameList = null;
+	
 /** Override Methods **/
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -47,6 +51,18 @@ public class FrontController extends HttpServlet {
 		mPackageScan = packageScan != null ? packageScan : DEFAULT_PACKAGE_SCAN;
 		if (!mPackageScan.endsWith(".")) {
 			mPackageScan += ".";
+		}
+		
+		// Scan Package
+		try {
+			PackageScanner scanner = new PackageScanner(mPackageScan);
+			mQualifiedClassNameList = scanner.getFullyQualifiedClassNameList();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			mQualifiedClassNameList = null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			mQualifiedClassNameList = null;
 		}
 		
 		String pageSuffix = config.getInitParameter("pageSuffix");
