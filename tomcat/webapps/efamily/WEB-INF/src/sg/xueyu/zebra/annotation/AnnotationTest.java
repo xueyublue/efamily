@@ -10,8 +10,10 @@ public class AnnotationTest {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
-		PackageScanner packageScanner = new PackageScanner(AnnotationTest.class.getPackage().getName());
-		packageScanner.getFullyQualifiedClassNameList();
+		PackageScanner packageScanner = new PackageScanner("*");
+		for (String string : packageScanner.getFullyQualifiedClassNameList()) {
+			System.out.println(string);
+		}
 		
 		try {
 			Class<?> c = Class.forName("sg.xueyu.zebra.annotation.MyClass");

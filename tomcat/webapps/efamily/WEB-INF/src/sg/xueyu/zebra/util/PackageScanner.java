@@ -39,7 +39,15 @@ public class PackageScanner {
 	private List<String> doScan(String basePackage, List<String> nameList) throws FileNotFoundException, IOException {
 		String slashPath = StringUtils.dotToSlash(basePackage);
 
-		URL url = mClassLoader.getResource(slashPath);
+		URL url = null;
+		if ("/".equals(slashPath) 
+				|| "".equals(slashPath.trim())
+				|| "*".equals(slashPath.trim())) {
+			basePackage = "";
+			url = mClassLoader.getResource("");
+		} else {
+			url = mClassLoader.getResource(slashPath);	
+		}
 		String filePath = StringUtils.getRootPath(url);
 
 		List<String> names = null;
@@ -57,8 +65,14 @@ public class PackageScanner {
 		for (String name : names) {
 			if (isClassFile(name)) {
 				nameList.add(toFullyQualifiedName(name, basePackage));
+			} else if (isDir(name)){
+				if ("".equals(basePackage)) {
+					doScan(name, nameList);	
+				} else {
+					doScan(basePackage + "." + name, nameList);
+				}
 			} else {
-				doScan(basePackage + "." + name, nameList);
+				// DO NOTHING
 			}
 		}
 
@@ -86,7 +100,7 @@ public class PackageScanner {
 
 	// Get all classes from directory
 	private List<String> readFromDirectory(String dirPath) {
-		File file = new java.io.File(dirPath);
+		File file = new File(dirPath);
 		String[] names = file.list();
 
 		if (null == names) {
@@ -115,4 +129,9 @@ public class PackageScanner {
 		return filePath.endsWith(".jar");
 	}
 
+	// Check if file path is a class file
+	private boolean isDir(String filePath) {
+		return filePath.contains(".") 
+				&& filePath.indexOf('.') != 0 ? false : true;
+	}
 }
