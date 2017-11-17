@@ -2,6 +2,7 @@ package sg.xueyu.zebra.annotation;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import sg.xueyu.zebra.core.Action;
@@ -11,7 +12,7 @@ import sg.xueyu.zebra.core.PackageScanner;
 
 public class AnnotationTest {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 
 		PackageScanner packageScanner = new PackageScanner("*");
 		List<String> nameList = packageScanner.getFullyQualifiedClassNameList();
@@ -20,10 +21,8 @@ public class AnnotationTest {
 		ActionContainer actionContainer = actionScanner.scan();
 
 		for (Action action : actionContainer.getAllActions()) {
-			System.out.println(action.getPath());
-			System.out.println(action.getMethod());
-			System.out.println(action.getActionClass());
-			System.out.println(action.getMethod());
+			Object instance = action.getActionClass().newInstance();
+			System.out.println(action.getMethod().invoke(instance));
 		}
 	}
 

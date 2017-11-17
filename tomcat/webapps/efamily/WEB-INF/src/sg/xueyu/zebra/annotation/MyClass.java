@@ -2,7 +2,7 @@ package sg.xueyu.zebra.annotation;
 
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 
-@Path("user")
+@Path("/user")
 public class MyClass {
 
 	@Path("/page")
@@ -12,4 +12,9 @@ public class MyClass {
 		return "I am a method to return page path.";
 	}
 
+	@Method(RequestMethod.GET)
+	public String page2() {
+
+		return "I am a method to return page2 path.";
+	}
 }
