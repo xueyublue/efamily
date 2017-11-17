@@ -12,8 +12,8 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
+import sg.xueyu.zebra.core.ActionResultBuilder;
 import sg.xueyu.zebra.annotation.Path;
-import sg.xueyu.zebra.controller.ActionResultBuilder;
 
 @Path("/login")
 public class LoginController extends BaseController {
