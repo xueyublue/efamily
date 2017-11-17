@@ -72,6 +72,34 @@ public class RootController extends HttpServlet {
 			mPackageScan += ".";
 		}
 
+		// Decide view prefix
+		String viewPrefix = config.getInitParameter("viewPrefix");
+		if (viewPrefix != null) {
+			mViewPrefix = viewPrefix;
+		}
+		else if (configContainer != null
+				&& configContainer.getViewPrefix() != null) {
+			mViewPrefix = configContainer.getViewPrefix();
+		}
+		else {
+			mViewPrefix = DEFAULT_VIEW_PREFIX;
+		}
+		LOGGER.info("View prefix: " + mViewPrefix);
+		
+		// Decide view prefix
+		String viewSuffix = config.getInitParameter("viewSuffix");
+		if (viewSuffix != null) {
+			mViewSuffix = viewSuffix;
+		}
+		else if (configContainer != null
+				&& configContainer.getViewSuffix() != null) {
+			mViewSuffix = configContainer.getViewSuffix();
+		}
+		else {
+			mViewSuffix = DEFAULT_VIEW_SUFFIX;
+		}
+		LOGGER.info("View suffix: " + mViewSuffix);
+		
 		// Scan Package
 		LOGGER.info("Scanning package: " + mPackageScan + "...");
 		PackageScanner packageScanner = new PackageScanner(mPackageScan);
@@ -96,9 +124,6 @@ public class RootController extends HttpServlet {
 			return;
 		}
 		LOGGER.info(mActionContainer.getAllActions().size() + " actions are found.");
-
-		String viewPrefix = config.getInitParameter("viewPrefix");
-		mViewPrefix = viewPrefix != null ? viewPrefix : DEFAULT_VIEW_PREFIX;
 	}
 
 	@Override
