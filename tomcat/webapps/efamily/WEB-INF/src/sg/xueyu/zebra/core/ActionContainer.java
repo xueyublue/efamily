@@ -1,5 +1,6 @@
 package sg.xueyu.zebra.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
@@ -18,7 +19,7 @@ public class ActionContainer {
 	}
 
 	// Find action class for path and request method
-	public Action findAction(String path, RequestMethod requestMethod) {
+	public Action find(String path, RequestMethod requestMethod) {
 		for (Action action : mActionList) {
 
 			if (action.getPath().equals(path) && action.getRequestMethod().equals(requestMethod)) {
@@ -27,5 +28,31 @@ public class ActionContainer {
 		}
 
 		return null;
+	}
+	
+	// Find action class for path and request method
+	public List<Action> findAll(String path, RequestMethod requestMethod) {
+		List<Action> actionList = new ArrayList<>();
+		
+		for (Action action : mActionList) {
+
+			if (action.getPath().equals(path) && action.getRequestMethod().equals(requestMethod)) {
+				actionList.add(action);
+			}
+		}
+
+		return actionList;
+	}
+	
+	// Check if can handle request path and request method
+	public boolean check(String path, RequestMethod requestMethod) {
+		for (Action action : mActionList) {
+
+			if (action.getPath().equals(path) && action.getRequestMethod().equals(requestMethod)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
