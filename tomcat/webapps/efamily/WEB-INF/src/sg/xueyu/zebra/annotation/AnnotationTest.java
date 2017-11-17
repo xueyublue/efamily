@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import sg.xueyu.zebra.util.PackageScanner;
+import sg.xueyu.zebra.core.PackageScanner;
 
 public class AnnotationTest {
 
