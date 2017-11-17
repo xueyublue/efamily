@@ -26,7 +26,7 @@ import sg.xueyu.zebra.util.PackageScanner;
 import sg.xueyu.zebra.util.ReflectionUtil;
 
 @MultipartConfig
-public class FrontController extends HttpServlet {
+public class RootController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
