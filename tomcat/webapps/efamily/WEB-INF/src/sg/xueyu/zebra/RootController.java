@@ -21,6 +21,7 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.action.Uploadable;
+import sg.xueyu.zebra.core.ActionContainer;
 import sg.xueyu.zebra.core.ActionScanner;
 import sg.xueyu.zebra.core.PackageScanner;
 import sg.xueyu.zebra.util.ZebraUtil;
@@ -42,9 +43,8 @@ public class RootController extends HttpServlet {
 	private String mPageSuffix = null;
 	private String mActionSuffix = null;
 	private String mViewPrefix = null;
-
-	private List<String> mClassNameList = null;
-	private List<String> mActionClassList = null;
+	
+	private ActionContainer mActionContainer = null;
 
 	/** Override Methods **/
 	@Override
@@ -57,25 +57,26 @@ public class RootController extends HttpServlet {
 
 		// Scan Package
 		PackageScanner packageScanner = new PackageScanner(mPackageScan);
+		List<String> nameList = null;
 		try {
-			mClassNameList = packageScanner.getFullyQualifiedClassNameList();
+			nameList = packageScanner.getFullyQualifiedClassNameList();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			mClassNameList = null;
+			nameList = null;
 			return;
 		} catch (IOException e) {
 			e.printStackTrace();
-			mClassNameList = null;
+			nameList = null;
 			return;
 		}
 
-		// Scan Action classes
-		ActionScanner actionScanner = new ActionScanner(mClassNameList);
+		// Scan Actions
+		ActionScanner actionScanner = new ActionScanner(nameList);
 		try {
-			mActionClassList = actionScanner.getActionClassList();
+			mActionContainer = actionScanner.scan();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			mActionClassList = null;
+			mActionContainer = null;
 			return;
 		}
 

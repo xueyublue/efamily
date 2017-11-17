@@ -15,7 +15,7 @@ public class AnnotationTest {
 		List<String> nameList = packageScanner.getFullyQualifiedClassNameList();
 
 		ActionScanner actionScanner = new ActionScanner(nameList);
-		List<String> actionList = actionScanner.getActionClassList();
+		List<String> actionList = actionScanner.getActionClassNameList();
 
 		for (String string : actionList) {
 			System.out.println(string);
