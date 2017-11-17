@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -33,6 +34,8 @@ import sg.xueyu.zebra.util.ZebraUtil;
 @MultipartConfig
 public class RootController extends HttpServlet {
 
+	private static final Logger LOGGER = Logger.getLogger(RootController.class.getSimpleName());
+	
 	private static final long serialVersionUID = 1L;
 
 /** Static Variables **/
@@ -55,6 +58,7 @@ public class RootController extends HttpServlet {
 		}
 
 		// Scan Package
+		LOGGER.info("Scanning package: " + mPackageScan + "...");
 		PackageScanner packageScanner = new PackageScanner(mPackageScan);
 		List<String> nameList = null;
 		try {
@@ -68,8 +72,10 @@ public class RootController extends HttpServlet {
 			nameList = null;
 			return;
 		}
-
+		LOGGER.info(nameList.size() + " classes are found.");
+		
 		// Scan Actions
+		LOGGER.info("Scanning actions...");
 		ActionScanner actionScanner = new ActionScanner(nameList);
 		try {
 			mActionContainer = actionScanner.scan();
@@ -78,6 +84,7 @@ public class RootController extends HttpServlet {
 			mActionContainer = null;
 			return;
 		}
+		LOGGER.info(mActionContainer.getAllActions().size() + " actions are found.");
 
 		String viewPrefix = config.getInitParameter("viewPrefix");
 		mViewPrefix = viewPrefix != null ? viewPrefix : DEFAULT_VIEW_PREFIX;
