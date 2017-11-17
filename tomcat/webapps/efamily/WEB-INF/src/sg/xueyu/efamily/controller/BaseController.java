@@ -1,8 +1,9 @@
-package sg.xueyu.efamily.action;
+package sg.xueyu.efamily.controller;
 
 import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.efamily.base.Credentials;
 import sg.xueyu.efamily.base.DataSource;
@@ -15,7 +16,11 @@ import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 
-public class BaseAction {
+public class BaseController {
+
+	private HttpServletRequest mHttpServletRequest = null;
+
+	private HttpServletResponse mHttpServletResponse = null;
 
 	private Connection mConnection = null;
 
@@ -34,11 +39,29 @@ public class BaseAction {
 	private RoleEJB mSessionRole = null;
 
 	// Default constructor
-	public BaseAction() throws Exception {
-		mConnection = new DataSource().getConnection();
-		mUserDao = new UserDao(mConnection);
-		mRoleDao = new RoleDao(mConnection);
-		mSessionManager = SessionManager.getInstance();
+	public BaseController() throws Exception {
+		this.mConnection = new DataSource().getConnection();
+		this.mUserDao = new UserDao(mConnection);
+		this.mRoleDao = new RoleDao(mConnection);
+		this.mSessionManager = SessionManager.getInstance();
+	}
+	
+	public BaseController(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		this.mHttpServletRequest = request;
+		this.mHttpServletResponse = response;
+		
+		this.mConnection = new DataSource().getConnection();
+		this.mUserDao = new UserDao(mConnection);
+		this.mRoleDao = new RoleDao(mConnection);
+		this.mSessionManager = SessionManager.getInstance();
+	}
+
+	protected HttpServletRequest getHttpServletRequest() {
+		return mHttpServletRequest;
+	}
+
+	protected HttpServletResponse getHttpServletResponse() {
+		return mHttpServletResponse;
 	}
 
 	protected Connection getConnection() {

@@ -228,7 +228,7 @@
 			if(userId) {
 				$.ajax({
 					type : "get",
-					url : "user/getUser.do?",
+					url : "user/get.do?",
 					data: {'userId' : userId},
 					dataType: 'json',
 					cache : false,
@@ -270,8 +270,8 @@
 				alert("Passwrod is not match!");
 			} else {
 				$.ajax({
-					type : "get",
-					url : "user/addUser.do?",
+					type : "post",
+					url : "user/add.do?",
 					data: {'userId' : $('#txt_userId_add').val(),
 						'userName' : $('#txt_userName_add').val(), 
 						'password' : $('#txt_password2_add').val(), 
@@ -303,8 +303,8 @@
 				alert("Passwrod isn't match!");
 			} else {
 				$.ajax({
-					type : "get",
-					url : "user/updateUser.do?",
+					type : "post",
+					url : "user/update.do?",
 					data: {'userId' : $('#txt_userId_update').val(),
 						'userName' : $('#txt_userName_update').val(), 
 						'password' : $('#txt_password2_update').val(), 
@@ -331,8 +331,8 @@
 			var userId = $('#lbl_userId_delete').text();
 			if(userId) {
 				$.ajax({
-					type : "get",
-					url : "user/deleteUser.do?",
+					type : "post",
+					url : "user/delete.do?",
 					data: {'userId' : userId},
 					dataType: 'json',
 					cache : false,

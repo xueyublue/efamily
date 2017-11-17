@@ -38,14 +38,14 @@
 	<script type="text/javascript">
 		function login() {
 			$.ajax({
-				type : "get",
-				url : "auth/loginAuth.do?" 
+				type : "post",
+				url : "login.do?" 
 						+ "userId=" + $('#userId').val()
 						+ "&password=" + $('#password').val(),
 				cache : false,
 				async : true,
 				success : function(obj) {
-					window.location.href = "home.page";
+					window.location.href = "home.do";
 				},
 				error : function(obj) {
 					$('#loginResult').text(obj.responseText.replace('"', '').replace('"', ''));

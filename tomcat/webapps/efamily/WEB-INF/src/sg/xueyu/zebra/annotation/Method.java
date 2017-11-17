@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 public @interface Method {
 
 	public enum RequestMethod {
-		GET, PUT, POST, DELETE
+		GET, POST
 	};
 
 	RequestMethod value() default RequestMethod.GET;

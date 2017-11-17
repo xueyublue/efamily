@@ -15,13 +15,13 @@
 	    	<!-- Main Navigation Bar -->
 	        <ul class="nav navbar-nav">
 	           <!-- Home -->
-	           <li id="home"><a href="home.page"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+	           <li id="home"><a href="home.do"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 	           
 	           <!-- Family Share -->
 	           <li id="family-share" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cloud"></span> Family Share<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
-	                    <li><a href="event.page">Event</a></li>
+	                    <li><a href="event.do">Event</a></li>
 	                	</ul>
 	            	</li>
 	            
@@ -29,8 +29,8 @@
 	            <li id="administrator" class="dropdown">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Administrator<b class="caret"></b></a>
 	                <ul class="dropdown-menu">
-	                    <li><a href="user.page">User</a></li>
-	                    <li><a href="role.page">Role</a></li>
+	                    <li><a href="user.do">User</a></li>
+	                    <li><a href="role.do">Role</a></li>
 	                	</ul>
 	            	</li>
 	            
@@ -58,7 +58,7 @@
 	                    <li><a href="#">Profile</a></li>
 	                    <li><a href="#">Change Password</a></li>
 	                    <li class="divider"></li>
-	                    <li><a href="auth/logout.do"><span class="text-danger"><strong>Logout</strong></span></a></li>
+	                    <li><a href="logout.do"><span class="text-danger"><strong>Logout</strong></span></a></li>
 	                	</ul>
 	            	</li>
 	         </ul>

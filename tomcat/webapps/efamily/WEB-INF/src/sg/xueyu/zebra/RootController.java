@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -16,37 +18,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.action.Uploadable;
+import sg.xueyu.zebra.annotation.Method.RequestMethod;
+import sg.xueyu.zebra.core.Action;
 import sg.xueyu.zebra.core.ActionContainer;
 import sg.xueyu.zebra.core.ActionScanner;
 import sg.xueyu.zebra.core.PackageScanner;
-import sg.xueyu.zebra.util.ZebraUtil;
 import sg.xueyu.zebra.util.ReflectionUtil;
+import sg.xueyu.zebra.util.ZebraUtil;
 
 @MultipartConfig
 public class RootController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	/** Static Variables **/
+/** Static Variables **/
 	private static final String DEFAULT_PACKAGE_SCAN = "/";
-	private static final String DEFAULT_PAGE_SUFFIX = "Page";
-	private static final String DEFAULT_ACTION_SUFFIX = "Action";
 	private static final String DEFAULT_VIEW_PREFIX = "/WEB-INF/view/";
 
-	/** Variables **/
+/** Variables **/
 	private String mPackageScan = null;
-	private String mPageSuffix = null;
-	private String mActionSuffix = null;
 	private String mViewPrefix = null;
 	
 	private ActionContainer mActionContainer = null;
 
-	/** Override Methods **/
+/** Override Methods **/
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		String packageScan = config.getInitParameter("packageScan");
@@ -80,12 +79,6 @@ public class RootController extends HttpServlet {
 			return;
 		}
 
-		String pageSuffix = config.getInitParameter("pageSuffix");
-		mPageSuffix = pageSuffix != null ? pageSuffix : DEFAULT_PAGE_SUFFIX;
-
-		String actionSuffix = config.getInitParameter("actionSuffix");
-		mActionSuffix = actionSuffix != null ? actionSuffix : DEFAULT_ACTION_SUFFIX;
-
 		String viewPrefix = config.getInitParameter("viewPrefix");
 		mViewPrefix = viewPrefix != null ? viewPrefix : DEFAULT_VIEW_PREFIX;
 	}
@@ -94,14 +87,47 @@ public class RootController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String contextPath = req.getContextPath() + "/";
 		String servletPath = req.getServletPath();
-
+		
+		if (servletPath.endsWith(".do")) {
+			servletPath = servletPath.substring(0, servletPath.indexOf(".do"));
+		}
+		
 		try {
-			// Get Action class
-			Action action = (Action) Class.forName(getFullActionName(servletPath)).newInstance();
+			RequestMethod requestMethod = getRequestMethod(req);
+			Action action = mActionContainer.find(servletPath, requestMethod);
+			
+			if (action == null) {
+				throw new Exception("No matched action class found under package: " + mPackageScan);
+			}
+			
+			Class<?> actionClass = action.getActionClass();
+			
+			// Initialize action instance
+			Object actionInstance = null;
+			Constructor<?>[] constructor = actionClass.getConstructors();
+			
+			for (Constructor<?> cons : constructor) {
+				Class<?>[] types = cons.getParameterTypes();
+				if(types.length == 0) {
+					actionInstance = cons.newInstance();	
+				}
+				else if (types.length == 2
+						&& types[0].equals(HttpServletRequest.class)
+						&& types[1].equals(HttpServletResponse.class)) {
+					actionInstance = cons.newInstance(req, resp);
+				} else {
+					actionInstance = null;
+				}
+			}
+			
+			// Inject request data to Action instance
+			injectProperties(actionInstance, req);
 
-			// Inject request data to Action class
-			injectProperties(action, req);
-
+			Method actionMethod = action.getMethod();
+			
+			// Invoke action
+			ActionResult actionResult = (ActionResult) actionMethod.invoke(actionInstance);
+			
 			// Handle file upload Action
 			if (action instanceof Uploadable) {
 				List<Part> fileparts = new ArrayList<>();
@@ -116,9 +142,6 @@ public class RootController extends HttpServlet {
 				((Uploadable) action).setParts(fileparts.toArray(new Part[fileparts.size()]));
 				((Uploadable) action).setFilenames(filenames.toArray(new String[filenames.size()]));
 			}
-
-			// Execute Action
-			ActionResult actionResult = action.execute(req, resp);
 
 			// Handle action result
 			if (actionResult != null) {
@@ -156,35 +179,26 @@ public class RootController extends HttpServlet {
 			resp.sendRedirect("error.html");
 		}
 	}
-
-	/** Private Methods **/
-	// Get package path of Action
-	private String getFullActionName(String servletPath) {
-		int start = servletPath.lastIndexOf("/") + 1;
-		int endDo = servletPath.lastIndexOf(".do");
-		int endPage = servletPath.lastIndexOf(".page");
-
-		if (endDo != -1) {
-			return mPackageScan + getSubPackage(servletPath) + ZebraUtil.capitalize(servletPath.substring(start, endDo))
-					+ mActionSuffix;
-		} else if (endPage != -1) {
-			return mPackageScan + getSubPackage(servletPath)
-					+ ZebraUtil.capitalize(servletPath.substring(start, endPage)) + mPageSuffix;
-		} else {
+	
+/** Private Methods **/
+	// Get request method
+	private RequestMethod getRequestMethod(HttpServletRequest request) {
+		String method = request.getMethod();
+		
+		if (RequestMethod.GET.name().equalsIgnoreCase(method)) {
+			return RequestMethod.GET;
+		}
+		else if (RequestMethod.POST.name().equalsIgnoreCase(method)) {
+			return RequestMethod.POST;
+		} 
+		else {
 			return null;
 		}
 	}
-
 	// Get JSP file path
 	private String getFullViewPath(String servletPath) {
 
 		return mViewPrefix + getSubViewPath(servletPath);
-	}
-
-	// Convert SERVLET path to sub package
-	private String getSubPackage(String servletPath) {
-
-		return getSubViewPath(servletPath).replaceAll("\\/", ".");
 	}
 
 	// Get sub JSP file path
@@ -196,11 +210,11 @@ public class RootController extends HttpServlet {
 	}
 
 	// Inject request data to Action class
-	private void injectProperties(Action action, HttpServletRequest req) throws Exception {
+	private void injectProperties(Object actionInstance, HttpServletRequest req) throws Exception {
 		Enumeration<String> paramNamesEnum = req.getParameterNames();
 		while (paramNamesEnum.hasMoreElements()) {
 			String paramName = paramNamesEnum.nextElement();
-			Class<?> fieldType = ReflectionUtil.getFieldType(action, paramName.replaceAll("\\[|\\]", ""));
+			Class<?> fieldType = ReflectionUtil.getFieldType(actionInstance, paramName.replaceAll("\\[|\\]", ""));
 			if (fieldType != null) {
 				Object paramValue = null;
 				if (fieldType.isArray()) {
@@ -214,7 +228,7 @@ public class RootController extends HttpServlet {
 				} else {
 					paramValue = ZebraUtil.changeStringToObject(fieldType, req.getParameter(paramName));
 				}
-				ReflectionUtil.setValue(action, paramName.replaceAll("\\[|\\]", ""), paramValue);
+				ReflectionUtil.setValue(actionInstance, paramName.replaceAll("\\[|\\]", ""), paramValue);
 			}
 		}
 	}

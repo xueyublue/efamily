@@ -20,7 +20,7 @@
 		<servlet-class>sg.xueyu.zebra.RootController</servlet-class>
 		<init-param>
 			<param-name>packageScan</param-name>
-			<param-value>sg.xueyu.efamily.action</param-value>
+			<param-value>sg.xueyu.efamily</param-value>
 		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
@@ -28,7 +28,6 @@
 	<servlet-mapping>
 		<servlet-name>RootController</servlet-name>
 		<url-pattern>*.do</url-pattern>
-		<url-pattern>*.page</url-pattern>
 	</servlet-mapping>
 	
 	<listener>  

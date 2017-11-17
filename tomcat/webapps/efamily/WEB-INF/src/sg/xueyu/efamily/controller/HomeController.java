@@ -1,4 +1,4 @@
-package sg.xueyu.efamily.action;
+package sg.xueyu.efamily.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,21 +6,24 @@ import javax.servlet.http.HttpServletResponse;
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
-import sg.xueyu.zebra.action.Action;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
+import sg.xueyu.zebra.annotation.Method;
+import sg.xueyu.zebra.annotation.Method.RequestMethod;
+import sg.xueyu.zebra.annotation.Path;
 import sg.xueyu.zebra.controller.ActionController;
 
-public class HomePage extends BaseAction implements Action {
+@Path("/home")
+public class HomeController extends BaseController {
 
-	public HomePage() throws Exception {
-		super();
+	public HomeController(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		super(request, response);
 	}
-
-	@Override
-	public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	
+	@Method(RequestMethod.GET)
+	public ActionResult get() throws Exception {
 		try {
-			ActionResult authResult = credentialAuthentication(req);
+			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
 				return authResult;
 			}
@@ -29,12 +32,12 @@ public class HomePage extends BaseAction implements Action {
 			return ActionController.buildActionResultWithURL(SystemConstants.URL_HOME);
 		} catch (Exception e) {
 			SystemLogger.error(e);
-			resp.setStatus(500);
+			getHttpServletResponse().setStatus(500);
 
 			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
 	}
-
+	
 }

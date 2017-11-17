@@ -317,7 +317,7 @@
 			if(eventId) {
 				$.ajax({
 					type : "get",
-					url : "event/getEvent.do?",
+					url : "event/get.do?",
 					data: {'eventId' : eventId},
 					dataType: 'json',
 					cache : false,
@@ -356,7 +356,7 @@
 			if(eventId) {
 				$.ajax({
 					type : "get",
-					url : "event/getEvent.do?",
+					url : "event/get.do?",
 					data: {'eventId' : eventId},
 					dataType: 'json',
 					cache : false,
@@ -400,8 +400,8 @@
 					isAllDay = '0';
 				}
 				$.ajax({
-					type : "get",
-					url : "event/addEvent.do?",
+					type : "post",
+					url : "event/add.do?",
 					data: {'title' : title, 
 						'location' : location, 
 						'startDate' : startDate,
@@ -441,8 +441,8 @@
 				alert("End Date cannot be empty!");
 			} else {
 				$.ajax({
-					type : "get",
-					url : "event/updateEvent.do?",
+					type : "post",
+					url : "event/update.do?",
 					data: {'eventId' : eventId,
 						'title' : title, 
 						'location' : location,
@@ -472,8 +472,8 @@
 			var eventId = $('#lbl_eventId_delete').text();
 			if(eventId) {
 				$.ajax({
-					type : "get",
-					url : "event/deleteEvent.do?",
+					type : "post",
+					url : "event/delete.do?",
 					data: {'eventId' : eventId},
 					dataType: 'json',
 					cache : false,

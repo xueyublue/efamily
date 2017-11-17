@@ -277,7 +277,7 @@
 			if(roleId) {
 				$.ajax({
 					type : "get",
-					url : "role/getRole.do?",
+					url : "role/get.do?",
 					data: {'roleId' : roleId},
 					dataType: 'json',
 					cache : false,
@@ -343,8 +343,8 @@
 					guestFlag = '0';
 				}
 				$.ajax({
-					type : "get",
-					url : "role/addRole.do?",
+					type : "post",
+					url : "role/add.do?",
 					data: {'roleId' : roleId,
 						'roleName' : roleName, 
 						'adminFlag' : adminFlag, 
@@ -391,8 +391,8 @@
 					guestFlag = '0';
 				}
 				$.ajax({
-					type : "get",
-					url : "role/updateRole.do?",
+					type : "post",
+					url : "role/update.do?",
 					data: {'roleId' : roleId,
 						'roleName' : roleName, 
 						'adminFlag' : adminFlag, 
@@ -420,8 +420,8 @@
 			var roleId = $('#lbl_roleId_delete').text();
 			if(roleId) {
 				$.ajax({
-					type : "get",
-					url : "role/deleteRole.do?",
+					type : "post",
+					url : "role/delete.do?",
 					data: {'roleId' : roleId},
 					dataType: 'json',
 					cache : false,
