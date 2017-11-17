@@ -1,5 +1,7 @@
-package sg.xueyu.zebra.annotation;
+package sg.xueyu.zebra.temp;
 
+import sg.xueyu.zebra.annotation.Method;
+import sg.xueyu.zebra.annotation.Path;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 
 //@Path("/user")
