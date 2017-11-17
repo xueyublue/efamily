@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.xueyu.zebra.annotation.Path;
+import sg.xueyu.zebra.annotation.Method.RequestMethod;
 
 public class ActionScanner {
 
@@ -22,8 +23,50 @@ public class ActionScanner {
 		for (Class<?> actionClass : actionClassList) {
 			// Class is annotated by Path.class
 			if (actionClass.isAnnotationPresent(Path.class)) {
-				//
-			} else {
+				String rootPath = actionClass.getAnnotation(Path.class).value();
+				
+				// Check method
+				Method[] methods = actionClass.getMethods();
+				// No method is exist in action class
+				if (methods.length == 0) {
+					continue;
+				} 
+				// Only 1 method is found in action class
+				// Then use it to process rootPath.GET request
+				else if (methods.length == 1){
+					Method method = methods[0];
+					
+					if (method.getAnnotations().length == 0) {
+						Action action = new Action();
+						action.setPath(rootPath);
+						action.setRequestMethod(RequestMethod.GET);
+						action.setActionClass(actionClass);
+						action.setMethod(methods[0]);
+						continue;	
+					} else {
+						
+					}
+				}
+				// More than 1 methods are found in action class
+				// Then use it to process rootPath.GET request
+				else {
+					for (Method method : methods) {
+						if (!method.isAnnotationPresent(Path.class)) {
+							continue;
+						}
+						String path = method.getAnnotation(Path.class).value();
+						RequestMethod requestMethod = null;
+						if (method.isAnnotationPresent(sg.xueyu.zebra.annotation.Method.class)) {
+							requestMethod = method.getAnnotation(sg.xueyu.zebra.annotation.Method.class).value();
+						}
+						
+						
+					}
+				}
+			} 
+			// Class is not annotated by Path.class
+			// Then check methods
+			else {
 				Method[] methods = actionClass.getMethods();
 				for (Method method : methods) {
 					//
