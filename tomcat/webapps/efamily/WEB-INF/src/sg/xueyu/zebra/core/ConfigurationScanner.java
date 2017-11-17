@@ -30,11 +30,11 @@ public class ConfigurationScanner {
 				container.getPackageScanList().addAll(Arrays.asList(packageScanArr));
 			}
 			// Class is annotated by ViewPrefix.class
-			else if (configClass.isAnnotationPresent(ViewPrefix.class)) {
+			if (configClass.isAnnotationPresent(ViewPrefix.class)) {
 				container.setViewPrefix(configClass.getAnnotation(ViewPrefix.class).value());
 			}
 			// Class is annotated by ViewSuffix.class
-			else if (configClass.isAnnotationPresent(ViewSuffix.class)) {
+			if (configClass.isAnnotationPresent(ViewSuffix.class)) {
 				container.setViewSuffix(configClass.getAnnotation(ViewSuffix.class).value());
 			}
 		}

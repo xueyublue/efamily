@@ -1,5 +1,6 @@
 package sg.xueyu.zebra.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigurationContainer {
@@ -11,13 +12,7 @@ public class ConfigurationContainer {
 	private String mViewSuffix = null;
 
 	public ConfigurationContainer() {
-	}
-
-	public ConfigurationContainer(List<String> packageScanList, String viewPrefix, String viewSuffix) {
-		super();
-		this.mPackageScanList = packageScanList;
-		this.mViewPrefix = viewPrefix;
-		this.mViewSuffix = viewSuffix;
+		mPackageScanList = new ArrayList<String>();
 	}
 
 	public List<String> getPackageScanList() {
