@@ -12,6 +12,11 @@ public class ActionContainer {
 		this.mActionList = actionList;
 	}
 
+	// Get all actions
+	public List<Action> getAllActions() {
+		return mActionList;
+	}
+
 	// Find action class for path and request method
 	public Action findAction(String path, RequestMethod requestMethod) {
 		for (Action action : mActionList) {

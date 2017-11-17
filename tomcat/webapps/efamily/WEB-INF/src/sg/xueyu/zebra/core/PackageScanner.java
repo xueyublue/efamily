@@ -34,6 +34,12 @@ public class PackageScanner {
 
 /** Get all qualified class name list **/	
 	public List<String> getFullyQualifiedClassNameList() throws FileNotFoundException, IOException {
+		if (mBasePackage.endsWith(".")) {
+			mBasePackage = mBasePackage.substring(0, mBasePackage.lastIndexOf('.'));
+		}
+		if (mBasePackage.startsWith(".")) {
+			mBasePackage = mBasePackage.substring(1, mBasePackage.length());
+		}
 		return doScan(mBasePackage, new ArrayList<String>());
 	}
 

@@ -20,6 +20,8 @@ public class ActionScanner {
 	public ActionContainer scan() throws ClassNotFoundException {
 		List<Class<?>> actionClassList = getActionClassList();
 		
+		List<Action> actionList = new ArrayList<>();
+		
 		for (Class<?> actionClass : actionClassList) {
 			// Class is annotated by Path.class
 			if (actionClass.isAnnotationPresent(Path.class)) {
@@ -32,7 +34,7 @@ public class ActionScanner {
 					continue;
 				} 
 				// Only 1 method is found in action class
-				// Then use it to process rootPath.GET request
+				// Then use it to process rootPath.GET request if there is no annotations exist
 				else if (methods.length == 1){
 					Method method = methods[0];
 					
@@ -42,25 +44,56 @@ public class ActionScanner {
 						action.setRequestMethod(RequestMethod.GET);
 						action.setActionClass(actionClass);
 						action.setMethod(methods[0]);
-						continue;	
+						actionList.add(action);
 					} else {
-						
-					}
-				}
-				// More than 1 methods are found in action class
-				// Then use it to process rootPath.GET request
-				else {
-					for (Method method : methods) {
-						if (!method.isAnnotationPresent(Path.class)) {
-							continue;
+						String path = null;
+						if (method.isAnnotationPresent(Path.class)) {
+							path = method.getAnnotation(Path.class).value();
+							path = rootPath + path;
+						} else {
+							path = rootPath;
 						}
-						String path = method.getAnnotation(Path.class).value();
 						RequestMethod requestMethod = null;
 						if (method.isAnnotationPresent(sg.xueyu.zebra.annotation.Method.class)) {
 							requestMethod = method.getAnnotation(sg.xueyu.zebra.annotation.Method.class).value();
+						} else {
+							requestMethod = RequestMethod.GET;
 						}
-						
-						
+						Action action = new Action();
+						action.setPath(path);
+						action.setRequestMethod(requestMethod);
+						action.setActionClass(actionClass);
+						action.setMethod(methods[0]);
+						actionList.add(action);
+					}
+					
+					continue;
+				}
+				// More than 1 methods are found in action class
+				else {
+					for (Method method : methods) {
+						if (method.getAnnotations().length == 0) {
+							continue;
+						}
+						String path = null;
+						if(method.isAnnotationPresent(Path.class)) {
+							path = method.getAnnotation(Path.class).value();
+							path = rootPath + path;
+						} else {
+							path = rootPath;
+						}
+						RequestMethod requestMethod = null;
+						if (method.isAnnotationPresent(sg.xueyu.zebra.annotation.Method.class)) {
+							requestMethod = method.getAnnotation(sg.xueyu.zebra.annotation.Method.class).value();
+						} else {
+							requestMethod = RequestMethod.GET;
+						}
+						Action action = new Action();
+						action.setPath(path);
+						action.setRequestMethod(requestMethod);
+						action.setActionClass(actionClass);
+						action.setMethod(method);
+						actionList.add(action);
 					}
 				}
 			} 
@@ -74,7 +107,7 @@ public class ActionScanner {
 			}
 		}
 		
-		return null;
+		return new ActionContainer(actionList);
 	}
 	
 	// Get all action class names
