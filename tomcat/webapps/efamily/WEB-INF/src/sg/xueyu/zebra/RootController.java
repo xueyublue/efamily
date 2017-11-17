@@ -45,7 +45,7 @@ public class RootController extends HttpServlet {
 	private static final String DEFAULT_VIEW_SUFFIX = ".jsp";
 
 /** Variables **/
-	private String mPackageScan = null;
+	private List<String> mPackageScanList = new ArrayList<>();
 	private String mViewPrefix = null;
 	private String mViewSuffix = null;
 	
@@ -65,12 +65,19 @@ public class RootController extends HttpServlet {
 			configContainer = null;
 		}
 		
-		// Decide package scan
+		// Decide package scan list
 		String packageScan = config.getInitParameter("packageScan");
-		mPackageScan = packageScan != null ? packageScan : DEFAULT_PACKAGE_SCAN;
-		if (!mPackageScan.endsWith(".")) {
-			mPackageScan += ".";
+		if (packageScan != null) {
+			mPackageScanList.add(packageScan);
 		}
+		if (configContainer != null
+				&& !configContainer.getPackageScanList().isEmpty()) {
+			mPackageScanList.addAll(configContainer.getPackageScanList());
+		}
+		if (mPackageScanList.isEmpty()) {
+			mPackageScanList.add(DEFAULT_PACKAGE_SCAN);
+		}
+		amendPackageScanList(mPackageScanList);
 
 		// Decide view prefix
 		String viewPrefix = config.getInitParameter("viewPrefix");
@@ -101,15 +108,17 @@ public class RootController extends HttpServlet {
 		LOGGER.info("View suffix: " + mViewSuffix);
 		
 		// Scan Package
-		LOGGER.info("Scanning package: " + mPackageScan + "...");
-		PackageScanner packageScanner = new PackageScanner(mPackageScan);
-		List<String> nameList = null;
-		try {
-			nameList = packageScanner.getFullyQualifiedClassNameList();
-		} catch (Exception e) {
-			e.printStackTrace();
-			nameList = null;
-			return;
+		List<String> nameList = new ArrayList<>();
+		for (String pack : mPackageScanList) {
+			LOGGER.info("Scanning package: " + pack + "...");
+			PackageScanner packageScanner = new PackageScanner(pack);
+			try {
+				nameList.addAll(packageScanner.getFullyQualifiedClassNameList());
+			} catch (Exception e) {
+				e.printStackTrace();
+				nameList = null;
+				return;
+			}
 		}
 		LOGGER.info(nameList.size() + " classes are found.");
 		
@@ -140,7 +149,7 @@ public class RootController extends HttpServlet {
 			Action action = mActionContainer.find(servletPath, requestMethod);
 			
 			if (action == null) {
-				throw new Exception("No matched action class found under package: " + mPackageScan);
+				throw new Exception("No matched action class found under package: " + mPackageScanList);
 			}
 			
 			Class<?> actionClass = action.getActionClass();
@@ -276,4 +285,17 @@ public class RootController extends HttpServlet {
 		}
 	}
 
+	// Re-Decide package scan list
+	private void amendPackageScanList(List<String> list) {
+		List<String> newScanList = new ArrayList<>();
+		for (String pack : mPackageScanList) {
+			if (!pack.endsWith(".")) {
+				pack += ".";
+				if (!newScanList.contains(pack)) {
+					newScanList.add(pack);	
+				}
+			}
+		}
+		mPackageScanList = newScanList;
+	}
 }
