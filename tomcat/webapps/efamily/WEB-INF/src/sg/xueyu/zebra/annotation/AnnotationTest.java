@@ -2,37 +2,23 @@ package sg.xueyu.zebra.annotation;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Method;
+import java.util.List;
 
+import sg.xueyu.zebra.core.ActionScanner;
 import sg.xueyu.zebra.core.PackageScanner;
 
 public class AnnotationTest {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 
 		PackageScanner packageScanner = new PackageScanner("*");
-		for (String string : packageScanner.getFullyQualifiedClassNameList()) {
+		List<String> nameList = packageScanner.getFullyQualifiedClassNameList();
+
+		ActionScanner actionScanner = new ActionScanner(nameList);
+		List<String> actionList = actionScanner.getActionClassList();
+
+		for (String string : actionList) {
 			System.out.println(string);
-		}
-		
-		try {
-			Class<?> c = Class.forName("sg.xueyu.zebra.annotation.MyClass");
-
-			if (c.isAnnotationPresent(Path.class)) {
-				Path path = c.getAnnotation(Path.class);
-				System.out.println(path.value());
-			}
-
-			Method[] methods = c.getMethods();
-
-			for (Method method : methods) {
-				if (method.isAnnotationPresent(Path.class)) {
-					Path path = method.getAnnotation(Path.class);
-					System.out.println(path.value());
-				}
-			}
-
-		} catch (Exception e) {
 		}
 	}
 
