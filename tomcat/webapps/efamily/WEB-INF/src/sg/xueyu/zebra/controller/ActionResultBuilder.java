@@ -4,7 +4,7 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 
-public class ActionController {
+public class ActionResultBuilder {
 
 	// Build resultContent with URL/Data
 	public static ResultContent buildResultContent(String url, Object data) {

@@ -8,7 +8,7 @@ import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.annotation.Path;
-import sg.xueyu.zebra.controller.ActionController;
+import sg.xueyu.zebra.controller.ActionResultBuilder;
 
 @Path("/logout")
 public class LogoutController extends BaseController {
@@ -22,7 +22,7 @@ public class LogoutController extends BaseController {
 		// Destroy Session
 		getHttpServletRequest().getSession().invalidate();
 
-		return ActionController.buildActionResult("index.do", null, ResultType.Redirect);
+		return ActionResultBuilder.buildActionResult("index.do", null, ResultType.Redirect);
 	}
 	
 }

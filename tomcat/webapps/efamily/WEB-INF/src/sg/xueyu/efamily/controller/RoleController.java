@@ -15,7 +15,7 @@ import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.annotation.Path;
-import sg.xueyu.zebra.controller.ActionController;
+import sg.xueyu.zebra.controller.ActionResultBuilder;
 
 @Path("/role")
 public class RoleController extends BaseController {
@@ -45,13 +45,13 @@ public class RoleController extends BaseController {
 			// Perform to get all users from DB
 			getHttpServletRequest().setAttribute("roles", getRoleDao().getAllRoles());
 
-			return ActionController.buildActionResultWithURL(SystemConstants.URL_ROLE);
+			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_ROLE);
 
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
 
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
@@ -69,11 +69,11 @@ public class RoleController extends BaseController {
 			// Perform to GET user
 			RoleEJB role = getRoleDao().getRole(roleId);
 
-			return ActionController.buildActionResult(null, role, "yyyy-MM-dd", ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, role, "yyyy-MM-dd", ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
@@ -92,24 +92,24 @@ public class RoleController extends BaseController {
 			RoleEJB role = getRoleDao().getRole(roleId);
 			if (role != null) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, "Role is exist!", ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, "Role is exist!", ResultType.Ajax);
 			}
 
 			// Do not allow to ADD role if administrator flag is false
 			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
 			}
 
 			// Perform to ADD user
 			getRoleDao().createRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
 
-			return ActionController.buildActionResult(null, null, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
 
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
@@ -128,23 +128,23 @@ public class RoleController extends BaseController {
 			RoleEJB role = getRoleDao().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
 			}
 
 			// Do not allow to Update any Role if administrator flag is false
 			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
 			}
 
 			// Perform to UPDATE role
 			getRoleDao().updateRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
 
-			return ActionController.buildActionResult(null, null, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
@@ -163,30 +163,30 @@ public class RoleController extends BaseController {
 			RoleEJB role = getRoleDao().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, "Role is not exist!", ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, "Role is not exist!", ResultType.Ajax);
 			}
 
 			// Do not allow to DELETE role if users exists
 			LoginUserEJB[] users = getUserDao().getUsersByRoleId(roleId);
 			if (users != null) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, "There are existing uses!", ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, "There are existing uses!", ResultType.Ajax);
 			}
 
 			// Do not allow to DELETE any Role if administrator flag is false
 			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
 			}
 
 			// Perform to DELETE user
 			getRoleDao().deleteRole(roleId);
 			
-			return ActionController.buildActionResult(null, null, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}

@@ -11,7 +11,7 @@ import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.annotation.Path;
-import sg.xueyu.zebra.controller.ActionController;
+import sg.xueyu.zebra.controller.ActionResultBuilder;
 
 @Path("/home")
 public class HomeController extends BaseController {
@@ -29,12 +29,12 @@ public class HomeController extends BaseController {
 			}
 
 			// Perform to forward to Home.jsp
-			return ActionController.buildActionResultWithURL(SystemConstants.URL_HOME);
+			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_HOME);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
 
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}

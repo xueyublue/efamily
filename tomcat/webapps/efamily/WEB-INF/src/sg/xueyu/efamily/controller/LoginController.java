@@ -13,7 +13,7 @@ import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.annotation.Path;
-import sg.xueyu.zebra.controller.ActionController;
+import sg.xueyu.zebra.controller.ActionResultBuilder;
 
 @Path("/login")
 public class LoginController extends BaseController {
@@ -35,7 +35,7 @@ public class LoginController extends BaseController {
 				getSessionManager().removeCredentials(getHttpServletRequest().getSession());
 				getHttpServletResponse().setStatus(401);
 
-				return ActionController.buildActionResult(null, authResult, ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, authResult, ResultType.Ajax);
 			}
 
 			// Perform to Authentication is successfully
@@ -43,12 +43,12 @@ public class LoginController extends BaseController {
 			getSessionManager().setCredentials(getHttpServletRequest().getSession(), new Credentials(user.getUserId(), user.getUserName()));
 			getUserDao().udpateLastLoginDate(userId);
 
-			return ActionController.buildActionResult(null, null, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
 
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}

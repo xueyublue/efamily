@@ -17,7 +17,7 @@ import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.annotation.Path;
-import sg.xueyu.zebra.controller.ActionController;
+import sg.xueyu.zebra.controller.ActionResultBuilder;
 
 @Path("/event")
 public class EventController extends BaseController {
@@ -55,12 +55,12 @@ public class EventController extends BaseController {
 			// Perform to forward to Event.jsp
 			getHttpServletRequest().setAttribute("events", eventDao.getAllEvents());
 			
-			return ActionController.buildActionResultWithURL(SystemConstants.URL_EVENT);
+			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_EVENT);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
 
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
@@ -84,16 +84,16 @@ public class EventController extends BaseController {
 
 			ResultContent resultContent = null;
 			if (SystemConstants.EVENT_ISALLDAY_TRUE.equals(event.getIsAllDay())) {
-				resultContent = ActionController.buildResultContent(null, event, "yyyy-MM-dd");
+				resultContent = ActionResultBuilder.buildResultContent(null, event, "yyyy-MM-dd");
 			} else {
-				resultContent = ActionController.buildResultContent(null, event, "yyyy-MM-dd HH:mm");
+				resultContent = ActionResultBuilder.buildResultContent(null, event, "yyyy-MM-dd HH:mm");
 			}
 
-			return ActionController.buildActionResult(resultContent, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(resultContent, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
@@ -116,17 +116,17 @@ public class EventController extends BaseController {
 			EventEJB event = eventDao.getEvent(eventId);
 			if (event == null) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, "Event is not exist!", ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, "Event is not exist!", ResultType.Ajax);
 			}
 
 			// Perform to UPDATE event
 			eventDao.updateEvent(eventId, title, location, startDate, endDate, isAllDay, category,
 					getSessionManager().getCredentials(getHttpServletRequest().getSession()).getUserId());
-			return ActionController.buildActionResult(null, null, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
@@ -149,12 +149,12 @@ public class EventController extends BaseController {
 			eventDao.createEvent(SequenceHandler.nextEventId(getConnection()), title, location, startDate, endDate,
 					isAllDay, category, getSessionUserId());
 			
-			return ActionController.buildActionResult(null, null, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
 
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
@@ -177,22 +177,22 @@ public class EventController extends BaseController {
 			EventEJB event = eventDao.getEvent(eventId);
 			if (event == null) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, "Event is not exist!", ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, "Event is not exist!", ResultType.Ajax);
 			}
 
 			// Do not allow to DELETE any Event if administrator flag is false
 			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())) {
 				getHttpServletResponse().setStatus(500);
-				return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
+				return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_INSUFFICIENT_PREVILEGE, ResultType.Ajax);
 			}
 
 			// Perform to DELETE user
 			eventDao.deleteEvent(eventId);
-			return ActionController.buildActionResult(null, null, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
-			return ActionController.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
 		} finally {
 			DBUtils.closeConnection(getConnection());
 		}
