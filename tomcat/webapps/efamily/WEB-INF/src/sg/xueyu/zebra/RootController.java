@@ -1,6 +1,5 @@
 package sg.xueyu.zebra;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
