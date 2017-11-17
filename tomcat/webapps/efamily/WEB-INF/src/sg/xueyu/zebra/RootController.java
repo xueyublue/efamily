@@ -27,6 +27,8 @@ import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.core.Action;
 import sg.xueyu.zebra.core.ActionContainer;
 import sg.xueyu.zebra.core.ActionScanner;
+import sg.xueyu.zebra.core.ConfigurationContainer;
+import sg.xueyu.zebra.core.ConfigurationScanner;
 import sg.xueyu.zebra.core.PackageScanner;
 import sg.xueyu.zebra.util.ReflectionUtil;
 import sg.xueyu.zebra.util.ZebraUtil;
@@ -41,16 +43,30 @@ public class RootController extends HttpServlet {
 /** Static Variables **/
 	private static final String DEFAULT_PACKAGE_SCAN = "/";
 	private static final String DEFAULT_VIEW_PREFIX = "/WEB-INF/view/";
+	private static final String DEFAULT_VIEW_SUFFIX = ".jsp";
 
 /** Variables **/
 	private String mPackageScan = null;
 	private String mViewPrefix = null;
+	private String mViewSuffix = null;
 	
 	private ActionContainer mActionContainer = null;
 
 /** Override Methods **/
 	@Override
 	public void init(ServletConfig config) throws ServletException {
+
+		// Scan Configurations
+		ConfigurationScanner configScanner = new ConfigurationScanner();
+		ConfigurationContainer configContainer = null;
+		try {
+			configContainer = configScanner.scan();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			configContainer = null;
+		}
+		
+		// Decide package scan
 		String packageScan = config.getInitParameter("packageScan");
 		mPackageScan = packageScan != null ? packageScan : DEFAULT_PACKAGE_SCAN;
 		if (!mPackageScan.endsWith(".")) {
@@ -63,11 +79,7 @@ public class RootController extends HttpServlet {
 		List<String> nameList = null;
 		try {
 			nameList = packageScanner.getFullyQualifiedClassNameList();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			nameList = null;
-			return;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			nameList = null;
 			return;
