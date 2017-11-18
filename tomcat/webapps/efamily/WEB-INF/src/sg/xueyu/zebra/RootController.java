@@ -140,34 +140,45 @@ public class RootController extends HttpServlet {
 		String contextPath = req.getContextPath() + "/";
 		String servletPath = req.getServletPath();
 		
+		// Remove suffix of request URL
 		if (servletPath.endsWith(".do")) {
 			servletPath = servletPath.substring(0, servletPath.indexOf(".do"));
 		}
 		
 		try {
+			// Get request method from HTTP request
+			// Only support 2 kinds of HTTP method GET/POST
 			RequestMethod requestMethod = getRequestMethod(req);
-			Action action = mActionContainer.find(servletPath, requestMethod);
 			
+			// Find action that matched request URL and HTTP request method
+			Action action = mActionContainer.find(servletPath, requestMethod);
 			if (action == null) {
 				throw new Exception("No matched action class found under package: " + mPackageScanList);
 			}
 			
+			// Get action class from Action object
 			Class<?> actionClass = action.getActionClass();
 			
-			// Initialize action instance
+			// Initialize action class instance
 			Object actionInstance = null;
 			Constructor<?>[] constructor = actionClass.getConstructors();
 			
 			for (Constructor<?> cons : constructor) {
 				Class<?>[] types = cons.getParameterTypes();
+				// If constructor do not have any parameters inside
+				// Then will be using the default constructor to initialize action class
 				if(types.length == 0) {
 					actionInstance = cons.newInstance();	
 				}
+				// If constructor have 2 parameters inside and parameter type is HttpServletRequest/HttpServletResponse
+				// Then will be using it to initialize action class
 				else if (types.length == 2
 						&& types[0].equals(HttpServletRequest.class)
 						&& types[1].equals(HttpServletResponse.class)) {
 					actionInstance = cons.newInstance(req, resp);
-				} else {
+				} 
+				// If others then set action instance to null
+				else {
 					actionInstance = null;
 				}
 			}
@@ -181,19 +192,20 @@ public class RootController extends HttpServlet {
 			ActionResult actionResult = (ActionResult) actionMethod.invoke(actionInstance);
 			
 			// Handle file upload Action
-			if (action instanceof Uploadable) {
-				List<Part> fileparts = new ArrayList<>();
-				List<String> filenames = new ArrayList<>();
-				for (Part part : req.getParts()) {
-					String cd = part.getHeader("Content-Disposition");
-					if (cd.indexOf("filename") >= 0) {
-						fileparts.add(part);
-						filenames.add(cd.substring(cd.lastIndexOf("=") + 1).replaceAll("\\\"", ""));
-					}
-				}
-				((Uploadable) action).setParts(fileparts.toArray(new Part[fileparts.size()]));
-				((Uploadable) action).setFilenames(filenames.toArray(new String[filenames.size()]));
-			}
+			// TODO: Implement file upload action
+//			if (action instanceof Uploadable) {
+//				List<Part> fileparts = new ArrayList<>();
+//				List<String> filenames = new ArrayList<>();
+//				for (Part part : req.getParts()) {
+//					String cd = part.getHeader("Content-Disposition");
+//					if (cd.indexOf("filename") >= 0) {
+//						fileparts.add(part);
+//						filenames.add(cd.substring(cd.lastIndexOf("=") + 1).replaceAll("\\\"", ""));
+//					}
+//				}
+//				((Uploadable) action).setParts(fileparts.toArray(new Part[fileparts.size()]));
+//				((Uploadable) action).setFilenames(filenames.toArray(new String[filenames.size()]));
+//			}
 
 			// Handle action result
 			if (actionResult != null) {
