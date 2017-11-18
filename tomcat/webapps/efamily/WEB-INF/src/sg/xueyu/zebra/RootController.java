@@ -77,7 +77,7 @@ public class RootController extends HttpServlet {
 		if (mPackageScanList.isEmpty()) {
 			mPackageScanList.add(DEFAULT_PACKAGE_SCAN);
 		}
-		amendPackageScanList(mPackageScanList);
+		fixPackageScanList(mPackageScanList);
 
 		// Decide view prefix
 		String viewPrefix = config.getInitParameter("viewPrefix");
@@ -285,14 +285,31 @@ public class RootController extends HttpServlet {
 		}
 	}
 
-	// Re-Decide package scan list
-	private void amendPackageScanList(List<String> list) {
+	// Add "." to the package name
+	// Remove duplicate packages
+	// Remove the packages that contains, e.g. do not add "sg.daifuku.wms" if "sg.daifuku" already in list
+	// TODO: Add the rooter package to scan list
+	private void fixPackageScanList(List<String> list) {
 		List<String> newScanList = new ArrayList<>();
+		
 		for (String pack : mPackageScanList) {
 			if (!pack.endsWith(".")) {
 				pack += ".";
-				if (!newScanList.contains(pack)) {
-					newScanList.add(pack);	
+				if (newScanList.size() == 0) {
+					newScanList.add(pack);
+				}
+				else if (newScanList.contains(pack)) {
+					continue;
+				}
+				else if (!newScanList.contains(pack)) {
+					for (String string : newScanList) {
+						if (string.contains(pack)
+								|| pack.contains(string)) {
+							// TODO: Compare which is rooter
+							continue;			
+						}
+						newScanList.add(pack);
+					}
 				}
 			}
 		}

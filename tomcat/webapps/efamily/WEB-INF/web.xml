@@ -18,10 +18,6 @@
 	<servlet>
 		<servlet-name>RootController</servlet-name>
 		<servlet-class>sg.xueyu.zebra.RootController</servlet-class>
-		<init-param>
-			<param-name>packageScan</param-name>
-			<param-value>sg.xueyu.efamily</param-value>
-		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
 
