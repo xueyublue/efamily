@@ -300,7 +300,7 @@ public class RootController extends HttpServlet {
 				else {
 					paramValue = ZebraUtil.changeStringToObject(fieldType, req.getParameter(paramName));
 				}
-				// Set value to action instance oject
+				// Set value to action instance object
 				ReflectionUtil.setValue(actionInstance, paramName.replaceAll("\\[|\\]", ""), paramValue);
 			}
 		}
