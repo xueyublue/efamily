@@ -4,6 +4,7 @@ import java.util.Date;
 
 import sg.xueyu.dbhandler.conf.CompareCode;
 import sg.xueyu.dbhandler.handler.AbstractAlterKey;
+
 import sg.xueyu.efamily.model.dbhandler.LoginUser;
 
 public class LoginUserAlterKey extends AbstractAlterKey {

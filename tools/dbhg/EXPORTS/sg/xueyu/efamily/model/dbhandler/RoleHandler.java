@@ -1,11 +1,11 @@
-package sg.xueyu.efamily.base.dbhandler;
+package sg.xueyu.efamily.model.dbhandler;
 
 import java.sql.Connection;
 
 import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.dbhandler.handler.AbstractHandler;
 
-import sg.xueyu.efamily.base.dbhandler.Role;
+import sg.xueyu.efamily.model.dbhandler.Role;
 
 public class RoleHandler extends AbstractHandler {
 

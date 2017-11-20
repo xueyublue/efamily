@@ -4,6 +4,7 @@ import java.util.Date;
 
 import sg.xueyu.dbhandler.conf.CompareCode;
 import sg.xueyu.dbhandler.handler.AbstractSearchKey;
+
 import sg.xueyu.efamily.model.dbhandler.Role;
 
 public class RoleSearchKey extends AbstractSearchKey {

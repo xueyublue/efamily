@@ -1,11 +1,11 @@
-package sg.xueyu.efamily.base.dbhandler;
+package sg.xueyu.efamily.model.dbhandler;
 
 import java.util.Date;
 
 import sg.xueyu.dbhandler.conf.CompareCode;
 import sg.xueyu.dbhandler.handler.AbstractAlterKey;
 
-import sg.xueyu.efamily.base.dbhandler.Role;
+import sg.xueyu.efamily.model.dbhandler.Role;
 
 public class RoleAlterKey extends AbstractAlterKey {
 

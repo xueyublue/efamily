@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.dbhandler.handler.AbstractHandler;
+
 import sg.xueyu.efamily.model.dbhandler.Role;
 
 public class RoleHandler extends AbstractHandler {

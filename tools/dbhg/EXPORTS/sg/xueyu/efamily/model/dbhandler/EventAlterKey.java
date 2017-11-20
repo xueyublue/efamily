@@ -1,11 +1,11 @@
-package sg.xueyu.efamily.base.dbhandler;
+package sg.xueyu.efamily.model.dbhandler;
 
 import java.util.Date;
 
 import sg.xueyu.dbhandler.conf.CompareCode;
 import sg.xueyu.dbhandler.handler.AbstractAlterKey;
 
-import sg.xueyu.efamily.base.dbhandler.Event;
+import sg.xueyu.efamily.model.dbhandler.Event;
 
 public class EventAlterKey extends AbstractAlterKey {
 

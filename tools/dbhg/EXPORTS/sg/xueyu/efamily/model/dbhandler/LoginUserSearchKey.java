@@ -1,15 +1,15 @@
-package sg.xueyu.efamily.base.dbhandler;
+package sg.xueyu.efamily.model.dbhandler;
 
 import java.util.Date;
 
 import sg.xueyu.dbhandler.conf.CompareCode;
-import sg.xueyu.dbhandler.handler.AbstractAlterKey;
+import sg.xueyu.dbhandler.handler.AbstractSearchKey;
 
-import sg.xueyu.efamily.base.dbhandler.LoginUser;
+import sg.xueyu.efamily.model.dbhandler.LoginUser;
 
-public class LoginUserAlterKey extends AbstractAlterKey {
+public class LoginUserSearchKey extends AbstractSearchKey {
 
-	public LoginUserAlterKey() {
+	public LoginUserSearchKey() {
 		super(LoginUser.STORE_NAME);
 	}
 
@@ -85,40 +85,41 @@ public class LoginUserAlterKey extends AbstractAlterKey {
 		setStringKeyWithCompCode(LoginUser.LAST_UPDATE_PNAME, compCode, value);
 	}
 
-	public void updateUserId(String value) {
-		setStringUpdateKey(LoginUser.USER_ID, value);
+
+	public void setUserIdOrder(boolean value) {
+		setOrder(LoginUser.USER_ID, value);
 	}
 
-	public void updateUserName(String value) {
-		setStringUpdateKey(LoginUser.USER_NAME, value);
+	public void setUserNameOrder(boolean value) {
+		setOrder(LoginUser.USER_NAME, value);
 	}
 
-	public void updateRoleId(String value) {
-		setStringUpdateKey(LoginUser.ROLE_ID, value);
+	public void setRoleIdOrder(boolean value) {
+		setOrder(LoginUser.ROLE_ID, value);
 	}
 
-	public void updatePassword(String value) {
-		setStringUpdateKey(LoginUser.PASSWORD, value);
+	public void setPasswordOrder(boolean value) {
+		setOrder(LoginUser.PASSWORD, value);
 	}
 
-	public void updateLastLoginDate(Date value) {
-		setDateUpdateKey(LoginUser.LAST_LOGIN_DATE, value);
+	public void setLastLoginDateOrder(boolean value) {
+		setOrder(LoginUser.LAST_LOGIN_DATE, value);
 	}
 
-	public void updateRegistDate(Date value) {
-		setDateUpdateKey(LoginUser.REGIST_DATE, value);
+	public void setRegistDateOrder(boolean value) {
+		setOrder(LoginUser.REGIST_DATE, value);
 	}
 
-	public void updateRegistPname(String value) {
-		setStringUpdateKey(LoginUser.REGIST_PNAME, value);
+	public void setRegistPnameOrder(boolean value) {
+		setOrder(LoginUser.REGIST_PNAME, value);
 	}
 
-	public void updateLastUpdateDate(Date value) {
-		setDateUpdateKey(LoginUser.LAST_UPDATE_DATE, value);
+	public void setLastUpdateDateOrder(boolean value) {
+		setOrder(LoginUser.LAST_UPDATE_DATE, value);
 	}
 
-	public void updateLastUpdatePname(String value) {
-		setStringUpdateKey(LoginUser.LAST_UPDATE_PNAME, value);
+	public void setLastUpdatePnameOrder(boolean value) {
+		setOrder(LoginUser.LAST_UPDATE_PNAME, value);
 	}
 
 }
