@@ -6,6 +6,6 @@ package sg.xueyu.zebra.adapter;
  * @author 	DARREN
  * @version beta
  */
-public interface ConfigurerAdapter {	
+public interface ConfigurationAdapter {	
 	
 }
