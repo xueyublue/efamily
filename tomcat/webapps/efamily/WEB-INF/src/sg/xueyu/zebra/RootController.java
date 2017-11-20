@@ -28,6 +28,7 @@ import sg.xueyu.zebra.core.ActionContainer;
 import sg.xueyu.zebra.core.ActionScanner;
 import sg.xueyu.zebra.core.ConfigurationContainer;
 import sg.xueyu.zebra.core.ConfigurationScanner;
+import sg.xueyu.zebra.core.DataBinding;
 import sg.xueyu.zebra.core.PackageScanner;
 import sg.xueyu.zebra.util.ReflectionUtil;
 import sg.xueyu.zebra.util.ZebraUtil;
@@ -183,10 +184,11 @@ public class RootController extends HttpServlet {
 				}
 			}
 			
-			// Inject request data to Action instance
-			injectProperties(actionInstance, req);
-
 			Method actionMethod = action.getMethod();
+			
+			// Inject request data to Action instance
+			DataBinding dataBinding = new DataBinding(req);
+			dataBinding.bindToObject(actionInstance);
 			
 			// Invoke action
 			ActionResult actionResult = (ActionResult) actionMethod.invoke(actionInstance);
@@ -271,39 +273,6 @@ public class RootController extends HttpServlet {
 		int end = servletPath.lastIndexOf("/");
 
 		return end > start ? servletPath.substring(start, end > 0 ? end + 1 : 0) : "";
-	}
-
-	// Inject request data to Action class
-	private void injectProperties(Object actionInstance, HttpServletRequest req) throws Exception {
-		// Get all request parameter names
-		Enumeration<String> paramNamesEnum = req.getParameterNames();
-		
-		// LOOP parameter names
-		while (paramNamesEnum.hasMoreElements()) {
-			// Get next parameter name
-			String paramName = paramNamesEnum.nextElement();
-			// Get field data type for parameter name in action instance object
-			Class<?> fieldType = ReflectionUtil.getFieldType(actionInstance, paramName.replaceAll("\\[|\\]", ""));
-			if (fieldType != null) {
-				Object paramValue = null;
-				// Field type is array
-				if (fieldType.isArray()) {
-					Class<?> elemType = fieldType.getComponentType();
-					String[] values = req.getParameterValues(paramName);
-					paramValue = Array.newInstance(elemType, values.length);
-					for (int i = 0; i < values.length; i++) {
-						Object tempObj = ZebraUtil.changeStringToObject(elemType, values[i]);
-						Array.set(paramValue, i, tempObj);
-					}
-				} 
-				// Field type is not array
-				else {
-					paramValue = ZebraUtil.changeStringToObject(fieldType, req.getParameter(paramName));
-				}
-				// Set value to action instance object
-				ReflectionUtil.setValue(actionInstance, paramName.replaceAll("\\[|\\]", ""), paramValue);
-			}
-		}
 	}
 
 	// Add "." to the package name
