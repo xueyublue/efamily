@@ -12,21 +12,19 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
+import sg.xueyu.zebra.annotation.Param;
 import sg.xueyu.zebra.core.ActionResultBuilder;
 import sg.xueyu.zebra.annotation.Path;
 
 @Path("/login")
 public class LoginController extends BaseController {
-
-	private String userId;
-	private String password;
 	
 	public LoginController(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		super(request, response);
 	}
 	
 	@Method(RequestMethod.POST)
-	public ActionResult post() throws Exception {
+	public ActionResult post(@Param("userId") String userId, @Param("password") String password) throws Exception {
 		try {
 			String authResult = getUserDao().auth(userId, password);
 

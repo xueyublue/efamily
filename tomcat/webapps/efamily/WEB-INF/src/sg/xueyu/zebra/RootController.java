@@ -2,11 +2,9 @@ package sg.xueyu.zebra;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,8 +28,6 @@ import sg.xueyu.zebra.core.ConfigurationContainer;
 import sg.xueyu.zebra.core.ConfigurationScanner;
 import sg.xueyu.zebra.core.DataBinding;
 import sg.xueyu.zebra.core.PackageScanner;
-import sg.xueyu.zebra.util.ReflectionUtil;
-import sg.xueyu.zebra.util.ZebraUtil;
 
 @MultipartConfig
 public class RootController extends HttpServlet {
@@ -186,15 +182,15 @@ public class RootController extends HttpServlet {
 			
 			Method actionMethod = action.getMethod();
 			
-			// Inject request data to Action instance
+			// Inject request data to Action method
 			DataBinding dataBinding = new DataBinding(req);
-			dataBinding.bindToObject(actionInstance);
+			Object[] values = dataBinding.bindToMethod(actionMethod);
 			
 			// Invoke action
-			ActionResult actionResult = (ActionResult) actionMethod.invoke(actionInstance);
+			ActionResult actionResult = (ActionResult) actionMethod.invoke(actionInstance, values);
 			
-			// Handle file upload Action
-			// TODO: Implement file upload action
+//			// Handle file upload Action
+//			// TODO: Implement file upload action
 //			if (action instanceof Uploadable) {
 //				List<Part> fileparts = new ArrayList<>();
 //				List<String> filenames = new ArrayList<>();
