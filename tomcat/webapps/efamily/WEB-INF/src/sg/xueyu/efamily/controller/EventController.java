@@ -16,25 +16,12 @@ import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
+import sg.xueyu.zebra.annotation.Param;
 import sg.xueyu.zebra.core.ActionResultBuilder;
 import sg.xueyu.zebra.annotation.Path;
 
 @Path("/event")
 public class EventController extends BaseController {
-
-	private String eventId;
-	
-	private String title;
-
-	private String location;
-
-	private Date startDate;
-
-	private Date endDate;
-
-	private String isAllDay;
-
-	private String category;
 	
 	public EventController(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		super(request, response);
@@ -68,7 +55,7 @@ public class EventController extends BaseController {
 	
 	@Path("/get")
 	@Method(RequestMethod.GET)
-	public ActionResult get() throws Exception {
+	public ActionResult get(@Param("eventId") String eventId) throws Exception {
 		EventDao eventDao = null;
 
 		try {
@@ -101,7 +88,8 @@ public class EventController extends BaseController {
 	
 	@Path("/update")
 	@Method(RequestMethod.POST)
-	public ActionResult update() throws Exception {
+	public ActionResult update(@Param("eventId") String eventId, @Param("title") String title, @Param("location") String location, 
+			@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("isAllDay") String isAllDay, @Param("category") String category) throws Exception {
 		EventDao eventDao = null;
 
 		try {
@@ -134,7 +122,8 @@ public class EventController extends BaseController {
 	
 	@Path("/add")
 	@Method(RequestMethod.POST)
-	public ActionResult add() throws Exception {
+	public ActionResult add(@Param("title") String title, @Param("location") String location, @Param("startDate") Date startDate, 
+			@Param("endDate") Date endDate, @Param("isAllDay") String isAllDay, @Param("category") String category) throws Exception {
 		EventDao eventDao = null;
 
 		try {
@@ -162,7 +151,7 @@ public class EventController extends BaseController {
 	
 	@Path("/delete")
 	@Method(RequestMethod.POST)
-	public ActionResult delete() throws Exception {
+	public ActionResult delete(@Param("eventId") String eventId) throws Exception {
 		EventDao eventDao = null;
 
 		try {

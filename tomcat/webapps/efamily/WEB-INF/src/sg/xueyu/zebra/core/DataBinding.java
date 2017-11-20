@@ -43,6 +43,11 @@ public class DataBinding {
 			// Get next parameter name
 			String reqParaName = mRequestParaNames.nextElement();
 			
+			// Skip parameter: "_"
+			if ("_".equals(reqParaName)) {
+				continue;
+			}
+			
 			// Check is exist parameter name in method
 			int index = getParaIndex(method, reqParaName);
 			if (index == -1) {
