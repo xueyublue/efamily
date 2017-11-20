@@ -43,20 +43,18 @@ public class DataBinding {
 			String reqParaName = mRequestParaNames.nextElement();
 			
 			// Check is exist parameter name in method
-			if (!isExistParameterForName(method, reqParaName)) {
+			if (!isAnnotationForName(method, reqParaName)) {
 				throw new Exception("Parameter Name: " + reqParaName + " is not exist in " + method.getName());
 			}
 			
 			// Get Parameter from method
-			Parameter parameter = getParameterForName(method, reqParaName);
+			Class<?> paraType = getParameterTypeForName(method, reqParaName);
 			
-			if (parameter != null) {
+			if (paraType != null) {
 				Object paramValue = null;
-				Class<?> paramType = parameter.getType();
-				
 				// Field type is array
-				if (paramType.isArray()) {
-					Class<?> elemType = paramType.getComponentType();
+				if (paraType.isArray()) {
+					Class<?> elemType = paraType.getComponentType();
 					String[] values = mRequest.getParameterValues(reqParaName);
 					paramValue = Array.newInstance(elemType, values.length);
 					for (int i = 0; i < values.length; i++) {
@@ -66,7 +64,7 @@ public class DataBinding {
 				}
 				// Field type is not array
 				else {
-					paramValue = ZebraUtil.changeStringToObject(paramType, mRequest.getParameter(reqParaName));
+					paramValue = ZebraUtil.changeStringToObject(paraType, mRequest.getParameter(reqParaName));
 				}
 				
 				// Set value to action instance object
@@ -112,8 +110,8 @@ public class DataBinding {
 	}
 
 	/** Private Methods **/
-	// Check if exist parameter name for name
-	private boolean isExistParameterForName(Method method, String paraName) {
+	// Check if exist Annotation for parameter name
+	private boolean isAnnotationForName(Method method, String paraName) {
 		Parameter[] parameters = method.getParameters();
 
 		if (parameters == null || parameters.length == 0) {
@@ -129,13 +127,13 @@ public class DataBinding {
 		return false;
 	}
 	
-	// Check if exist parameter name for name
-	private Parameter getParameterForName(Method method, String paraName) {
+	// Get parameter type for parameter name
+	private Class<?> getParameterTypeForName(Method method, String paraName) {
 		Parameter[] parameters = method.getParameters();
 
 		for (Parameter parameter : parameters) {
 			if (parameter.getName().equalsIgnoreCase(paraName)) {
-				return parameter;
+				return parameter.getType();
 			}
 		}
 
