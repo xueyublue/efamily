@@ -71,10 +71,15 @@ public class DataBinding {
 				
 				valueInstance = paramValue;
 				
+				// TODO: Handle parameter is a object
 //				// Set value to action instance object
 //				ReflectionUtil.setValue(valueInstance, reqParaName.replaceAll("\\[|\\]", ""), paramValue);
 				
 				valueList.add(valueInstance);
+			} 
+			// Failed to get parameter type
+			else {
+				throw new Exception("Failed to get parameter type for: " + reqParaName);
 			}
 		}
 
@@ -114,7 +119,7 @@ public class DataBinding {
 	}
 
 	/** Private Methods **/
-	// Check if exist Annotation for parameter name
+	// Get parameter index for request parameter name
 	private int getParaIndex(Method method, String paraName) {
 		Annotation[][] annotations = method.getParameterAnnotations();
 
@@ -125,7 +130,8 @@ public class DataBinding {
 		for (int i = 0; i < annotations.length; i++) {
 			if (annotations[i].length > 0) {
 				for (Annotation an : annotations[i]) {
-					if (an instanceof Param) {
+					if (an instanceof Param
+							&& ((Param) an).value().equalsIgnoreCase(paraName)) {
 						return i;
 					}
 				}
@@ -135,10 +141,14 @@ public class DataBinding {
 		return -1;
 	}
 	
-	// Get parameter type for parameter name
+	// Get parameter type for request parameter name
 	private Class<?> getParaType(Method method, int index) {
 		Parameter[] parameters = method.getParameters();
 
+		if (parameters == null || parameters.length == 0) {
+			return null;
+		}
+		
 		return parameters[index].getType();
 	}
 }
