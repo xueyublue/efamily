@@ -275,12 +275,18 @@ public class RootController extends HttpServlet {
 
 	// Inject request data to Action class
 	private void injectProperties(Object actionInstance, HttpServletRequest req) throws Exception {
+		// Get all request parameter names
 		Enumeration<String> paramNamesEnum = req.getParameterNames();
+		
+		// LOOP parameter names
 		while (paramNamesEnum.hasMoreElements()) {
+			// Get next parameter name
 			String paramName = paramNamesEnum.nextElement();
+			// Get field data type for parameter name in action instance object
 			Class<?> fieldType = ReflectionUtil.getFieldType(actionInstance, paramName.replaceAll("\\[|\\]", ""));
 			if (fieldType != null) {
 				Object paramValue = null;
+				// Field type is array
 				if (fieldType.isArray()) {
 					Class<?> elemType = fieldType.getComponentType();
 					String[] values = req.getParameterValues(paramName);
@@ -289,9 +295,12 @@ public class RootController extends HttpServlet {
 						Object tempObj = ZebraUtil.changeStringToObject(elemType, values[i]);
 						Array.set(paramValue, i, tempObj);
 					}
-				} else {
+				} 
+				// Field type is not array
+				else {
 					paramValue = ZebraUtil.changeStringToObject(fieldType, req.getParameter(paramName));
 				}
+				// Set value to action instance oject
 				ReflectionUtil.setValue(actionInstance, paramName.replaceAll("\\[|\\]", ""), paramValue);
 			}
 		}
