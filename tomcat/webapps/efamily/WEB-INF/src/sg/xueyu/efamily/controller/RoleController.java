@@ -13,22 +13,13 @@ import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
+import sg.xueyu.zebra.annotation.Param;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.core.ActionResultBuilder;
 import sg.xueyu.zebra.annotation.Path;
 
 @Path("/role")
 public class RoleController extends BaseController {
-
-	private String roleId;
-
-	private String roleName;
-
-	private String adminFlag;
-
-	private String guestFlag;
-
-	private Date expiryDate;
 	
 	public RoleController(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		super(request, response);
@@ -59,7 +50,7 @@ public class RoleController extends BaseController {
 	
 	@Path("/get")
 	@Method(RequestMethod.GET)
-	public ActionResult get() throws Exception {
+	public ActionResult get(@Param("roleId") String roleId) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -81,7 +72,8 @@ public class RoleController extends BaseController {
 	
 	@Path("/add")
 	@Method(RequestMethod.POST)
-	public ActionResult add() throws Exception {
+	public ActionResult add(@Param("roleId") String roleId, @Param("roleName") String roleName, @Param("adminFlag") String adminFlag, 
+			@Param("guestFlag") String guestFlag, @Param("expiryDate") Date expiryDate) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -117,7 +109,8 @@ public class RoleController extends BaseController {
 	
 	@Path("/update")
 	@Method(RequestMethod.POST)
-	public ActionResult update() throws Exception {
+	public ActionResult update(@Param("roleId") String roleId, @Param("roleName") String roleName, @Param("adminFlag") String adminFlag, 
+			@Param("guestFlag") String guestFlag, @Param("expiryDate") Date expiryDate) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -152,7 +145,7 @@ public class RoleController extends BaseController {
 	
 	@Path("/delete")
 	@Method(RequestMethod.POST)
-	public ActionResult delete() throws Exception {
+	public ActionResult delete(@Param("roleId") String roleId) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {

@@ -11,20 +11,13 @@ import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
+import sg.xueyu.zebra.annotation.Param;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.core.ActionResultBuilder;
 import sg.xueyu.zebra.annotation.Path;
 
 @Path("/user")
 public class UserController extends BaseController {
-
-	private String userId;
-
-	private String userName;
-
-	private String password;
-
-	private String roleId;
 	
 	public UserController(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		super(request, response);
@@ -54,7 +47,7 @@ public class UserController extends BaseController {
 	
 	@Path("/get")
 	@Method(RequestMethod.GET)
-	public ActionResult get() throws Exception {
+	public ActionResult get(@Param("userId") String userId) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -76,7 +69,8 @@ public class UserController extends BaseController {
 	
 	@Path("/add")
 	@Method(RequestMethod.POST)
-	public ActionResult add() throws Exception {
+	public ActionResult add(@Param("userId") String userId, @Param("userName") String userName, @Param("password") String password,
+			@Param("roleId") String roleId) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -118,7 +112,8 @@ public class UserController extends BaseController {
 	
 	@Path("/update")
 	@Method(RequestMethod.POST)
-	public ActionResult update() throws Exception {
+	public ActionResult update(@Param("userId") String userId, @Param("userName") String userName, @Param("password") String password,
+			@Param("roleId") String roleId) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -161,7 +156,7 @@ public class UserController extends BaseController {
 	
 	@Path("/delete")
 	@Method(RequestMethod.POST)
-	public ActionResult delete() throws Exception {
+	public ActionResult delete(@Param("userId") String userId) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
