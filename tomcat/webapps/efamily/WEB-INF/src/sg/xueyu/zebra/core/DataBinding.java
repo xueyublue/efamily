@@ -4,9 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,7 +32,7 @@ public class DataBinding {
 	/** Public Methods **/
 	// Bind data to a method
 	public Object[] bindToMethod(Method method) throws Exception {
-		List<Object> valueList = new ArrayList<>();
+		Object[] valueArray = new Object[method.getParameters().length];
 		
 		// LOOP request parameter names
 		while (mRequestParaNames.hasMoreElements()) {
@@ -62,10 +60,10 @@ public class DataBinding {
 				// Field type is array
 				if (paraType.isArray()) {
 					Class<?> elemType = paraType.getComponentType();
-					String[] values = mRequest.getParameterValues(reqParaName);
-					paramValue = Array.newInstance(elemType, values.length);
-					for (int i = 0; i < values.length; i++) {
-						Object tempObj = ZebraUtil.changeStringToObject(elemType, values[i]);
+					String[] arrs = mRequest.getParameterValues(reqParaName);
+					paramValue = Array.newInstance(elemType, arrs.length);
+					for (int i = 0; i < arrs.length; i++) {
+						Object tempObj = ZebraUtil.changeStringToObject(elemType, arrs[i]);
 						Array.set(paramValue, i, tempObj);
 					}
 				}
@@ -79,8 +77,7 @@ public class DataBinding {
 				// TODO: Handle parameter is a object
 //				// Set value to action instance object
 //				ReflectionUtil.setValue(valueInstance, reqParaName.replaceAll("\\[|\\]", ""), paramValue);
-				
-				valueList.add(valueInstance);
+				valueArray[index] = valueInstance;
 			} 
 			// Failed to get parameter type
 			else {
@@ -88,7 +85,7 @@ public class DataBinding {
 			}
 		}
 
-		return valueList.toArray();
+		return valueArray;
 	}
 
 	// Bind data to a object
