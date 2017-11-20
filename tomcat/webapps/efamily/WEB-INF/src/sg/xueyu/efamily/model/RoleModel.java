@@ -1,4 +1,4 @@
-package sg.xueyu.efamily.dao;
+package sg.xueyu.efamily.model;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ import sg.xueyu.efamily.base.dbhandler.RoleHandler;
 import sg.xueyu.efamily.base.dbhandler.RoleSearchKey;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
 
-public class RoleDao {
+public class RoleModel {
 
 	private Connection mConnection = null;
 
-	public RoleDao(Connection conn) {
+	public RoleModel(Connection conn) {
 		this.mConnection = conn;
 	}
 

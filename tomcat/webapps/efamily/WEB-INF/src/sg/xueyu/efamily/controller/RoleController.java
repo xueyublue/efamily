@@ -34,7 +34,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Perform to get all users from DB
-			getHttpServletRequest().setAttribute("roles", getRoleDao().getAllRoles());
+			getHttpServletRequest().setAttribute("roles", getRoleModel().getAllRoles());
 
 			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_ROLE);
 
@@ -58,7 +58,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Perform to GET user
-			RoleEJB role = getRoleDao().getRole(roleId);
+			RoleEJB role = getRoleModel().getRole(roleId);
 
 			return ActionResultBuilder.buildActionResult(null, role, "yyyy-MM-dd", ResultType.Ajax);
 		} catch (Exception e) {
@@ -81,7 +81,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Role is exist
-			RoleEJB role = getRoleDao().getRole(roleId);
+			RoleEJB role = getRoleModel().getRole(roleId);
 			if (role != null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role is exist!", ResultType.Ajax);
@@ -94,7 +94,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Perform to ADD user
-			getRoleDao().createRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
+			getRoleModel().createRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
@@ -118,7 +118,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Role Id is not exist
-			RoleEJB role = getRoleDao().getRole(roleId);
+			RoleEJB role = getRoleModel().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -131,7 +131,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Perform to UPDATE role
-			getRoleDao().updateRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
+			getRoleModel().updateRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
@@ -153,14 +153,14 @@ public class RoleController extends BaseController {
 			}
 
 			// Role is not exist
-			RoleEJB role = getRoleDao().getRole(roleId);
+			RoleEJB role = getRoleModel().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role is not exist!", ResultType.Ajax);
 			}
 
 			// Do not allow to DELETE role if users exists
-			LoginUserEJB[] users = getUserDao().getUsersByRoleId(roleId);
+			LoginUserEJB[] users = getUserModel().getUsersByRoleId(roleId);
 			if (users != null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "There are existing uses!", ResultType.Ajax);
@@ -173,7 +173,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Perform to DELETE user
-			getRoleDao().deleteRole(roleId);
+			getRoleModel().deleteRole(roleId);
 			
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {

@@ -32,7 +32,7 @@ public class UserController extends BaseController {
 			}
 
 			// Perform to get all users from DB
-			getHttpServletRequest().setAttribute("users", getUserDao().getAllUsers());
+			getHttpServletRequest().setAttribute("users", getUserModel().getAllUsers());
 
 			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_USER);
 		} catch (Exception e) {
@@ -55,7 +55,7 @@ public class UserController extends BaseController {
 			}
 
 			// Perform to GET user
-			LoginUserEJB userEJB = getUserDao().getUser(userId);
+			LoginUserEJB userEJB = getUserModel().getUser(userId);
 
 			return ActionResultBuilder.buildActionResult(null, userEJB, ResultType.Ajax);
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
 			}
 
 			// Role is not exist
-			RoleEJB role = getRoleDao().getRole(roleId);
+			RoleEJB role = getRoleModel().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -92,13 +92,13 @@ public class UserController extends BaseController {
 			}
 
 			// User is exist
-			if (getUserDao().getUser(userId) != null) {
+			if (getUserModel().getUser(userId) != null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "User is exist!", ResultType.Ajax);
 			}
 
 			// Perform to DELETE user
-			getUserDao().createUser(userId, userName, password, roleId);
+			getUserModel().createUser(userId, userName, password, roleId);
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
@@ -121,7 +121,7 @@ public class UserController extends BaseController {
 			}
 
 			// Role Id is not exist
-			RoleEJB role = getRoleDao().getRole(roleId);
+			RoleEJB role = getRoleModel().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -136,13 +136,13 @@ public class UserController extends BaseController {
 			}
 
 			// User is not exist
-			if (getUserDao().getUser(userId) == null) {
+			if (getUserModel().getUser(userId) == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "User is not exist!", ResultType.Ajax);
 			}
 
 			// Perform to UPDATE user
-			getUserDao().updateUser(userId, userName, password, roleId);
+			getUserModel().updateUser(userId, userName, password, roleId);
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
@@ -164,14 +164,14 @@ public class UserController extends BaseController {
 			}
 
 			// User is not exist
-			LoginUserEJB user = getUserDao().getUser(userId);
+			LoginUserEJB user = getUserModel().getUser(userId);
 			if (user == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "User is not exist!", ResultType.Ajax);
 			}
 
 			// Role Id is not exist
-			RoleEJB role = getRoleDao().getRole(user.getRoleId());
+			RoleEJB role = getRoleModel().getRole(user.getRoleId());
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -186,7 +186,7 @@ public class UserController extends BaseController {
 			}
 
 			// Perform to DELETE user
-			getUserDao().deleteUser(userId);
+			getUserModel().deleteUser(userId);
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {

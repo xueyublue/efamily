@@ -1,4 +1,4 @@
-package sg.xueyu.efamily.dao;
+package sg.xueyu.efamily.model;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ import sg.xueyu.efamily.base.dbhandler.LoginUserHandler;
 import sg.xueyu.efamily.base.dbhandler.LoginUserSearchKey;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 
-public class UserDao {
+public class UserModel {
 
 	private Connection mConnection = null;
 
-	public UserDao(Connection conn) {
+	public UserModel(Connection conn) {
 		this.mConnection = conn;
 	}
 
@@ -81,7 +81,7 @@ public class UserDao {
 		user.setPassword(password);
 		user.setRoleId(roleId);
 
-		user.setRegistPname(UserDao.class.getSimpleName());
+		user.setRegistPname(UserModel.class.getSimpleName());
 
 		handler.create(user);
 
@@ -98,7 +98,7 @@ public class UserDao {
 		alterKey.updateRoleId(roleId);
 
 		alterKey.updateLastUpdateDate(new Date());
-		alterKey.updateLastUpdatePname(UserDao.class.getSimpleName());
+		alterKey.updateLastUpdatePname(UserModel.class.getSimpleName());
 
 		handler.update(alterKey);
 
@@ -140,7 +140,7 @@ public class UserDao {
 		LoginUserAlterKey alterKey = new LoginUserAlterKey();
 		alterKey.setUserId(userId);
 
-		alterKey.updateLastUpdatePname(UserDao.class.getSimpleName());
+		alterKey.updateLastUpdatePname(UserModel.class.getSimpleName());
 		alterKey.updateLastLoginDate(new Date());
 
 		handler.update(alterKey);

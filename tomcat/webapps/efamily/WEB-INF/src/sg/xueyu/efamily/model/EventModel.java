@@ -1,4 +1,4 @@
-package sg.xueyu.efamily.dao;
+package sg.xueyu.efamily.model;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ import sg.xueyu.efamily.base.dbhandler.EventHandler;
 import sg.xueyu.efamily.base.dbhandler.EventSearchKey;
 import sg.xueyu.efamily.base.ejb.EventEJB;
 
-public class EventDao {
+public class EventModel {
 
 	private Connection mConnection = null;
 
-	public EventDao(Connection conn) {
+	public EventModel(Connection conn) {
 		this.mConnection = conn;
 	}
 
@@ -66,7 +66,7 @@ public class EventDao {
 		event.setCategory(category);
 		event.setRegistBy(registBy);
 
-		event.setRegistPname(EventDao.class.getSimpleName());
+		event.setRegistPname(EventModel.class.getSimpleName());
 
 		handler.create(event);
 
@@ -88,7 +88,7 @@ public class EventDao {
 		alterKey.updateCategory(category);
 		alterKey.updateUpdateBy(updateBy);
 
-		alterKey.updateLastUpdatePname(EventDao.class.getSimpleName());
+		alterKey.updateLastUpdatePname(EventModel.class.getSimpleName());
 
 		handler.update(alterKey);
 

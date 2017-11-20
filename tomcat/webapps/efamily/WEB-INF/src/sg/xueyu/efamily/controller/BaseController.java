@@ -10,8 +10,8 @@ import sg.xueyu.efamily.base.DataSource;
 import sg.xueyu.efamily.base.SessionManager;
 import sg.xueyu.efamily.base.ejb.LoginUserEJB;
 import sg.xueyu.efamily.base.ejb.RoleEJB;
-import sg.xueyu.efamily.dao.RoleDao;
-import sg.xueyu.efamily.dao.UserDao;
+import sg.xueyu.efamily.model.RoleModel;
+import sg.xueyu.efamily.model.UserModel;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
@@ -24,9 +24,9 @@ public class BaseController {
 
 	private Connection mConnection = null;
 
-	private UserDao mUserDao = null;
+	private UserModel mUserModel = null;
 
-	private RoleDao mRoleDao = null;
+	private RoleModel mRoleModel = null;
 
 	private SessionManager mSessionManager = null;
 
@@ -41,8 +41,8 @@ public class BaseController {
 	// Default constructor
 	public BaseController() throws Exception {
 		this.mConnection = new DataSource().getConnection();
-		this.mUserDao = new UserDao(mConnection);
-		this.mRoleDao = new RoleDao(mConnection);
+		this.mUserModel = new UserModel(mConnection);
+		this.mRoleModel = new RoleModel(mConnection);
 		this.mSessionManager = SessionManager.getInstance();
 	}
 	
@@ -51,8 +51,8 @@ public class BaseController {
 		this.mHttpServletResponse = response;
 		
 		this.mConnection = new DataSource().getConnection();
-		this.mUserDao = new UserDao(mConnection);
-		this.mRoleDao = new RoleDao(mConnection);
+		this.mUserModel = new UserModel(mConnection);
+		this.mRoleModel = new RoleModel(mConnection);
 		this.mSessionManager = SessionManager.getInstance();
 	}
 
@@ -68,12 +68,12 @@ public class BaseController {
 		return mConnection;
 	}
 
-	protected UserDao getUserDao() {
-		return mUserDao;
+	protected UserModel getUserModel() {
+		return mUserModel;
 	}
 
-	protected RoleDao getRoleDao() {
-		return mRoleDao;
+	protected RoleModel getRoleModel() {
+		return mRoleModel;
 	}
 
 	protected SessionManager getSessionManager() {
@@ -100,8 +100,8 @@ public class BaseController {
 	protected ActionResult credentialAuthentication(HttpServletRequest req) throws Exception {
 		ResultContent resultContent = null;
 		ActionResult actionResult = null;
-		UserDao userDao = new UserDao(mConnection);
-		RoleDao roleDao = new RoleDao(mConnection);
+		UserModel userModel = new UserModel(mConnection);
+		RoleModel roleModel = new RoleModel(mConnection);
 
 		// Session UserId is null
 		Credentials credentials = mSessionManager.getCredentials(req.getSession());
@@ -113,7 +113,7 @@ public class BaseController {
 		}
 		mSessionUserId = credentials.getUserId();
 		// Session User is not exist in DB
-		mSessionUser = userDao.getUser(mSessionUserId);
+		mSessionUser = userModel.getUser(mSessionUserId);
 		if (mSessionUser == null) {
 			resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 			actionResult = new ActionResult(resultContent);
@@ -121,7 +121,7 @@ public class BaseController {
 			return actionResult;
 		}
 		// Role of session User is not exist in DB
-		mSessionRole = roleDao.getRole(mSessionUser.getRoleId());
+		mSessionRole = roleModel.getRole(mSessionUser.getRoleId());
 		if (mSessionRole == null) {
 			resultContent = new ResultContent(SystemConstants.URL_LOGIN, null);
 			actionResult = new ActionResult(resultContent);

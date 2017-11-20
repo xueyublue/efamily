@@ -26,7 +26,7 @@ public class LoginController extends BaseController {
 	@Method(RequestMethod.POST)
 	public ActionResult post(@Param("userId") String userId, @Param("password") String password) throws Exception {
 		try {
-			String authResult = getUserDao().auth(userId, password);
+			String authResult = getUserModel().auth(userId, password);
 
 			// Authentication is failed
 			if (authResult != null) {
@@ -37,9 +37,9 @@ public class LoginController extends BaseController {
 			}
 
 			// Perform to Authentication is successfully
-			LoginUserEJB user = getUserDao().getUser(userId);
+			LoginUserEJB user = getUserModel().getUser(userId);
 			getSessionManager().setCredentials(getHttpServletRequest().getSession(), new Credentials(user.getUserId(), user.getUserName()));
-			getUserDao().udpateLastLoginDate(userId);
+			getUserModel().udpateLastLoginDate(userId);
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {

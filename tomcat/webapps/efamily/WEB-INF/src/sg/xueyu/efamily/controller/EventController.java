@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.base.SequenceHandler;
 import sg.xueyu.efamily.base.ejb.EventEJB;
-import sg.xueyu.efamily.dao.EventDao;
+import sg.xueyu.efamily.model.EventModel;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
@@ -29,7 +29,7 @@ public class EventController extends BaseController {
 	
 	@Method(RequestMethod.GET)
 	public ActionResult getPage() throws Exception {
-		EventDao eventDao = null;
+		EventModel eventModel = null;
 
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
@@ -37,10 +37,10 @@ public class EventController extends BaseController {
 				return authResult;
 			}
 
-			eventDao = new EventDao(getConnection());
+			eventModel = new EventModel(getConnection());
 
 			// Perform to forward to Event.jsp
-			getHttpServletRequest().setAttribute("events", eventDao.getAllEvents());
+			getHttpServletRequest().setAttribute("events", eventModel.getAllEvents());
 			
 			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_EVENT);
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public class EventController extends BaseController {
 	@Path("/get")
 	@Method(RequestMethod.GET)
 	public ActionResult get(@Param("eventId") String eventId) throws Exception {
-		EventDao eventDao = null;
+		EventModel eventModel = null;
 
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
@@ -64,10 +64,10 @@ public class EventController extends BaseController {
 				return authResult;
 			}
 
-			eventDao = new EventDao(getConnection());
+			eventModel = new EventModel(getConnection());
 
 			// Perform to GET event
-			EventEJB event = eventDao.getEvent(eventId);
+			EventEJB event = eventModel.getEvent(eventId);
 
 			ResultContent resultContent = null;
 			if (SystemConstants.EVENT_ISALLDAY_TRUE.equals(event.getIsAllDay())) {
@@ -90,7 +90,7 @@ public class EventController extends BaseController {
 	@Method(RequestMethod.POST)
 	public ActionResult update(@Param("eventId") String eventId, @Param("title") String title, @Param("location") String location, 
 			@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("isAllDay") String isAllDay, @Param("category") String category) throws Exception {
-		EventDao eventDao = null;
+		EventModel eventModel = null;
 
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
@@ -98,17 +98,17 @@ public class EventController extends BaseController {
 				return authResult;
 			}
 
-			eventDao = new EventDao(getConnection());
+			eventModel = new EventModel(getConnection());
 
 			// Role Id is not exist
-			EventEJB event = eventDao.getEvent(eventId);
+			EventEJB event = eventModel.getEvent(eventId);
 			if (event == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Event is not exist!", ResultType.Ajax);
 			}
 
 			// Perform to UPDATE event
-			eventDao.updateEvent(eventId, title, location, startDate, endDate, isAllDay, category,
+			eventModel.updateEvent(eventId, title, location, startDate, endDate, isAllDay, category,
 					getSessionManager().getCredentials(getHttpServletRequest().getSession()).getUserId());
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
@@ -124,7 +124,7 @@ public class EventController extends BaseController {
 	@Method(RequestMethod.POST)
 	public ActionResult add(@Param("title") String title, @Param("location") String location, @Param("startDate") Date startDate, 
 			@Param("endDate") Date endDate, @Param("isAllDay") String isAllDay, @Param("category") String category) throws Exception {
-		EventDao eventDao = null;
+		EventModel eventModel = null;
 
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
@@ -132,10 +132,10 @@ public class EventController extends BaseController {
 				return authResult;
 			}
 
-			eventDao = new EventDao(getConnection());
+			eventModel = new EventModel(getConnection());
 
 			// Perform to ADD event
-			eventDao.createEvent(SequenceHandler.nextEventId(getConnection()), title, location, startDate, endDate,
+			eventModel.createEvent(SequenceHandler.nextEventId(getConnection()), title, location, startDate, endDate,
 					isAllDay, category, getSessionUserId());
 			
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
@@ -152,7 +152,7 @@ public class EventController extends BaseController {
 	@Path("/delete")
 	@Method(RequestMethod.POST)
 	public ActionResult delete(@Param("eventId") String eventId) throws Exception {
-		EventDao eventDao = null;
+		EventModel eventModel = null;
 
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
@@ -160,10 +160,10 @@ public class EventController extends BaseController {
 				return authResult;
 			}
 
-			eventDao = new EventDao(getConnection());
+			eventModel = new EventModel(getConnection());
 
 			// Event is not exist
-			EventEJB event = eventDao.getEvent(eventId);
+			EventEJB event = eventModel.getEvent(eventId);
 			if (event == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Event is not exist!", ResultType.Ajax);
@@ -176,7 +176,7 @@ public class EventController extends BaseController {
 			}
 
 			// Perform to DELETE user
-			eventDao.deleteEvent(eventId);
+			eventModel.deleteEvent(eventId);
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
