@@ -1,4 +1,4 @@
-package sg.xueyu.zebra.annotation.interf;
+package sg.xueyu.zebra.adapter;
 
 /**
  * This annotation is used to initialize configurations
