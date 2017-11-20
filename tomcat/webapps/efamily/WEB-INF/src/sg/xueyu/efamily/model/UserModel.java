@@ -12,7 +12,7 @@ import sg.xueyu.efamily.base.dbhandler.LoginUser;
 import sg.xueyu.efamily.base.dbhandler.LoginUserAlterKey;
 import sg.xueyu.efamily.base.dbhandler.LoginUserHandler;
 import sg.xueyu.efamily.base.dbhandler.LoginUserSearchKey;
-import sg.xueyu.efamily.base.ejb.LoginUserEJB;
+import sg.xueyu.efamily.model.dto.LoginUserDTO;
 
 public class UserModel {
 
@@ -22,23 +22,23 @@ public class UserModel {
 		this.mConnection = conn;
 	}
 
-	public List<LoginUserEJB> getAllUsers() throws Exception {
+	public List<LoginUserDTO> getAllUsers() throws Exception {
 		LoginUserHandler handler = new LoginUserHandler(mConnection);
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
 
 		searchKey.setUserIdOrder(true);
 		
 		AbstractEntity[] results = handler.query(searchKey);
-		List<LoginUserEJB> actualResults = new ArrayList<>();
+		List<LoginUserDTO> actualResults = new ArrayList<>();
 
 		for (int i = 0; i < results.length; i++) {
-			actualResults.add((LoginUserEJB) HandlerUtil.entity2bean(results[i], LoginUserEJB.class));
+			actualResults.add((LoginUserDTO) HandlerUtil.entity2bean(results[i], LoginUserDTO.class));
 		}
 
 		return actualResults;
 	}
 
-	public LoginUserEJB getUser(String userId) throws Exception {
+	public LoginUserDTO getUser(String userId) throws Exception {
 		LoginUserHandler handler = new LoginUserHandler(mConnection);
 
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
@@ -46,13 +46,13 @@ public class UserModel {
 
 		AbstractEntity[] results = handler.query(searchKey);
 		if (results.length == 1) {
-			return (LoginUserEJB) HandlerUtil.entity2bean(results[0], LoginUserEJB.class);
+			return (LoginUserDTO) HandlerUtil.entity2bean(results[0], LoginUserDTO.class);
 		}
 
 		return null;
 	}
 	
-	public LoginUserEJB[] getUsersByRoleId(String roleId) throws Exception {
+	public LoginUserDTO[] getUsersByRoleId(String roleId) throws Exception {
 		LoginUserHandler handler = new LoginUserHandler(mConnection);
 
 		LoginUserSearchKey searchKey = new LoginUserSearchKey();
@@ -61,9 +61,9 @@ public class UserModel {
 		AbstractEntity[] results = handler.query(searchKey);
 		
 		if (results.length > 0) {
-			LoginUserEJB[] users = new LoginUserEJB[results.length];
+			LoginUserDTO[] users = new LoginUserDTO[results.length];
 			for (int i = 0; i < results.length; i++) {
-				users[i] = (LoginUserEJB) HandlerUtil.entity2bean(results[i], LoginUserEJB.class);
+				users[i] = (LoginUserDTO) HandlerUtil.entity2bean(results[i], LoginUserDTO.class);
 			}
 			
 			return users;

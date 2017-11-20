@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.base.Credentials;
-import sg.xueyu.efamily.base.ejb.LoginUserEJB;
+import sg.xueyu.efamily.model.dto.LoginUserDTO;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
@@ -37,7 +37,7 @@ public class LoginController extends BaseController {
 			}
 
 			// Perform to Authentication is successfully
-			LoginUserEJB user = getUserModel().getUser(userId);
+			LoginUserDTO user = getUserModel().getUser(userId);
 			getSessionManager().setCredentials(getHttpServletRequest().getSession(), new Credentials(user.getUserId(), user.getUserName()));
 			getUserModel().udpateLastLoginDate(userId);
 

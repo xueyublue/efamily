@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.efamily.base.SequenceHandler;
-import sg.xueyu.efamily.base.ejb.EventEJB;
 import sg.xueyu.efamily.model.EventModel;
+import sg.xueyu.efamily.model.dto.EventDTO;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
@@ -67,7 +67,7 @@ public class EventController extends BaseController {
 			eventModel = new EventModel(getConnection());
 
 			// Perform to GET event
-			EventEJB event = eventModel.getEvent(eventId);
+			EventDTO event = eventModel.getEvent(eventId);
 
 			ResultContent resultContent = null;
 			if (SystemConstants.EVENT_ISALLDAY_TRUE.equals(event.getIsAllDay())) {
@@ -101,7 +101,7 @@ public class EventController extends BaseController {
 			eventModel = new EventModel(getConnection());
 
 			// Role Id is not exist
-			EventEJB event = eventModel.getEvent(eventId);
+			EventDTO event = eventModel.getEvent(eventId);
 			if (event == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Event is not exist!", ResultType.Ajax);
@@ -163,7 +163,7 @@ public class EventController extends BaseController {
 			eventModel = new EventModel(getConnection());
 
 			// Event is not exist
-			EventEJB event = eventModel.getEvent(eventId);
+			EventDTO event = eventModel.getEvent(eventId);
 			if (event == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Event is not exist!", ResultType.Ajax);

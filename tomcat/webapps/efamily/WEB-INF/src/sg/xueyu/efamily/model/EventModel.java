@@ -12,7 +12,7 @@ import sg.xueyu.efamily.base.dbhandler.Event;
 import sg.xueyu.efamily.base.dbhandler.EventAlterKey;
 import sg.xueyu.efamily.base.dbhandler.EventHandler;
 import sg.xueyu.efamily.base.dbhandler.EventSearchKey;
-import sg.xueyu.efamily.base.ejb.EventEJB;
+import sg.xueyu.efamily.model.dto.EventDTO;
 
 public class EventModel {
 
@@ -22,23 +22,23 @@ public class EventModel {
 		this.mConnection = conn;
 	}
 
-	public List<EventEJB> getAllEvents() throws Exception {
+	public List<EventDTO> getAllEvents() throws Exception {
 		EventHandler handler = new EventHandler(mConnection);
 		EventSearchKey searchKey = new EventSearchKey();
 
 		searchKey.setStartDateOrder(true);
 
 		AbstractEntity[] results = handler.query(searchKey);
-		List<EventEJB> actualResults = new ArrayList<>();
+		List<EventDTO> actualResults = new ArrayList<>();
 
 		for (int i = 0; i < results.length; i++) {
-			actualResults.add((EventEJB) HandlerUtil.entity2bean(results[i], EventEJB.class));
+			actualResults.add((EventDTO) HandlerUtil.entity2bean(results[i], EventDTO.class));
 		}
 
 		return actualResults;
 	}
 
-	public EventEJB getEvent(String eventId) throws Exception {
+	public EventDTO getEvent(String eventId) throws Exception {
 		EventHandler handler = new EventHandler(mConnection);
 
 		EventSearchKey searchKey = new EventSearchKey();
@@ -46,7 +46,7 @@ public class EventModel {
 
 		AbstractEntity[] results = handler.query(searchKey);
 		if (results.length == 1) {
-			return (EventEJB) HandlerUtil.entity2bean(results[0], EventEJB.class);
+			return (EventDTO) HandlerUtil.entity2bean(results[0], EventDTO.class);
 		}
 
 		return null;

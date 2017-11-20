@@ -1,8 +1,8 @@
-package sg.xueyu.efamily.base.ejb;
+package sg.xueyu.efamily.model.dto;
 
 import java.util.Date;
 
-public class LoginUserEJB {
+public class LoginUserDTO {
 
 	private String userId;
 

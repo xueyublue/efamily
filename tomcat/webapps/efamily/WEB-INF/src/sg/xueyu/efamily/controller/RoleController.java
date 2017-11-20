@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
-import sg.xueyu.efamily.base.ejb.LoginUserEJB;
-import sg.xueyu.efamily.base.ejb.RoleEJB;
+import sg.xueyu.efamily.model.dto.LoginUserDTO;
+import sg.xueyu.efamily.model.dto.RoleDTO;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
@@ -58,7 +58,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Perform to GET user
-			RoleEJB role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(roleId);
 
 			return ActionResultBuilder.buildActionResult(null, role, "yyyy-MM-dd", ResultType.Ajax);
 		} catch (Exception e) {
@@ -81,7 +81,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Role is exist
-			RoleEJB role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(roleId);
 			if (role != null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role is exist!", ResultType.Ajax);
@@ -118,7 +118,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Role Id is not exist
-			RoleEJB role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -153,14 +153,14 @@ public class RoleController extends BaseController {
 			}
 
 			// Role is not exist
-			RoleEJB role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role is not exist!", ResultType.Ajax);
 			}
 
 			// Do not allow to DELETE role if users exists
-			LoginUserEJB[] users = getUserModel().getUsersByRoleId(roleId);
+			LoginUserDTO[] users = getUserModel().getUsersByRoleId(roleId);
 			if (users != null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "There are existing uses!", ResultType.Ajax);

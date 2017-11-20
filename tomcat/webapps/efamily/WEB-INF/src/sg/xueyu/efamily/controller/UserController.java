@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
-import sg.xueyu.efamily.base.ejb.LoginUserEJB;
-import sg.xueyu.efamily.base.ejb.RoleEJB;
+import sg.xueyu.efamily.model.dto.LoginUserDTO;
+import sg.xueyu.efamily.model.dto.RoleDTO;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
@@ -55,7 +55,7 @@ public class UserController extends BaseController {
 			}
 
 			// Perform to GET user
-			LoginUserEJB userEJB = getUserModel().getUser(userId);
+			LoginUserDTO userEJB = getUserModel().getUser(userId);
 
 			return ActionResultBuilder.buildActionResult(null, userEJB, ResultType.Ajax);
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
 			}
 
 			// Role is not exist
-			RoleEJB role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -121,7 +121,7 @@ public class UserController extends BaseController {
 			}
 
 			// Role Id is not exist
-			RoleEJB role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(roleId);
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -164,14 +164,14 @@ public class UserController extends BaseController {
 			}
 
 			// User is not exist
-			LoginUserEJB user = getUserModel().getUser(userId);
+			LoginUserDTO user = getUserModel().getUser(userId);
 			if (user == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "User is not exist!", ResultType.Ajax);
 			}
 
 			// Role Id is not exist
-			RoleEJB role = getRoleModel().getRole(user.getRoleId());
+			RoleDTO role = getRoleModel().getRole(user.getRoleId());
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);

@@ -1,8 +1,8 @@
-package sg.xueyu.efamily.base.ejb;
+package sg.xueyu.efamily.model.dto;
 
 import java.util.Date;
 
-public class EventEJB {
+public class EventDTO {
 
 	private String eventId;
 

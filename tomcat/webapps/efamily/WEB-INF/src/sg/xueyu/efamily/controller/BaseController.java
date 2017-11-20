@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import sg.xueyu.efamily.base.Credentials;
 import sg.xueyu.efamily.base.DataSource;
 import sg.xueyu.efamily.base.SessionManager;
-import sg.xueyu.efamily.base.ejb.LoginUserEJB;
-import sg.xueyu.efamily.base.ejb.RoleEJB;
 import sg.xueyu.efamily.model.RoleModel;
 import sg.xueyu.efamily.model.UserModel;
+import sg.xueyu.efamily.model.dto.LoginUserDTO;
+import sg.xueyu.efamily.model.dto.RoleDTO;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
@@ -32,11 +32,11 @@ public class BaseController {
 
 	private String mSessionUserId = null;
 
-	private LoginUserEJB mSessionUser = null;
+	private LoginUserDTO mSessionUser = null;
 
 	private String mSessionRoleId = null;
 
-	private RoleEJB mSessionRole = null;
+	private RoleDTO mSessionRole = null;
 
 	// Default constructor
 	public BaseController() throws Exception {
@@ -84,7 +84,7 @@ public class BaseController {
 		return mSessionUserId;
 	}
 
-	protected LoginUserEJB getSessionUser() {
+	protected LoginUserDTO getSessionUser() {
 		return mSessionUser;
 	}
 
@@ -92,7 +92,7 @@ public class BaseController {
 		return mSessionRoleId;
 	}
 
-	protected RoleEJB getSessionRole() {
+	protected RoleDTO getSessionRole() {
 		return mSessionRole;
 	}
 

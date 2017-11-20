@@ -12,7 +12,7 @@ import sg.xueyu.efamily.base.dbhandler.Role;
 import sg.xueyu.efamily.base.dbhandler.RoleAlterKey;
 import sg.xueyu.efamily.base.dbhandler.RoleHandler;
 import sg.xueyu.efamily.base.dbhandler.RoleSearchKey;
-import sg.xueyu.efamily.base.ejb.RoleEJB;
+import sg.xueyu.efamily.model.dto.RoleDTO;
 
 public class RoleModel {
 
@@ -22,23 +22,23 @@ public class RoleModel {
 		this.mConnection = conn;
 	}
 
-	public List<RoleEJB> getAllRoles() throws Exception {
+	public List<RoleDTO> getAllRoles() throws Exception {
 		RoleHandler handler = new RoleHandler(mConnection);
 		RoleSearchKey searchKey = new RoleSearchKey();
 
 		searchKey.setRoleIdOrder(true);
 		
 		AbstractEntity[] results = handler.query(searchKey);
-		List<RoleEJB> actualResults = new ArrayList<>();
+		List<RoleDTO> actualResults = new ArrayList<>();
 
 		for (int i = 0; i < results.length; i++) {
-			actualResults.add((RoleEJB) HandlerUtil.entity2bean(results[i], RoleEJB.class));
+			actualResults.add((RoleDTO) HandlerUtil.entity2bean(results[i], RoleDTO.class));
 		}
 
 		return actualResults;
 	}
 
-	public RoleEJB getRole(String roleId) throws Exception {
+	public RoleDTO getRole(String roleId) throws Exception {
 		RoleHandler handler = new RoleHandler(mConnection);
 
 		RoleSearchKey searchKey = new RoleSearchKey();
@@ -46,7 +46,7 @@ public class RoleModel {
 
 		AbstractEntity[] results = handler.query(searchKey);
 		if (results.length == 1) {
-			return (RoleEJB) HandlerUtil.entity2bean(results[0], RoleEJB.class);
+			return (RoleDTO) HandlerUtil.entity2bean(results[0], RoleDTO.class);
 		}
 
 		return null;
