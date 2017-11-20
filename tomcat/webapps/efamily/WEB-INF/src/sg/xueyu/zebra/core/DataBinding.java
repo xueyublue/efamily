@@ -69,8 +69,10 @@ public class DataBinding {
 					paramValue = ZebraUtil.changeStringToObject(paraType, mRequest.getParameter(reqParaName));
 				}
 				
-				// Set value to action instance object
-				ReflectionUtil.setValue(valueInstance, reqParaName.replaceAll("\\[|\\]", ""), paramValue);
+				valueInstance = paramValue;
+				
+//				// Set value to action instance object
+//				ReflectionUtil.setValue(valueInstance, reqParaName.replaceAll("\\[|\\]", ""), paramValue);
 				
 				valueList.add(valueInstance);
 			}
