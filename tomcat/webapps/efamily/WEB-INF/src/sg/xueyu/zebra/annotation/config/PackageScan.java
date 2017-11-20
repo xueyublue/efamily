@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * This annotation is used to set scanning packages
+ * 
  * @Date 	17-NOV-2017
  * @author 	DARREN
  * @version 1.0

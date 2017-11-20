@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 /**
  * This annotation is used to initialize configurations
  * The classes that annotated by this annotation will be initialized when RootController is started
+ * 
  * @Date 	17-NOV-2017
  * @author 	DARREN
  * @version 1.0
