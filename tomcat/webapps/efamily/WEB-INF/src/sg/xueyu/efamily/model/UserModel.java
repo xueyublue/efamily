@@ -8,10 +8,10 @@ import java.util.List;
 import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.dbhandler.util.HandlerUtil;
-import sg.xueyu.efamily.base.dbhandler.LoginUser;
-import sg.xueyu.efamily.base.dbhandler.LoginUserAlterKey;
-import sg.xueyu.efamily.base.dbhandler.LoginUserHandler;
-import sg.xueyu.efamily.base.dbhandler.LoginUserSearchKey;
+import sg.xueyu.efamily.model.dbhandler.LoginUser;
+import sg.xueyu.efamily.model.dbhandler.LoginUserAlterKey;
+import sg.xueyu.efamily.model.dbhandler.LoginUserHandler;
+import sg.xueyu.efamily.model.dbhandler.LoginUserSearchKey;
 import sg.xueyu.efamily.model.dto.LoginUserDTO;
 
 public class UserModel {

@@ -1,15 +1,14 @@
-package sg.xueyu.efamily.base.dbhandler;
+package sg.xueyu.efamily.model.dbhandler;
 
 import java.util.Date;
 
 import sg.xueyu.dbhandler.conf.CompareCode;
-import sg.xueyu.dbhandler.handler.AbstractSearchKey;
+import sg.xueyu.dbhandler.handler.AbstractAlterKey;
+import sg.xueyu.efamily.model.dbhandler.Role;
 
-import sg.xueyu.efamily.base.dbhandler.Role;
+public class RoleAlterKey extends AbstractAlterKey {
 
-public class RoleSearchKey extends AbstractSearchKey {
-
-	public RoleSearchKey() {
+	public RoleAlterKey() {
 		super(Role.STORE_NAME);
 	}
 
@@ -85,41 +84,40 @@ public class RoleSearchKey extends AbstractSearchKey {
 		setStringKeyWithCompCode(Role.LAST_UPDATE_PNAME, compCode, value);
 	}
 
-
-	public void setRoleIdOrder(boolean value) {
-		setOrder(Role.ROLE_ID, value);
+	public void updateRoleId(String value) {
+		setStringUpdateKey(Role.ROLE_ID, value);
 	}
 
-	public void setRoleNameOrder(boolean value) {
-		setOrder(Role.ROLE_NAME, value);
+	public void updateRoleName(String value) {
+		setStringUpdateKey(Role.ROLE_NAME, value);
 	}
 
-	public void setAdminFlagOrder(boolean value) {
-		setOrder(Role.ADMIN_FLAG, value);
+	public void updateAdminFlag(String value) {
+		setStringUpdateKey(Role.ADMIN_FLAG, value);
 	}
 
-	public void setGuestFlagOrder(boolean value) {
-		setOrder(Role.GUEST_FLAG, value);
+	public void updateGuestFlag(String value) {
+		setStringUpdateKey(Role.GUEST_FLAG, value);
 	}
 
-	public void setExpiryDateOrder(boolean value) {
-		setOrder(Role.EXPIRY_DATE, value);
+	public void updateExpiryDate(Date value) {
+		setDateUpdateKey(Role.EXPIRY_DATE, value);
 	}
 
-	public void setRegistDateOrder(boolean value) {
-		setOrder(Role.REGIST_DATE, value);
+	public void updateRegistDate(Date value) {
+		setDateUpdateKey(Role.REGIST_DATE, value);
 	}
 
-	public void setRegistPnameOrder(boolean value) {
-		setOrder(Role.REGIST_PNAME, value);
+	public void updateRegistPname(String value) {
+		setStringUpdateKey(Role.REGIST_PNAME, value);
 	}
 
-	public void setLastUpdateDateOrder(boolean value) {
-		setOrder(Role.LAST_UPDATE_DATE, value);
+	public void updateLastUpdateDate(Date value) {
+		setDateUpdateKey(Role.LAST_UPDATE_DATE, value);
 	}
 
-	public void setLastUpdatePnameOrder(boolean value) {
-		setOrder(Role.LAST_UPDATE_PNAME, value);
+	public void updateLastUpdatePname(String value) {
+		setStringUpdateKey(Role.LAST_UPDATE_PNAME, value);
 	}
 
 }

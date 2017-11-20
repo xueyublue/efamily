@@ -5,9 +5,9 @@ import java.text.ParseException;
 
 import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.efamily.base.NoPoolConnection;
-import sg.xueyu.efamily.base.dbhandler.LoginUser;
-import sg.xueyu.efamily.base.dbhandler.LoginUserHandler;
-import sg.xueyu.efamily.base.dbhandler.LoginUserSearchKey;
+import sg.xueyu.efamily.model.dbhandler.LoginUser;
+import sg.xueyu.efamily.model.dbhandler.LoginUserHandler;
+import sg.xueyu.efamily.model.dbhandler.LoginUserSearchKey;
 
 public class JavaTest {
 

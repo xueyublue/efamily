@@ -8,10 +8,10 @@ import java.util.List;
 import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.dbhandler.util.HandlerUtil;
-import sg.xueyu.efamily.base.dbhandler.Role;
-import sg.xueyu.efamily.base.dbhandler.RoleAlterKey;
-import sg.xueyu.efamily.base.dbhandler.RoleHandler;
-import sg.xueyu.efamily.base.dbhandler.RoleSearchKey;
+import sg.xueyu.efamily.model.dbhandler.Role;
+import sg.xueyu.efamily.model.dbhandler.RoleAlterKey;
+import sg.xueyu.efamily.model.dbhandler.RoleHandler;
+import sg.xueyu.efamily.model.dbhandler.RoleSearchKey;
 import sg.xueyu.efamily.model.dto.RoleDTO;
 
 public class RoleModel {

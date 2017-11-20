@@ -8,10 +8,10 @@ import java.util.List;
 import sg.xueyu.dbhandler.handler.AbstractEntity;
 import sg.xueyu.dbhandler.util.DBUtils;
 import sg.xueyu.dbhandler.util.HandlerUtil;
-import sg.xueyu.efamily.base.dbhandler.Event;
-import sg.xueyu.efamily.base.dbhandler.EventAlterKey;
-import sg.xueyu.efamily.base.dbhandler.EventHandler;
-import sg.xueyu.efamily.base.dbhandler.EventSearchKey;
+import sg.xueyu.efamily.model.dbhandler.Event;
+import sg.xueyu.efamily.model.dbhandler.EventAlterKey;
+import sg.xueyu.efamily.model.dbhandler.EventHandler;
+import sg.xueyu.efamily.model.dbhandler.EventSearchKey;
 import sg.xueyu.efamily.model.dto.EventDTO;
 
 public class EventModel {

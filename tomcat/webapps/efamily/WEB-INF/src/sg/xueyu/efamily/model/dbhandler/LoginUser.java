@@ -1,4 +1,4 @@
-package sg.xueyu.efamily.base.dbhandler;
+package sg.xueyu.efamily.model.dbhandler;
 
 import java.util.Date;
 
