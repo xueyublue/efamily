@@ -137,12 +137,7 @@ public class RootController extends HttpServlet {
 		
 		// Get request path
 		// Remove suffix of request URL
-		String requestPath = "";
-		if (servletPath.endsWith(".do")) {
-			requestPath = servletPath.substring(0, servletPath.indexOf(".do"));
-		} else {
-			requestPath = servletPath;
-		}
+		String requestPath = getRequestPath(servletPath);
 		
 		// Get request method from HTTP request
 		// Only support 2 kinds of HTTP method GET/POST
@@ -150,22 +145,6 @@ public class RootController extends HttpServlet {
 					
 		try {
 			ActionResult actionResult = actionExecutor.execute(requestPath, requestMethod);
-			
-//			// Handle file upload Action
-//			// TODO: Implement file upload action
-//			if (action instanceof Uploadable) {
-//				List<Part> fileparts = new ArrayList<>();
-//				List<String> filenames = new ArrayList<>();
-//				for (Part part : req.getParts()) {
-//					String cd = part.getHeader("Content-Disposition");
-//					if (cd.indexOf("filename") >= 0) {
-//						fileparts.add(part);
-//						filenames.add(cd.substring(cd.lastIndexOf("=") + 1).replaceAll("\\\"", ""));
-//					}
-//				}
-//				((Uploadable) action).setParts(fileparts.toArray(new Part[fileparts.size()]));
-//				((Uploadable) action).setFilenames(filenames.toArray(new String[filenames.size()]));
-//			}
 
 			// Handle action result
 			if (actionResult != null) {
@@ -219,6 +198,20 @@ public class RootController extends HttpServlet {
 			return null;
 		}
 	}
+	
+	// Get request path
+	private String getRequestPath(String servletPath) {
+		String requestPath = "";
+		
+		if (servletPath.endsWith(".do")) {
+			requestPath = servletPath.substring(0, servletPath.indexOf(".do"));
+		} else {
+			requestPath = servletPath;
+		}
+		
+		return requestPath;
+	}
+	
 	// Get JSP file path
 	private String getFullViewPath(String servletPath) {
 
