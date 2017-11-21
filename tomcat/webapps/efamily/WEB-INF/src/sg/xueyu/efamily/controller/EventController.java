@@ -97,7 +97,7 @@ public class EventController extends BaseController {
 
 			eventModel = new EventModel(getConnection());
 
-			// Role Id is not exist
+			// Event is no longer exist
 			EventDTO event = eventModel.getEvent(eventDTO.getEventId());
 			if (event == null) {
 				getHttpServletResponse().setStatus(500);
@@ -108,6 +108,7 @@ public class EventController extends BaseController {
 			eventModel.updateEvent(eventDTO.getEventId(), eventDTO.getTitle(), eventDTO.getLocation(), 
 					eventDTO.getStartDate(), eventDTO.getEndDate(), eventDTO.getIsAllDay(), eventDTO.getCategory(),
 					getSessionManager().getCredentials(getHttpServletRequest().getSession()).getUserId());
+			
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
@@ -175,6 +176,7 @@ public class EventController extends BaseController {
 
 			// Perform to DELETE user
 			eventModel.deleteEvent(eventId);
+			
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
