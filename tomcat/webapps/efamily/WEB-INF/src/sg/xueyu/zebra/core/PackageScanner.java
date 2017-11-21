@@ -58,15 +58,20 @@ public class PackageScanner {
 		}
 		String filePath = StringUtils.getRootPath(url);
 
-		List<String> names = null;
-
+		List<String> names = new ArrayList<>();
+		names.clear();
+		
 		// Read classes from JAR file
 		if (isJarFile(filePath)) {
 			names = readFromJar(filePath, slashPath);
 		}
 		// Read classes from directory
-		else {
+		else if (new File(filePath).isDirectory()){
 			names = readFromDirectory(filePath);
+		} 
+		// Do nothing when file path is not a JAR and directory
+		else {
+			// DO NOTHING
 		}
 
 		// Add names to name list

@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import sg.xueyu.zebra.annotation.Path;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
+import sg.xueyu.zebra.annotation.Path;
 
 public class ActionScanner {
 
@@ -50,11 +50,12 @@ public class ActionScanner {
 /** Private Methods **/
 	// Scan action class names
 	private List<String> scanActionClassName() throws ClassNotFoundException {
-		if (mClassNameList == null || mClassNameList.isEmpty()) {
-			return null;
-		}
-
 		List<String> actionClassNameList = new ArrayList<>();
+
+		if (mClassNameList == null || mClassNameList.isEmpty()) {
+			actionClassNameList.clear();
+			return actionClassNameList;
+		}
 
 		for (String name : mClassNameList) {
 			Class<?> cla = Class.forName(name);
@@ -77,11 +78,12 @@ public class ActionScanner {
 
 	// Scan action classes
 	private List<Class<?>> scanActionClass() throws ClassNotFoundException {
-		if (mClassNameList == null || mClassNameList.isEmpty()) {
-			return null;
-		}
-
 		List<Class<?>> actionClassList = new ArrayList<>();
+
+		if (mClassNameList == null || mClassNameList.isEmpty()) {
+			actionClassList.clear();
+			return actionClassList;
+		}
 
 		for (String name : mClassNameList) {
 			Class<?> cla = Class.forName(name);
