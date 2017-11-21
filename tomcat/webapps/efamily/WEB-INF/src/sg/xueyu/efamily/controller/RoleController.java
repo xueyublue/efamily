@@ -1,7 +1,5 @@
 package sg.xueyu.efamily.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,10 +11,10 @@ import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
-import sg.xueyu.zebra.annotation.Param;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
-import sg.xueyu.zebra.core.ActionResultBuilder;
+import sg.xueyu.zebra.annotation.Param;
 import sg.xueyu.zebra.annotation.Path;
+import sg.xueyu.zebra.core.ActionResultBuilder;
 
 @Path("/role")
 public class RoleController extends BaseController {
@@ -72,8 +70,7 @@ public class RoleController extends BaseController {
 	
 	@Path("/add")
 	@Method(RequestMethod.POST)
-	public ActionResult add(@Param("roleId") String roleId, @Param("roleName") String roleName, @Param("adminFlag") String adminFlag, 
-			@Param("guestFlag") String guestFlag, @Param("expiryDate") Date expiryDate) throws Exception {
+	public ActionResult add(RoleDTO roleDTO) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -81,7 +78,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Role is exist
-			RoleDTO role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(roleDTO.getRoleId());
 			if (role != null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role is exist!", ResultType.Ajax);
@@ -94,7 +91,8 @@ public class RoleController extends BaseController {
 			}
 
 			// Perform to ADD user
-			getRoleModel().createRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
+			getRoleModel().createRole(roleDTO.getRoleId(), roleDTO.getRoleName(), roleDTO.getAdminFlag(), 
+					roleDTO.getGuestFlag(), roleDTO.getExpiryDate());
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
@@ -109,8 +107,7 @@ public class RoleController extends BaseController {
 	
 	@Path("/update")
 	@Method(RequestMethod.POST)
-	public ActionResult update(@Param("roleId") String roleId, @Param("roleName") String roleName, @Param("adminFlag") String adminFlag, 
-			@Param("guestFlag") String guestFlag, @Param("expiryDate") Date expiryDate) throws Exception {
+	public ActionResult update(RoleDTO roleDTO) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -118,7 +115,7 @@ public class RoleController extends BaseController {
 			}
 
 			// Role Id is not exist
-			RoleDTO role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(roleDTO.getRoleId());
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -131,7 +128,8 @@ public class RoleController extends BaseController {
 			}
 
 			// Perform to UPDATE role
-			getRoleModel().updateRole(roleId, roleName, adminFlag, guestFlag, expiryDate);
+			getRoleModel().updateRole(roleDTO.getRoleId(), roleDTO.getRoleName(), roleDTO.getAdminFlag(), 
+					roleDTO.getGuestFlag(), roleDTO.getExpiryDate());
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {

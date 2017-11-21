@@ -69,8 +69,7 @@ public class UserController extends BaseController {
 	
 	@Path("/add")
 	@Method(RequestMethod.POST)
-	public ActionResult add(@Param("userId") String userId, @Param("userName") String userName, @Param("password") String password,
-			@Param("roleId") String roleId) throws Exception {
+	public ActionResult add(LoginUserDTO loginUserDTO) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -78,7 +77,7 @@ public class UserController extends BaseController {
 			}
 
 			// Role is not exist
-			RoleDTO role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(loginUserDTO.getRoleId());
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
@@ -92,13 +91,14 @@ public class UserController extends BaseController {
 			}
 
 			// User is exist
-			if (getUserModel().getUser(userId) != null) {
+			if (getUserModel().getUser(loginUserDTO.getUserId()) != null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "User is exist!", ResultType.Ajax);
 			}
 
 			// Perform to DELETE user
-			getUserModel().createUser(userId, userName, password, roleId);
+			getUserModel().createUser(loginUserDTO.getUserId(), loginUserDTO.getUserName(), 
+					loginUserDTO.getPassword(), loginUserDTO.getRoleId());
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
@@ -112,8 +112,7 @@ public class UserController extends BaseController {
 	
 	@Path("/update")
 	@Method(RequestMethod.POST)
-	public ActionResult update(@Param("userId") String userId, @Param("userName") String userName, @Param("password") String password,
-			@Param("roleId") String roleId) throws Exception {
+	public ActionResult update(LoginUserDTO loginUserDTO) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
@@ -121,14 +120,13 @@ public class UserController extends BaseController {
 			}
 
 			// Role Id is not exist
-			RoleDTO role = getRoleModel().getRole(roleId);
+			RoleDTO role = getRoleModel().getRole(loginUserDTO.getRoleId());
 			if (role == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Role Id is not exist!", ResultType.Ajax);
 			}
 
-			// Do not allow to Update Administrator if administrator flag is
-			// false
+			// Do not allow to Update Administrator if administrator flag is false
 			if (SystemConstants.ROLE_ADMIN_FLAG_FALSE.equals(getSessionRole().getAdminFlag())
 					&& SystemConstants.ROLE_ADMIN_FLAG_TRUE.equals(role.getAdminFlag())) {
 				getHttpServletResponse().setStatus(500);
@@ -136,13 +134,14 @@ public class UserController extends BaseController {
 			}
 
 			// User is not exist
-			if (getUserModel().getUser(userId) == null) {
+			if (getUserModel().getUser(loginUserDTO.getUserId()) == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "User is not exist!", ResultType.Ajax);
 			}
 
 			// Perform to UPDATE user
-			getUserModel().updateUser(userId, userName, password, roleId);
+			getUserModel().updateUser(loginUserDTO.getUserId(), loginUserDTO.getUserName(), 
+					loginUserDTO.getPassword(), loginUserDTO.getRoleId());
 
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
