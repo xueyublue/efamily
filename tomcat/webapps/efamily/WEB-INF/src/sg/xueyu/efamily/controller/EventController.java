@@ -1,7 +1,5 @@
 package sg.xueyu.efamily.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,8 +15,8 @@ import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.annotation.Param;
-import sg.xueyu.zebra.core.ActionResultBuilder;
 import sg.xueyu.zebra.annotation.Path;
+import sg.xueyu.zebra.core.ActionResultBuilder;
 
 @Path("/event")
 public class EventController extends BaseController {
@@ -88,8 +86,7 @@ public class EventController extends BaseController {
 	
 	@Path("/update")
 	@Method(RequestMethod.POST)
-	public ActionResult update(@Param("eventId") String eventId, @Param("title") String title, @Param("location") String location, 
-			@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("isAllDay") String isAllDay, @Param("category") String category) throws Exception {
+	public ActionResult update(EventDTO eventDTO) throws Exception {
 		EventModel eventModel = null;
 
 		try {
@@ -101,14 +98,15 @@ public class EventController extends BaseController {
 			eventModel = new EventModel(getConnection());
 
 			// Role Id is not exist
-			EventDTO event = eventModel.getEvent(eventId);
+			EventDTO event = eventModel.getEvent(eventDTO.getEventId());
 			if (event == null) {
 				getHttpServletResponse().setStatus(500);
 				return ActionResultBuilder.buildActionResult(null, "Event is not exist!", ResultType.Ajax);
 			}
 
 			// Perform to UPDATE event
-			eventModel.updateEvent(eventId, title, location, startDate, endDate, isAllDay, category,
+			eventModel.updateEvent(eventDTO.getEventId(), eventDTO.getTitle(), eventDTO.getLocation(), 
+					eventDTO.getStartDate(), eventDTO.getEndDate(), eventDTO.getIsAllDay(), eventDTO.getCategory(),
 					getSessionManager().getCredentials(getHttpServletRequest().getSession()).getUserId());
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
@@ -122,8 +120,7 @@ public class EventController extends BaseController {
 	
 	@Path("/add")
 	@Method(RequestMethod.POST)
-	public ActionResult add(@Param("title") String title, @Param("location") String location, @Param("startDate") Date startDate, 
-			@Param("endDate") Date endDate, @Param("isAllDay") String isAllDay, @Param("category") String category) throws Exception {
+	public ActionResult add(EventDTO eventDTO) throws Exception {
 		EventModel eventModel = null;
 
 		try {
@@ -135,8 +132,9 @@ public class EventController extends BaseController {
 			eventModel = new EventModel(getConnection());
 
 			// Perform to ADD event
-			eventModel.createEvent(SequenceHandler.nextEventId(getConnection()), title, location, startDate, endDate,
-					isAllDay, category, getSessionUserId());
+			eventModel.createEvent(SequenceHandler.nextEventId(getConnection()), eventDTO.getTitle(), eventDTO.getLocation(), 
+					eventDTO.getStartDate(), eventDTO.getEndDate(), eventDTO.getIsAllDay(), 
+					eventDTO.getCategory(), getSessionUserId());
 			
 			return ActionResultBuilder.buildActionResult(null, null, ResultType.Ajax);
 		} catch (Exception e) {
