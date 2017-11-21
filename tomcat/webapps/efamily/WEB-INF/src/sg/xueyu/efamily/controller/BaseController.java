@@ -41,8 +41,10 @@ public class BaseController {
 	// Default constructor
 	public BaseController() throws Exception {
 		this.mConnection = new DataSource().getConnection();
+		
 		this.mUserModel = new UserModel(mConnection);
 		this.mRoleModel = new RoleModel(mConnection);
+		
 		this.mSessionManager = SessionManager.getInstance();
 	}
 	
@@ -51,8 +53,10 @@ public class BaseController {
 		this.mHttpServletResponse = response;
 		
 		this.mConnection = new DataSource().getConnection();
+		
 		this.mUserModel = new UserModel(mConnection);
 		this.mRoleModel = new RoleModel(mConnection);
+		
 		this.mSessionManager = SessionManager.getInstance();
 	}
 
