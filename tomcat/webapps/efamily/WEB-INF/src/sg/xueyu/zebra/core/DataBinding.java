@@ -38,7 +38,7 @@ public class DataBinding {
 		// it is not annotated by annotation and
 		// it is not primitive types
 		if (valueArray.length == 1
-				&& method.getParameterAnnotations().length == 0
+ 				&& method.getParameterAnnotations()[0].length == 0
 				&& !method.getParameterTypes()[0].isPrimitive()) {
 			Object object = method.getParameterTypes()[0].newInstance();
 	
