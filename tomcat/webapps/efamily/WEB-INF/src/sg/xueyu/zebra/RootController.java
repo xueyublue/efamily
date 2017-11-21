@@ -137,18 +137,23 @@ public class RootController extends HttpServlet {
 		String contextPath = req.getContextPath() + "/";
 		String servletPath = req.getServletPath();
 		
+		// Get request path
 		// Remove suffix of request URL
+		String requestPath = "";
 		if (servletPath.endsWith(".do")) {
-			servletPath = servletPath.substring(0, servletPath.indexOf(".do"));
+			requestPath = servletPath.substring(0, servletPath.indexOf(".do"));
+		} else {
+			requestPath = servletPath;
 		}
 		
+		// Get request method from HTTP request
+		// Only support 2 kinds of HTTP method GET/POST
+		RequestMethod requestMethod = getRequestMethod(req);
+					
 		try {
-			// Get request method from HTTP request
-			// Only support 2 kinds of HTTP method GET/POST
-			RequestMethod requestMethod = getRequestMethod(req);
 			
 			// Find action that matched request URL and HTTP request method
-			Action action = mActionContainer.find(servletPath, requestMethod);
+			Action action = mActionContainer.find(requestPath, requestMethod);
 			if (action == null) {
 				throw new Exception("No matched action class found under package: " + mPackageScanList);
 			}
@@ -216,7 +221,7 @@ public class RootController extends HttpServlet {
 					break;
 
 				case Forward:
-					req.getRequestDispatcher(getFullViewPath(servletPath) + resultContent.getUrl()).forward(req, resp);
+					req.getRequestDispatcher(getFullViewPath(requestPath) + resultContent.getUrl()).forward(req, resp);
 					break;
 
 				case Ajax:
