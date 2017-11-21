@@ -34,6 +34,19 @@ public class DataBinding {
 	public Object[] bindToMethod(Method method) throws Exception {
 		Object[] valueArray = new Object[method.getParameters().length];
 		
+		// When method have only 1 parameter and 
+		// it is not annotated by annotation and
+		// it is not primitive types
+		if (valueArray.length == 1
+				&& method.getParameterAnnotations().length == 0
+				&& !method.getParameterTypes()[0].isPrimitive()) {
+			Object object = method.getParameterTypes()[0].newInstance();
+	
+			valueArray[0] = bindToObject(object);
+			
+			return valueArray;
+		}
+		
 		// LOOP request parameter names
 		while (mRequestParaNames.hasMoreElements()) {
 			Object valueInstance = new Object();
@@ -89,7 +102,7 @@ public class DataBinding {
 	}
 
 	// Bind data to a object
-	public boolean bindToObject(Object object) {
+	public Object bindToObject(Object object) {
 		// LOOP parameter names
 		while (mRequestParaNames.hasMoreElements()) {
 			// Get next parameter name
@@ -117,7 +130,7 @@ public class DataBinding {
 			}
 		}
 
-		return true;
+		return object;
 	}
 
 	/** Private Methods **/
