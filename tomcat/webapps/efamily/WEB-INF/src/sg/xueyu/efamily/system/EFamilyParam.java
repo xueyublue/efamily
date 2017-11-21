@@ -26,6 +26,10 @@ public final class EFamilyParam {
 	public static final boolean ENABLE_LOGGING = getBoolParam("ENABLE_LOGGING");
 	
 	public static final int SESSION_TIME_OUT = getIntParam("SESSION_TIME_OUT");
+	
+	public static final String URL_PATTERN = getParam("URL_PATTERN");
+
+	public static final String URL_PATTERN_SUFFIX = getParam("URL_PATTERN_SUFFIX");
 
 /** Class **/
 	private EFamilyParam() {

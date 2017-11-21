@@ -8,6 +8,7 @@ import java.util.List;
 
 import sg.xueyu.zebra.annotation.Configuration;
 import sg.xueyu.zebra.annotation.config.PackageScan;
+import sg.xueyu.zebra.annotation.config.URLPatternSuffix;
 import sg.xueyu.zebra.annotation.config.ViewPrefix;
 import sg.xueyu.zebra.annotation.config.ViewSuffix;
 
@@ -36,6 +37,10 @@ public class ConfigurationScanner {
 			// Class is annotated by ViewSuffix.class
 			if (configClass.isAnnotationPresent(ViewSuffix.class)) {
 				container.setViewSuffix(configClass.getAnnotation(ViewSuffix.class).value());
+			}
+			// Class is annotated by URLPatternSuffix.class
+			if (configClass.isAnnotationPresent(URLPatternSuffix.class)) {
+				container.setURLPatternSuffix(configClass.getAnnotation(URLPatternSuffix.class).value());
 			}
 		}
 

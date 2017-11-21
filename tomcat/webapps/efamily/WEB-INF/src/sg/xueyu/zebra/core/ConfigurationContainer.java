@@ -11,6 +11,8 @@ public class ConfigurationContainer {
 
 	private String mViewSuffix = null;
 
+	private String mURLPatternSuffix = null;
+
 	public ConfigurationContainer() {
 		mPackageScanList = new ArrayList<String>();
 	}
@@ -37,6 +39,14 @@ public class ConfigurationContainer {
 
 	public void setViewSuffix(String viewSuffix) {
 		this.mViewSuffix = viewSuffix;
+	}
+
+	public String getURLPatternSuffix() {
+		return mURLPatternSuffix;
+	}
+
+	public void setURLPatternSuffix(String URLPatternSuffix) {
+		mURLPatternSuffix = URLPatternSuffix;
 	}
 
 }

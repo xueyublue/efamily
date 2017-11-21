@@ -15,18 +15,28 @@ public class ActionExecutor {
 	private HttpServletResponse mServletResponse = null;
 
 	private ActionContainer mActionContainer = null;
+	
+	private String mURLPatternSuffix = null;
 
 	/** Default Constructor **/
-	public ActionExecutor(HttpServletRequest request, HttpServletResponse response, ActionContainer actionContainer) {
+	public ActionExecutor(HttpServletRequest request, HttpServletResponse response, 
+			ActionContainer actionContainer, String URLPatternSuffix) {
 		this.mServletRequest = request;
 		this.mServletResponse = response;
 		this.mActionContainer = actionContainer;
+		this.mURLPatternSuffix = URLPatternSuffix;
 	}
 
 	/** Protected Methods **/
 
 	/** Public Methods **/
-	public ActionResult execute(String requestPath, RequestMethod requestMethod) throws Exception {
+	public ActionResult execute() throws Exception {
+		// Get request path
+		String requestPath = getRequestPath(mServletRequest.getServletPath(), mURLPatternSuffix);
+		
+		// Get request method
+		RequestMethod requestMethod = getRequestMethod(mServletRequest);
+		
 		// Find action that matched request URL and HTTP request method
 		Action action = mActionContainer.find(requestPath, requestMethod);
 		if (action == null) {
@@ -75,4 +85,31 @@ public class ActionExecutor {
 	}
 
 	/** Private Methods **/
+	// Get request path
+	// Remove suffix of request URL
+	private RequestMethod getRequestMethod(HttpServletRequest request) {
+		String method = request.getMethod();
+
+		if (RequestMethod.GET.name().equalsIgnoreCase(method)) {
+			return RequestMethod.GET;
+		} else if (RequestMethod.POST.name().equalsIgnoreCase(method)) {
+			return RequestMethod.POST;
+		}
+		
+		return null;
+	}
+
+	// Get request method from HTTP request
+	// Only support 2 kinds of HTTP method GET/POST
+	public String getRequestPath(String servletPath, String URLPatternSuffix) {
+		String requestPath = "";
+
+		if (servletPath.endsWith(URLPatternSuffix)) {
+			requestPath = servletPath.substring(0, servletPath.indexOf(URLPatternSuffix));
+		} else {
+			requestPath = servletPath;
+		}
+
+		return requestPath;
+	}
 }

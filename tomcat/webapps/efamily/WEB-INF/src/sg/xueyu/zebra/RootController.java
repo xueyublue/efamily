@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultContent;
 import sg.xueyu.zebra.action.ResultType;
-import sg.xueyu.zebra.annotation.Method.RequestMethod;
 import sg.xueyu.zebra.core.ActionContainer;
 import sg.xueyu.zebra.core.ActionExecutor;
 import sg.xueyu.zebra.core.ActionScanner;
@@ -35,11 +34,13 @@ public class RootController extends HttpServlet {
 	private static final String DEFAULT_PACKAGE_SCAN = "/";
 	private static final String DEFAULT_VIEW_PREFIX = "/WEB-INF/view/";
 	private static final String DEFAULT_VIEW_SUFFIX = ".jsp";
+	private static final String DEFAULT_URL_PATTERN_SUFFIX = ".do";
 
 /** Variables **/
 	private List<String> mPackageScanList = new ArrayList<>();
 	private String mViewPrefix = null;
 	private String mViewSuffix = null;
+	private String mURLPatternSuffix = null;
 	
 	private ActionContainer mActionContainer = null;
 
@@ -85,7 +86,7 @@ public class RootController extends HttpServlet {
 		}
 		LOGGER.info("View prefix: " + mViewPrefix);
 		
-		// Decide view prefix
+		// Decide view suffix
 		String viewSuffix = config.getInitParameter("viewSuffix");
 		if (viewSuffix != null) {
 			mViewSuffix = viewSuffix;
@@ -98,6 +99,16 @@ public class RootController extends HttpServlet {
 			mViewSuffix = DEFAULT_VIEW_SUFFIX;
 		}
 		LOGGER.info("View suffix: " + mViewSuffix);
+		
+		// Decide URL pattern suffix
+		if (configContainer != null
+				&& configContainer.getViewSuffix() != null) {
+			mURLPatternSuffix = configContainer.getURLPatternSuffix();
+		}
+		else {
+			mURLPatternSuffix = DEFAULT_URL_PATTERN_SUFFIX;
+		}
+		LOGGER.info("URL pattern suffix: " + mURLPatternSuffix);
 		
 		// Scan Package
 		List<String> nameList = new ArrayList<>();
@@ -133,18 +144,15 @@ public class RootController extends HttpServlet {
 		String servletPath = req.getServletPath();
 
 		// Create action executor
-		ActionExecutor actionExecutor = new ActionExecutor(req, resp, mActionContainer);
+		ActionExecutor actionExecutor = new ActionExecutor(req, resp, mActionContainer, mURLPatternSuffix);
 		
 		// Get request path
 		// Remove suffix of request URL
-		String requestPath = getRequestPath(servletPath);
+		String requestPath = actionExecutor.getRequestPath(servletPath, mURLPatternSuffix);
 		
-		// Get request method from HTTP request
-		// Only support 2 kinds of HTTP method GET/POST
-		RequestMethod requestMethod = getRequestMethod(req);
-					
 		try {
-			ActionResult actionResult = actionExecutor.execute(requestPath, requestMethod);
+			// Execute action
+			ActionResult actionResult = actionExecutor.execute();
 
 			// Handle action result
 			if (actionResult != null) {
@@ -183,35 +191,7 @@ public class RootController extends HttpServlet {
 		}
 	}
 	
-/** Private Methods **/
-	// Get request method
-	private RequestMethod getRequestMethod(HttpServletRequest request) {
-		String method = request.getMethod();
-		
-		if (RequestMethod.GET.name().equalsIgnoreCase(method)) {
-			return RequestMethod.GET;
-		}
-		else if (RequestMethod.POST.name().equalsIgnoreCase(method)) {
-			return RequestMethod.POST;
-		} 
-		else {
-			return null;
-		}
-	}
-	
-	// Get request path
-	private String getRequestPath(String servletPath) {
-		String requestPath = "";
-		
-		if (servletPath.endsWith(".do")) {
-			requestPath = servletPath.substring(0, servletPath.indexOf(".do"));
-		} else {
-			requestPath = servletPath;
-		}
-		
-		return requestPath;
-	}
-	
+/** Private Methods **/	
 	// Get JSP file path
 	private String getFullViewPath(String servletPath) {
 
