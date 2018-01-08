@@ -31,12 +31,11 @@ public class CloudController extends BaseController {
 				return authResult;
 			}
 
+			// Check cloud root path
 			String cloudRootPath = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_ROOT_PATH);
-			
-			File file = new File(cloudRootPath);
-			
-			if (!file.exists() && !file.isDirectory()) {
-				file.mkdir();
+			File rootDir = new File(cloudRootPath);
+			if (!rootDir.exists()) {
+				rootDir.mkdir();
 			}
 			
 			// Perform to forward to Cloud.jsp
