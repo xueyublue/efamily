@@ -13,8 +13,8 @@ import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
-import sg.xueyu.zebra.core.ActionResultBuilder;
 import sg.xueyu.zebra.annotation.Path;
+import sg.xueyu.zebra.core.ActionResultBuilder;
 
 @Path("/cloud")
 public class CloudController extends BaseController {
@@ -31,11 +31,31 @@ public class CloudController extends BaseController {
 				return authResult;
 			}
 
-			// Check cloud root path
+			// Check cloud path
 			String cloudRootPath = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_ROOT_PATH);
 			File rootDir = new File(cloudRootPath);
 			if (!rootDir.exists()) {
 				rootDir.mkdir();
+			}
+			String path = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_DOCUMENT_PATH);
+			File dir = new File(path);
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			path = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_MUSIC_PATH);
+			dir = new File(path);
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			path = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_PICTURE_PATH);
+			dir = new File(path);
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			path = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_VIDEO_PATH);
+			dir = new File(path);
+			if (!dir.exists()) {
+				dir.mkdir();
 			}
 			
 			// Perform to forward to Cloud.jsp

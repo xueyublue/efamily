@@ -32,7 +32,11 @@ public final class EFamilyParam {
 	public static final String URL_PATTERN_SUFFIX = getParam("URL_PATTERN_SUFFIX");
 
 	public static final String CLOUD_ROOT_PATH = getParam("CLOUD_ROOT_PATH");
-
+	public static final String CLOUD_DOCUMENT_PATH = getParam("CLOUD_DOCUMENT_PATH");
+	public static final String CLOUD_MUSIC_PATH = getParam("CLOUD_MUSIC_PATH");
+	public static final String CLOUD_PICTURE_PATH = getParam("CLOUD_PICTURE_PATH");
+	public static final String CLOUD_VIDEO_PATH = getParam("CLOUD_VIDEO_PATH");
+	
 /** Class **/
 	private EFamilyParam() {
 	}
