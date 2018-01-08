@@ -43,7 +43,24 @@ public class CloudController extends BaseController {
 	@Path("/get")
 	@Method(RequestMethod.GET)
 	public ActionResult get() throws Exception {
-		return null;
+		try {
+			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
+			if (authResult != null) {
+				return authResult;
+			}
+			
+			
+			
+			// Perform to forward to Cloud.jsp
+			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_CLOUD);
+		} catch (Exception e) {
+			SystemLogger.error(e);
+			getHttpServletResponse().setStatus(500);
+
+			return ActionResultBuilder.buildActionResult(null, SystemConstants.ERROR_MSG_UNHANDLED_EXCEPTION, ResultType.Ajax);
+		} finally {
+			DBUtils.closeConnection(getConnection());
+		}
 	}
 	
 	@Path("/add")

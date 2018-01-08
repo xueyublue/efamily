@@ -35,14 +35,16 @@
 		</div>
 	</div>
 
-	<!-- Status -->
+	<!-- Dashboard -->
 	<div class="row">
 		<div class="col-xs-12">
 			<ol class="breadcrumb" style="margin-top: 0px;">
-				<li><strong>Status</strong></li>
-				<li>90% Used, 10,100 files found.</li>
+				<li><strong>Dashboard</strong></li>
 			</ol>
 		</div>
+	</div>
+	<div style="margin-bottom: 10px;">
+		10,123 files found, 67% storage used.
 	</div>
 
 	<!-- Cloud -->
@@ -81,7 +83,25 @@
 					<tbody>
 						<tr>
 							<td width="40" align="center"><input type="checkbox"></td>
-							<td><a href="#">Music</a></td>
+							<td><span class="glyphicon glyphicon-folder-open"></span> <a href="#">Music</a></td>
+							<td width="160"><span>2018-01-08 01:05</span></td>
+							<td width="120"><span>100kb</span></td>
+						</tr>
+						<tr>
+							<td width="40" align="center"><input type="checkbox"></td>
+							<td><span class="glyphicon glyphicon-folder-open"></span> <a href="#">Video</a></td>
+							<td width="160"><span>2018-01-08 01:05</span></td>
+							<td width="120"><span>100kb</span></td>
+						</tr>
+						<tr>
+							<td width="40" align="center"><input type="checkbox"></td>
+							<td><span class="glyphicon glyphicon-folder-open"></span> <a href="#">Picture</a></td>
+							<td width="160"><span>2018-01-08 01:05</span></td>
+							<td width="120"><span>100kb</span></td>
+						</tr>
+						<tr>
+							<td width="40" align="center"><input type="checkbox"></td>
+							<td><span class="glyphicon glyphicon-file"></span> Read Me.txt</td>
 							<td width="160"><span>2018-01-08 01:05</span></td>
 							<td width="120"><span>100kb</span></td>
 						</tr>
@@ -112,8 +132,41 @@
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("USER_NAME")%>';
 			
 			$('#family-share').addClass('active');
+
+			$('#btn_add').removeAttr('disabled');
+			$('#btn_download').attr('disabled', 'true');
+			$('#btn_upload').attr('disabled', 'true');
+			$('#btn_rename').attr('disabled', 'true');
+			$('#btn_delete').attr('disabled', 'true');
+
+			// getSubFolders('/');
 		});
 		
+		function getSubFolders(folder) {
+			// Call AJAX
+			$.ajax({
+				type : "get",
+				url : "cloud/get.do?",
+				data: {
+					'folder' : folder},
+				dataType: 'json',
+				cache : false,
+				async : true,
+				success : function(obj) {
+					// TODO:
+					alert(obj);
+				},
+				error : function(obj) {
+					if (obj.status == '901') {
+						window.location.href = "login.do";
+					} else {
+						var response = obj.responseText.replace('"', '').replace('"', '');
+						setNotification('alert-danger', 'Server >', response);
+					}
+				}
+			});
+		}
+
 		function setNotification(type, title, content) {
 			if (type == 'alert-success') {
 				$('#div_notif').removeClass('alert-danger');
