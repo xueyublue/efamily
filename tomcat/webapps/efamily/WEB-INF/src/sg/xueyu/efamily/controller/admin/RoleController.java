@@ -1,9 +1,10 @@
-package sg.xueyu.efamily.controller;
+package sg.xueyu.efamily.controller.admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
+import sg.xueyu.efamily.controller.BaseController;
 import sg.xueyu.efamily.model.dto.LoginUserDTO;
 import sg.xueyu.efamily.model.dto.RoleDTO;
 import sg.xueyu.efamily.system.SystemConstants;

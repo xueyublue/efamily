@@ -18,6 +18,7 @@ public interface SystemConstants {
 	public static final String URL_HOME = "home.jsp";
 	// Family Share Tab
 	public static final String URL_EVENT = "share/event.jsp";
+	public static final String URL_CLOUD = "share/cloud.jsp";
 	// Administrator Tab
 	public static final String URL_USER = "user.jsp";
 	public static final String URL_ROLE = "role.jsp";
