@@ -1,6 +1,6 @@
 <Context 
 	path="/efamily" 
-	reloadable="true" 
+	reloadable="false" 
 	docBase="C:\efamily\tomcat\webapps\efamily" 
 	workDir="C:\efamily\tomcat\work">
 	

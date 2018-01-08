@@ -1,9 +1,12 @@
 package sg.xueyu.efamily.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
+import sg.xueyu.efamily.system.EFamilyParam;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
@@ -28,6 +31,14 @@ public class CloudController extends BaseController {
 				return authResult;
 			}
 
+			String cloudRootPath = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_ROOT_PATH);
+			
+			File file = new File(cloudRootPath);
+			
+			if (!file.exists() && !file.isDirectory()) {
+				file.mkdir();
+			}
+			
 			// Perform to forward to Cloud.jsp
 			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_CLOUD);
 		} catch (Exception e) {
@@ -48,8 +59,6 @@ public class CloudController extends BaseController {
 			if (authResult != null) {
 				return authResult;
 			}
-			
-			
 			
 			// Perform to forward to Cloud.jsp
 			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_CLOUD);

@@ -31,6 +31,8 @@ public final class EFamilyParam {
 
 	public static final String URL_PATTERN_SUFFIX = getParam("URL_PATTERN_SUFFIX");
 
+	public static final String CLOUD_ROOT_PATH = getParam("CLOUD_ROOT_PATH");
+
 /** Class **/
 	private EFamilyParam() {
 	}
