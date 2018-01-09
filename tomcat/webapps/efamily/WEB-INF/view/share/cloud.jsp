@@ -76,35 +76,11 @@
 						<tr>
 							<th>Select</th>
 							<th>Name</th>
-							<th>Last Modified Date</th>
+							<th>Date Modified</th>
 							<th>Size</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td width="40" align="center"><input type="checkbox"></td>
-							<td><span class="glyphicon glyphicon-folder-open"></span> <a href="#">Music</a></td>
-							<td width="160"><span>2018-01-08 01:05</span></td>
-							<td width="120"><span>100kb</span></td>
-						</tr>
-						<tr>
-							<td width="40" align="center"><input type="checkbox"></td>
-							<td><span class="glyphicon glyphicon-folder-open"></span> <a href="#">Video</a></td>
-							<td width="160"><span>2018-01-08 01:05</span></td>
-							<td width="120"><span>100kb</span></td>
-						</tr>
-						<tr>
-							<td width="40" align="center"><input type="checkbox"></td>
-							<td><span class="glyphicon glyphicon-folder-open"></span> <a href="#">Picture</a></td>
-							<td width="160"><span>2018-01-08 01:05</span></td>
-							<td width="120"><span>100kb</span></td>
-						</tr>
-						<tr>
-							<td width="40" align="center"><input type="checkbox"></td>
-							<td><span class="glyphicon glyphicon-file"></span> Read Me.txt</td>
-							<td width="160"><span>2018-01-08 01:05</span></td>
-							<td width="120"><span>100kb</span></td>
-						</tr>
 					</tbody>
 				</table>
 			</div>	
