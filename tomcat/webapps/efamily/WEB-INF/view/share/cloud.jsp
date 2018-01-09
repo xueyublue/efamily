@@ -50,8 +50,8 @@
 	<!-- Cloud -->
 	<div class="row">
 		<div class="col-xs-12">
-			<ol class="breadcrumb" style="margin-top: 0px;">
-				<li><strong>Cloud</strong></li>
+			<ol class="breadcrumb" style="margin-top: 0px;" id="list_path">
+				<li><a href="cloud.do"><strong>Cloud</strong></a></li>
 			</ol>
 		</div>
 	</div>
@@ -129,6 +129,11 @@
 				cache : false,
 				async : true,
 				success : function(obj) {
+					// TODO: Set current path
+					// if (!endWith(path, "/")) {
+					// 	$('#list_path').append('<li><a href="#">' + path +'</a></li>');
+					// }
+
 					$('#table_cloud tbody').empty();
 					for(var i = 0; i < obj.length; i++) {
 						var tr = $("<tr>");
