@@ -134,7 +134,13 @@
 						var tr = $("<tr>");
 						tr.append($('<td width="40" align="center"><input type="checkbox"></td>'));
 						if (obj[i]['isDir']) {
-							tr.append($('<td><span class="glyphicon glyphicon-folder-open"></span> <a href="#">' + obj[i]['name'] + "</a></td>"));
+							var filePath = "";
+							if (endWith(path, "/")) {
+								filePath = path + obj[i]['name'];
+							} else {
+								filePath = path + "/" + obj[i]['name'];
+							}
+							tr.append($('<td><span class="glyphicon glyphicon-folder-open"></span> <a href="javascript:void(0);" onclick="getSubFolders(' + "'" + filePath + "'" + ')">' + obj[i]['name'] + "</a></td>"));
 						} else {
 							tr.append($('<td><span class="glyphicon glyphicon-file"></span> ' + obj[i]['name'] + "</td>"));
 						}

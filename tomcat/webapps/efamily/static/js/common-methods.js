@@ -88,5 +88,17 @@ function delCookie(name){
     setCookie(name, null, -1);
 };
 
+
+// Added by DARREN on 09-JAN-2018
+// Check if string end with string
+function endWith(str, suffix) {
+	String.prototype.endWith=function(endStr){
+	  var d=this.length-endStr.length;
+	  return (d>=0&&this.lastIndexOf(endStr)==d)
+	}
+	
+	return str.endWith(suffix);
+}
+
 /** Project Specific Methods **/
 

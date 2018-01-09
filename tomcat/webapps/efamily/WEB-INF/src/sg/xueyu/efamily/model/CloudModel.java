@@ -61,8 +61,10 @@ public class CloudModel {
 		// Validate Path
 		if (path.equals("/")) {
 			path = httpServletRequest.getServletContext().getRealPath(EFamilyParam.CLOUD_ROOT_PATH);
+		} else {
+			path = httpServletRequest.getServletContext().getRealPath(EFamilyParam.CLOUD_ROOT_PATH) + path;
 		}
-
+		
 		if (!new File(path).exists()) {
 			return null;
 		}
