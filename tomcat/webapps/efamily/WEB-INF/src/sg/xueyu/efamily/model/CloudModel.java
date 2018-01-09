@@ -22,6 +22,7 @@ public class CloudModel {
 		this.mConnection = conn;
 	}
 
+	// Check Cloud Basic Path
 	public void checkCloudPath(ServletContext servletContext) {
 
 		String path = servletContext.getRealPath(EFamilyParam.CLOUD_ROOT_PATH);
@@ -68,7 +69,7 @@ public class CloudModel {
 
 		// Get sub files
 		List<CloudFilesDTO> cloudFilesDTOs = new ArrayList<>();
-		File[] files = new File(path).listFiles();
+		List<File> files = reArrangeFiles(new File(path).listFiles());
 		for (File file : files) {
 			CloudFilesDTO dto = new CloudFilesDTO();
 
@@ -121,5 +122,23 @@ public class CloudModel {
 		}
 
 		return "";
+	}
+	
+	// Re-Arrange Files
+	private List<File> reArrangeFiles(File[] files) {
+		
+		List<File> dirList = new ArrayList<>();
+		List<File> fileList = new ArrayList<>();
+		for (File file : files) {
+			if (file.isDirectory()) {
+				dirList.add(file);
+			} else {
+				fileList.add(file);
+			}
+		}
+		
+		dirList.addAll(fileList);
+		
+		return dirList;
 	}
 }
