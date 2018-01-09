@@ -71,7 +71,7 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="table-responsive">
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover" id="table_cloud">
 					<thead>
 						<tr>
 							<th>Select</th>
@@ -139,22 +139,34 @@
 			$('#btn_rename').attr('disabled', 'true');
 			$('#btn_delete').attr('disabled', 'true');
 
-			// getSubFolders('/');
+			getSubFolders('/');
 		});
 		
-		function getSubFolders(folder) {
+		function getSubFolders(path) {
 			// Call AJAX
 			$.ajax({
 				type : "get",
-				url : "cloud/get.do?",
+				url : "cloud/getSubFiles.do?",
 				data: {
-					'folder' : folder},
+					'path' : path},
 				dataType: 'json',
 				cache : false,
 				async : true,
 				success : function(obj) {
-					// TODO:
-					alert(obj);
+					$('#table_cloud tbody').empty();
+					for(var i = 0; i < obj.length; i++) {
+						var tr = $("<tr>");
+						tr.append($('<td width="40" align="center"><input type="checkbox"></td>'));
+						if (obj[i]['isDir']) {
+							tr.append($('<td><span class="glyphicon glyphicon-folder-open"></span> <a href="#">' + obj[i]['name'] + "</a></td>"));
+						} else {
+							tr.append($('<td><span class="glyphicon glyphicon-file"></span> ' + obj[i]['name'] + "</td>"));
+						}
+						tr.append($('<td width="160">' + obj[i]['lastModifiedDate'] + "</td>"));
+						tr.append($('<td width="120">' + obj[i]['size'] + "</td>"));
+						tr.append("</tr>");
+						$('#table_cloud').append(tr);
+					}
 				},
 				error : function(obj) {
 					if (obj.status == '901') {

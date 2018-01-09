@@ -1,18 +1,20 @@
 package sg.xueyu.efamily.controller;
 
-import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sg.xueyu.dbhandler.util.DBUtils;
-import sg.xueyu.efamily.system.EFamilyParam;
+import sg.xueyu.efamily.model.CloudModel;
+import sg.xueyu.efamily.model.dto.CloudFilesDTO;
 import sg.xueyu.efamily.system.SystemConstants;
 import sg.xueyu.efamily.system.SystemLogger;
 import sg.xueyu.zebra.action.ActionResult;
 import sg.xueyu.zebra.action.ResultType;
 import sg.xueyu.zebra.annotation.Method;
 import sg.xueyu.zebra.annotation.Method.RequestMethod;
+import sg.xueyu.zebra.annotation.Param;
 import sg.xueyu.zebra.annotation.Path;
 import sg.xueyu.zebra.core.ActionResultBuilder;
 
@@ -30,34 +32,11 @@ public class CloudController extends BaseController {
 			if (authResult != null) {
 				return authResult;
 			}
-
-			// Check cloud path
-			String cloudRootPath = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_ROOT_PATH);
-			File rootDir = new File(cloudRootPath);
-			if (!rootDir.exists()) {
-				rootDir.mkdir();
-			}
-			String path = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_DOCUMENT_PATH);
-			File dir = new File(path);
-			if (!dir.exists()) {
-				dir.mkdir();
-			}
-			path = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_MUSIC_PATH);
-			dir = new File(path);
-			if (!dir.exists()) {
-				dir.mkdir();
-			}
-			path = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_PICTURE_PATH);
-			dir = new File(path);
-			if (!dir.exists()) {
-				dir.mkdir();
-			}
-			path = getHttpServletRequest().getServletContext().getRealPath(EFamilyParam.CLOUD_VIDEO_PATH);
-			dir = new File(path);
-			if (!dir.exists()) {
-				dir.mkdir();
-			}
 			
+			// Check Cloud Path
+			CloudModel cloudModel = new CloudModel(getConnection());
+			cloudModel.checkCloudPath(getHttpServletRequest().getServletContext());
+
 			// Perform to forward to Cloud.jsp
 			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_CLOUD);
 		} catch (Exception e) {
@@ -70,17 +49,20 @@ public class CloudController extends BaseController {
 		}
 	}
 	
-	@Path("/get")
+	@Path("/getSubFiles")
 	@Method(RequestMethod.GET)
-	public ActionResult get() throws Exception {
+	public ActionResult get(@Param("path") String path) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {
 				return authResult;
 			}
 			
-			// Perform to forward to Cloud.jsp
-			return ActionResultBuilder.buildActionResultWithURL(SystemConstants.URL_CLOUD);
+			// Get Sub Files
+			CloudModel cloudModel = new CloudModel(getConnection());
+			List<CloudFilesDTO> cloudFilesDTOs = cloudModel.getSubFiles(getHttpServletRequest(), path);
+			
+			return ActionResultBuilder.buildActionResult(ActionResultBuilder.buildResultContent(null, cloudFilesDTOs), ResultType.Ajax);
 		} catch (Exception e) {
 			SystemLogger.error(e);
 			getHttpServletResponse().setStatus(500);
@@ -108,4 +90,5 @@ public class CloudController extends BaseController {
 	public ActionResult delete() throws Exception {
 		return null;
 	}
+	
 }
