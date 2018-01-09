@@ -71,19 +71,20 @@ public class CloudModel {
 		File[] files = new File(path).listFiles();
 		for (File file : files) {
 			CloudFilesDTO dto = new CloudFilesDTO();
-			
+
 			// Set name
 			dto.setName(file.getName());
+			// Set file size
+			dto.setSize(changeFileSizeToDisp(file.length()));
 			// Set directory
 			if (file.isDirectory()) {
 				dto.setDir(true);
+				dto.setSize("-");
 			} else {
 				dto.setDir(false);
 			}
 			// Set last modified date
 			dto.setLastModifiedDate(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(file.lastModified())));
-			// Set file size
-			dto.setSize(String.valueOf(file.getTotalSpace()));
 			
 			cloudFilesDTOs.add(dto);
 		}
@@ -91,4 +92,34 @@ public class CloudModel {
 		return cloudFilesDTOs;
 	}
 
+	/** Private Methods **/
+	// Change File Size to Display Text
+	private String changeFileSizeToDisp(long size) {
+
+		StringBuilder dispSize = new StringBuilder();
+
+		String uom_BYTE = "BYTE";
+		String uom_KB = "KB";
+		String uom_MB = "MB";
+		String uom_GB = "GB";
+		String uom_TB = "TB";
+
+		if (size <= 1024) {
+			return dispSize.append(size).append(" ").append(uom_BYTE).toString();
+		} 
+		else if (size <= 1014 * 1024) {
+			return dispSize.append(size / 1024).append(" ").append(uom_KB).toString();
+		}
+		else if (size <= 1014 * 1024 * 1024) {
+			return dispSize.append(size / 1024 /1024).append(" ").append(uom_MB).toString();
+		}
+		else if (size <= 1014 * 1024 * 1024 * 1024) {
+			return dispSize.append(size / 1024 / 1024 /1024).append(" ").append(uom_GB).toString();
+		}
+		else if (size <= 1014 * 1024 * 1024 * 1024 * 1024) {
+			return dispSize.append(size / 1024 / 1024 /1024 /1024).append(" ").append(uom_TB).toString();
+		}
+
+		return "";
+	}
 }
