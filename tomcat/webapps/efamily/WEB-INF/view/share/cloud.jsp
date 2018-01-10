@@ -60,18 +60,38 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<button class="btn btn-sm btn-default" id="btn_add"><span class="glyphicon glyphicon-plus"></span>Add</button>
+			<button class="btn btn-sm btn-primary" onclick="btnUploadClicked()" id="btn_upload"><span class="glyphicon glyphicon-upload"></span>Upload</button>
 			<button class="btn btn-sm btn-primary" id="btn_download"><span class="glyphicon glyphicon-download"></span>Download</button>
-			<button class="btn btn-sm btn-primary" id="btn_upload"><span class="glyphicon glyphicon-upload"></span>Upload</button>
 			<button class="btn btn-sm btn-warning" id="btn_rename"><span class="glyphicon glyphicon-pencil"></span>Rename</button>
-			<button class="btn btn-sm btn-danger" id="btn_delete"><span class="glyphicon glyphicon-remove"></span>Delete</button>		
+			<button class="btn btn-sm btn-danger" id="btn_delete"><span class="glyphicon glyphicon-remove"></span>Delete</button>
+			<input  class="hide" type="file" id="file_upload" />	
 		</div>
 	</div>
 
-	<!-- Folder Contents -->
+	<!-- Upload File List -->
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="table-responsive">
-				<table class="table table-striped table-hover" id="table_cloud">
+				<table class="table table-striped table-hover hide" id="table_uploadFiles">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Size</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>	
+		</div>
+	</div>
+
+	<!-- File List -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="table-responsive">
+				<table class="table table-striped table-hover" id="table_cloudFiles">
 					<thead>
 						<tr>
 							<th>Select</th>
@@ -103,7 +123,10 @@
 	<script type="text/javascript" src="static/js/common-methods.js"></script>
 
 	<!-- Customize Scripts -->
-	<script type="text/javascript">
+	<script type="text/javascript" language="JavaScript">
+
+		var currentPath;
+
 		$(document).ready(function() {
 			document.getElementById("userName").innerHTML = '<%=session.getAttribute("USER_NAME")%>';
 			
@@ -116,9 +139,35 @@
 			$('#btn_delete').attr('disabled', 'true');
 
 			getSubFolders('/');
+
+			currentPath = "/";
+
+			$('#file_upload').on('change', function() {
+				var selectedFile = document.getElementById('file_upload');
+				if ('files' in selectedFile && selectedFile.files.length != 0) {
+					$('#table_uploadFiles tbody').empty();
+
+					var tr = $("<tr>");
+					tr.append($('<td>' + selectedFile.files[0].name + '</td>'));
+					tr.append($('<td width="120">' + fileSizeToDisp(selectedFile.files[0].size) + '</td>'));
+					tr.append($('<td width="160">'
+						+ '<button class="btn btn-xs btn-primary" id="btn_upload_AJAX"><span class="glyphicon glyphicon-upload"></span></button>'
+						+ ' <button class="btn btn-xs btn-danger" id="btn_delete_AJAX"><span class="glyphicon glyphicon-remove"></span></button></td>'));
+					tr.append("</tr>");
+
+					$('#table_uploadFiles').append(tr);
+
+					$('#table_uploadFiles').removeClass('hide');
+				}
+			});
 		});
 		
+		function btnUploadClicked() {
+			$('#file_upload').trigger("click");
+		}
+
 		function getSubFolders(path) {
+
 			// Call AJAX
 			$.ajax({
 				type : "get",
@@ -134,7 +183,8 @@
 					// 	$('#list_path').append('<li><a href="#">' + path +'</a></li>');
 					// }
 
-					$('#table_cloud tbody').empty();
+					$('#table_cloudFiles tbody').empty();
+
 					for(var i = 0; i < obj.length; i++) {
 						var tr = $("<tr>");
 						tr.append($('<td width="40" align="center"><input type="checkbox"></td>'));
@@ -152,8 +202,10 @@
 						tr.append($('<td width="160">' + obj[i]['lastModifiedDate'] + "</td>"));
 						tr.append($('<td width="120">' + obj[i]['size'] + "</td>"));
 						tr.append("</tr>");
-						$('#table_cloud').append(tr);
+						$('#table_cloudFiles').append(tr);
 					}
+
+					$('#btn_upload').removeAttr('disabled');
 				},
 				error : function(obj) {
 					if (obj.status == '901') {

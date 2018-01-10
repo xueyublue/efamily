@@ -51,7 +51,7 @@ public class CloudController extends BaseController {
 	
 	@Path("/getSubFiles")
 	@Method(RequestMethod.GET)
-	public ActionResult get(@Param("path") String path) throws Exception {
+	public ActionResult getSubFiles(@Param("path") String path) throws Exception {
 		try {
 			ActionResult authResult = credentialAuthentication(getHttpServletRequest());
 			if (authResult != null) {

@@ -33,7 +33,7 @@
 	           
 	           <!-- Family Share -->
 	           <li id="family-share" class="dropdown">
-	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <strong>Family Share</strong><b class="caret"></b></a>
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-ice-lolly-tasted"></span> <strong>Family Share</strong><b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="event.do"><span class="glyphicon glyphicon-calendar"></span> Event</a></li>
 	                    <li><a href="cloud.do"><span class="glyphicon glyphicon-cloud"></span> Cloud</a></li>
@@ -42,7 +42,7 @@
 	            
 	            <!-- Administrator -->
 	            <li id="administrator" class="dropdown">
-	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <strong>Administrator</strong><b class="caret"></b></a>
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-console"></span> <strong>Administrator</strong><b class="caret"></b></a>
 	                <ul class="dropdown-menu">
 	                    <li><a href="user.do"><span class="glyphicon glyphicon-user"></span> User</a></li>
 	                    <li><a href="role.do"><span class="glyphicon glyphicon-glass"></span> Role</a></li>

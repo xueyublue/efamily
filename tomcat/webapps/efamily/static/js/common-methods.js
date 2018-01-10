@@ -96,8 +96,48 @@ function endWith(str, suffix) {
 	  var d=this.length-endStr.length;
 	  return (d>=0&&this.lastIndexOf(endStr)==d)
 	}
-	
+
 	return str.endWith(suffix);
+}
+
+// Added by DARREN on 09-JAN-2018
+// Change File Sie to Display Text
+function fileSizeToDisp(size) {
+
+	var dispSize = "";
+	var uom_BYTE = "BYTE";
+	var uom_KB = "KB";
+	var uom_MB = "MB";
+	var uom_GB = "GB";
+	var uom_TB = "TB";
+	
+	if (size <= 1024) {
+		dispSize += parseInt(size);
+		dispSize += " ";
+		dispSize += uom_BYTE;
+	} 
+	else if (size <= 1014 * 1024) {
+		dispSize += parseInt(size / 1024);
+		dispSize += " ";
+		dispSize += uom_KB;
+	}
+	else if (size <= 1014 * 1024 * 1024) {
+		dispSize += parseInt(size / 1024 /1024);
+		dispSize += " ";
+		dispSize += uom_MB;
+	}
+	else if (size <= 1014 * 1024 * 1024 * 1024) {
+		dispSize += parseInt(size / 1024 / 1024 /1024);
+		dispSize += " ";
+		dispSize += uom_GB;
+	}
+	else if (size <= 1014 * 1024 * 1024 * 1024 * 1024) {
+		dispSize += parseInt(size / 1024 / 1024 /1024 /1024);
+		dispSize += " ";
+		dispSize += uom_TB;
+	}
+
+	return dispSize;
 }
 
 /** Project Specific Methods **/
