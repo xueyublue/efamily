@@ -64,7 +64,7 @@
 			<button class="btn btn-sm btn-primary" id="btn_download"><span class="glyphicon glyphicon-download"></span>Download</button>
 			<button class="btn btn-sm btn-warning" id="btn_rename"><span class="glyphicon glyphicon-pencil"></span>Rename</button>
 			<button class="btn btn-sm btn-danger" id="btn_delete"><span class="glyphicon glyphicon-remove"></span>Delete</button>
-			<input  class="hide" type="file" id="file_upload" />	
+			<input  class="hide" type="file" id="file_upload" />
 		</div>
 	</div>
 
@@ -145,13 +145,14 @@
 			$('#file_upload').on('change', function() {
 				var selectedFile = document.getElementById('file_upload');
 				if ('files' in selectedFile && selectedFile.files.length != 0) {
-					$('#table_uploadFiles tbody').empty();
+					var formData = new FormData(selectedFile.files[0]);
 
+					$('#table_uploadFiles tbody').empty();
 					var tr = $("<tr>");
 					tr.append($('<td>' + selectedFile.files[0].name + '</td>'));
 					tr.append($('<td width="120">' + fileSizeToDisp(selectedFile.files[0].size) + '</td>'));
 					tr.append($('<td width="160">'
-						+ '<button class="btn btn-xs btn-primary" id="btn_upload_AJAX"><span class="glyphicon glyphicon-upload"></span></button>'
+						+ '<button class="btn btn-xs btn-primary" onclick="upload(' + "'" + formData + "'" + ')" id="btn_upload_AJAX"><span class="glyphicon glyphicon-upload"></span></button>'
 						+ ' <button class="btn btn-xs btn-danger" id="btn_delete_AJAX"><span class="glyphicon glyphicon-remove"></span></button></td>'));
 					tr.append("</tr>");
 
@@ -161,6 +162,33 @@
 				}
 			});
 		});
+
+		function upload(formData) {
+			// var form = new FormData();
+			// form.append("file", document.getElementById('file_upload').files[0]);
+			// Call AJAX
+			$.ajax({
+				type : "post",
+				url : "cloud/upload.do?",
+				data : formData,
+				processData : false,
+				cache : false,
+				async : false,
+				contentType : false,
+				success : function(obj) {
+					// TODO:
+					alert('Uploaded.');
+				},
+				error : function(obj) {
+					if (obj.status == '901') {
+						window.location.href = "login.do";
+					} else {
+						var response = obj.responseText.replace('"', '').replace('"', '');
+						setNotification('alert-danger', 'Server >', response);
+					}
+				}
+			});
+		}
 		
 		function btnUploadClicked() {
 			$('#file_upload').trigger("click");
@@ -172,8 +200,7 @@
 			$.ajax({
 				type : "get",
 				url : "cloud/getSubFiles.do?",
-				data: {
-					'path' : path},
+				data: {'path' : path},
 				dataType: 'json',
 				cache : false,
 				async : true,
