@@ -9,7 +9,7 @@
 			background: -moz-linear-gradient(right, rgba(25,25,112,1), rgba(25,25,112,0.4));
 			background: linear-gradient(to right, rgba(25,25,112,1), rgba(25,25,112,0.4));
 	">
-		<strong style="font-family: Arial; opacity: 0.95;">Family Information Share System 1.0.0</strong>
+		<strong style="font-family: Arial; opacity: 0.95;">Family Information Management System (beta)</strong>
 		<!-- <span style="font-family: Arial; font-size: 12px; opacity: 0.9;">released on <span style="font-size: 11px;">01-12-2017</span></span> -->
 	</div>
 </div>
