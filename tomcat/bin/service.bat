@@ -18,7 +18,7 @@ rem ---------------------------------------------------------------------------
 rem NT Service Install/Uninstall script
 rem
 rem Options
-rem install                Install the service using Tomcat7 as service name.
+rem install                Install the service using Tomcat8 as service name.
 rem                        Service is installed using default settings.
 rem remove                 Remove the service from the System.
 rem
@@ -33,13 +33,13 @@ rem Guess CATALINA_HOME if not defined
 set "CURRENT_DIR=%cd%"
 if not "%CATALINA_HOME%" == "" goto gotHome
 set "CATALINA_HOME=%cd%"
-if exist "%CATALINA_HOME%\bin\tomcat7.exe" goto okHome
+if exist "%CATALINA_HOME%\bin\tomcat8.exe" goto okHome
 rem CD to the upper dir
 cd ..
 set "CATALINA_HOME=%cd%"
 :gotHome
-if exist "%CATALINA_HOME%\bin\tomcat7.exe" goto okHome
-echo The tomcat7.exe was not found...
+if exist "%CATALINA_HOME%\bin\tomcat8.exe" goto okHome
+echo The tomcat8.exe was not found...
 echo The CATALINA_HOME environment variable is not defined correctly.
 echo This environment variable is needed to run this program
 goto end
@@ -71,11 +71,11 @@ if not "%CATALINA_BASE%" == "" goto gotBase
 set "CATALINA_BASE=%CATALINA_HOME%"
 :gotBase
 
-set "EXECUTABLE=%CATALINA_HOME%\bin\tomcat7.exe"
+set "EXECUTABLE=%CATALINA_HOME%\bin\tomcat8.exe"
 
 rem Set default Service name
-set SERVICE_NAME=Tomcat7
-set DISPLAYNAME=Apache Tomcat 7.0 %SERVICE_NAME%
+set SERVICE_NAME=Tomcat8
+set DISPLAYNAME=Apache Tomcat 8.5 %SERVICE_NAME%
 
 if "x%1x" == "xx" goto displayUsage
 set SERVICE_CMD=%1
@@ -85,7 +85,7 @@ if "x%1x" == "xx" goto checkServiceCmd
 if "x%1x" == "x/userx" goto runAsUser
 if "x%1x" == "x--userx" goto runAsUser
 set SERVICE_NAME=%1
-set DISPLAYNAME=Apache Tomcat 7.0 %1
+set DISPLAYNAME=Apache Tomcat 8.5 %1
 shift
 if "x%1x" == "xx" goto checkServiceCmd
 goto checkUser
@@ -142,8 +142,12 @@ echo Using JVM:              "%JVM%"
 set "CLASSPATH=%CATALINA_HOME%\bin\bootstrap.jar;%CATALINA_BASE%\bin\tomcat-juli.jar"
 if not "%CATALINA_HOME%" == "%CATALINA_BASE%" set "CLASSPATH=%CLASSPATH%;%CATALINA_HOME%\bin\tomcat-juli.jar"
 
+if "%SERVICE_STARTUP_MODE%" == "" set SERVICE_STARTUP_MODE=manual
+if "%JvmMs%" == "" set JvmMs=128
+if "%JvmMx%" == "" set JvmMx=256
+
 "%EXECUTABLE%" //IS//%SERVICE_NAME% ^
-    --Description "Apache Tomcat 7.0.77 Server - http://tomcat.apache.org/" ^
+    --Description "Apache Tomcat 8.5.13 Server - http://tomcat.apache.org/" ^
     --DisplayName "%DISPLAYNAME%" ^
     --Install "%EXECUTABLE%" ^
     --LogPath "%CATALINA_BASE%\logs" ^
@@ -159,9 +163,10 @@ if not "%CATALINA_HOME%" == "%CATALINA_BASE%" set "CLASSPATH=%CLASSPATH%;%CATALI
     --StopClass org.apache.catalina.startup.Bootstrap ^
     --StartParams start ^
     --StopParams stop ^
-    --JvmOptions "-Dcatalina.home=%CATALINA_HOME%;-Dcatalina.base=%CATALINA_BASE%;-Djava.endorsed.dirs=%CATALINA_HOME%\endorsed;-Djava.io.tmpdir=%CATALINA_BASE%\temp;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djava.util.logging.config.file=%CATALINA_BASE%\conf\logging.properties" ^
-    --JvmMs 128 ^
-    --JvmMx 256
+    --JvmOptions "-Dcatalina.home=%CATALINA_HOME%;-Dcatalina.base=%CATALINA_BASE%;-Djava.io.tmpdir=%CATALINA_BASE%\temp;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djava.util.logging.config.file=%CATALINA_BASE%\conf\logging.properties;%JvmArgs%" ^
+    --Startup "%SERVICE_STARTUP_MODE%" ^
+    --JvmMs "%JvmMs%" ^
+    --JvmMx "%JvmMx%"
 if not errorlevel 1 goto installed
 echo Failed installing '%SERVICE_NAME%' service
 goto end
