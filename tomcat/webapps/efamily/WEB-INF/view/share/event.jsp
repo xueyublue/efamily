@@ -28,7 +28,7 @@
 	<!-- Location -->
 	<div class="row">
 		<div class="col-xs-12">
-			<ol class="breadcrumb">
+			<ol class="breadcrumb" style="font-style: italic;">
 				<li>Family Share</li>
 				<li><a href="" class="active">Event</a></li>
 				</ol>

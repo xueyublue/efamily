@@ -28,7 +28,7 @@
 	<!-- Location -->
 	<div class="row">
 		<div class="col-xs-12">
-			<ol class="breadcrumb" style="margin-top: 0px;">
+			<ol class="breadcrumb" style="margin-top: 0px; font-style: italic;">
 				<li>Family Share</li>
 				<li><a href="" class="active">Cloud</a></li>
 			</ol>
@@ -39,7 +39,7 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<ol class="breadcrumb" style="margin-top: 0px;">
-				<li><strong>Dashboard</strong></li>
+				<li><strong>Cloud Status</strong></li>
 			</ol>
 		</div>
 	</div>
@@ -51,7 +51,8 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<ol class="breadcrumb" style="margin-top: 0px;" id="list_path">
-				<li><a href="cloud.do"><strong>Cloud</strong></a></li>
+				<li><strong>Cloud Path</strong></li>
+				<li><a href="cloud.do">Root</a></li>
 			</ol>
 		</div>
 	</div>
